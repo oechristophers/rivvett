@@ -7,6 +7,7 @@ import { Gender } from "@/models/Gender";
 import { Product } from "@/models/Product";
 import Layout from "@/pages/layout";
 import mongoose from "mongoose";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
