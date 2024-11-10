@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Wrapper from "./Wrapper";
 import Button from "./Button";
 import ButtonLink from "./ButtonLink";
@@ -59,9 +59,36 @@ const HeroWrapper = styled.div`
   }
 `;
 
+const shimmer = keyframes`
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+`;
+
+const SkeletonLoader = styled.div`
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: ${shimmer} 1.5s infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
+
 export default function Hero() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isHome, setIsHome] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Check if running in the browser
@@ -91,13 +118,17 @@ export default function Hero() {
   return (
     <HeroWrapper>
       <HeroDiv>
+        {/* Placeholder or loader logic while the image is loading */}
+        {!isLoaded &&<SkeletonLoader />}
+
         {isHome === "women" && isSmallScreen ? (
           <Image
-            width={1080}
-            height={1350}
+            width={2800}
+            height={1400}
             layout="responsive"
-            src="/images/newgirlMobile.png"
+            src="/images/newgirl.png"
             alt="hero"
+            onLoadingComplete={() => setIsLoaded(true)}
           />
         ) : (
           isHome === "women" && (
@@ -107,15 +138,20 @@ export default function Hero() {
               layout="responsive"
               src="/images/newgirl.png"
               alt="hero"
+              onLoadingComplete={() => setIsLoaded(true)}
             />
           )
         )}
 
         {isHome === "men" && isSmallScreen ? (
           <Image
-          width={1080}
-          height={1350}
-          layout="responsive" src="/images/newboyMobile.png" alt="hero" />
+            width={1080}
+            height={1350}
+            layout="responsive"
+            src="/images/newboyMobile.png"
+            alt="hero"
+            onLoadingComplete={() => setIsLoaded(true)}
+          />
         ) : (
           isHome === "men" && (
             <Image
@@ -124,15 +160,20 @@ export default function Hero() {
               layout="responsive"
               src="/images/newboy.png"
               alt="hero"
+              onLoadingComplete={() => setIsLoaded(true)}
             />
           )
         )}
 
         {isHome === "" && isSmallScreen ? (
           <Image
-          width={1080}
-          height={1350}
-          layout="responsive" src="/images/denimCollage2.webp" alt="hero" />
+            width={1080}
+            height={1350}
+            layout="responsive"
+            src="/images/denimCollage2.webp"
+            alt="hero"
+            onLoadingComplete={() => setIsLoaded(true)}
+          />
         ) : (
           isHome === "" && (
             <Image
@@ -141,11 +182,12 @@ export default function Hero() {
               layout="responsive"
               src="/images/denimCollage.webp"
               alt="hero"
+              onLoadingComplete={() => setIsLoaded(true)}
             />
           )
         )}
 
-        {isHome === "" && (
+        {isLoaded && isHome === "" && (
           <HeroButtons>
             <ButtonLink hero hero1 href={"/women"}>
               Shop Women

@@ -16,42 +16,34 @@ const Box = styled(Link)`
   justify-content: center;
   text-decoration: none;
   height: auto;
-    background-color:red;
-    object-fit: contain; /* Ensures images maintain aspect ratio and crop if needed */
-    object-position:top;
-    position: sticky;
+  background-color: red;
+  object-fit: contain; /* Ensures images maintain aspect ratio and crop if needed */
+  object-position: top;
+  position: sticky;
 
-    
-   
   img {
     width: 100%;
     height: auto;
     max-height: 100%;
-    min-height:100%; /* Adjust this to your desired max height */
-  
+    min-height: 100%; /* Adjust this to your desired max height */
   }
-
-  
 `;
 
-
-
-export default function CategoryCard({
-  _id,
-  name,
-  images,
-  filteredMaleCat
-}) {
+export default function CategoryCard({ _id, name, images, filteredMaleCat }) {
   const url = "/categories/" + _id;
   return (
     <ProductWrapper>
-      <Box
-        href={url}
-      >
-        <Image width={700} height={700} layout="responsive" src={filteredMaleCat &&images[0] ||images[1] } alt={name} />
-       
+      <Box href={url}>
+        <Image
+          width={700}
+          height={700}
+          layout="responsive"
+          src={
+            (filteredMaleCat && images[0]) || (!filteredMaleCat && images[1] ? images[1] : images[0])
+          }
+          alt={name}
+        />
       </Box>
-     
     </ProductWrapper>
   );
 }
