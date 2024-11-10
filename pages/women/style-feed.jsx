@@ -54,7 +54,7 @@ export default function fashionFeed({ blogs }) {
   return (
     <Layout>
       <Wrap>
-        <Title>WOMEN'S STYLE FEED</Title>
+        <Title>WOMEN&rsquo;S STYLE FEED</Title>
         <Sub>Outfit ideas, editor picks, styling inspiration and Face + Body tips</Sub>
 
         <BlogGrid>

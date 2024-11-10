@@ -8,6 +8,7 @@ import { Gender } from "@/models/Gender";
 import { Product } from "@/models/Product";
 import Layout from "@/pages/layout";
 import mongoose from "mongoose";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
@@ -288,7 +289,7 @@ export default function BlogPage({ blog, blogs }) {
                               {sub.subtitleImages &&
                                 sub.subtitleImages.map((image, imgIndex) => (
                                   <figure key={imgIndex}>
-                                    <img src={image} alt={sub.subtitle} />
+                                    <Image width={700} height={700} layout="responsive" src={image} alt={sub.subtitle} />
                                     {sub.subMediaCaptions &&
                                       sub.subMediaCaptions[imgIndex] && (
                                         <figcaption className="fig-caption">
@@ -331,7 +332,7 @@ export default function BlogPage({ blog, blogs }) {
                         >
                           {subtitle.subtitleImages.map((image, imgIndex) => (
                             <figure key={imgIndex}>
-                              <img src={image} alt={subtitle.subtitle} />
+                              <Image width={700} height={700} layout="responsive" src={image} alt={subtitle.subtitle} />
                               {subtitle.subMediaCaptions &&
                                 subtitle.subMediaCaptions[imgIndex] && (
                                   <figcaption className="fig-caption">
@@ -363,7 +364,7 @@ export default function BlogPage({ blog, blogs }) {
                                 </h5>
                               ) : (
                                 <>
-                                  <img
+                                  <Image width={700} height={700} layout="responsive"
                                     src={product?.images[0]}
                                     alt={product.title}
                                   />

@@ -60,7 +60,7 @@ export default function FeaturedCategory({
             <li>No categories available</li>
           )}{" "}
         </StyledGrid>
-          <Div><ButtonLink shop  href={'/products'}>Shop Men's <br /> Denim</ButtonLink></Div>
+          <Div><ButtonLink shop  href={'/products'}>Shop Men&apos;s <br /> Denim</ButtonLink></Div>
 
         <StyledGrid>
           {filteredFemaleCat && filteredFemaleCat.length > 0 ? (
@@ -71,7 +71,7 @@ export default function FeaturedCategory({
             <li>No categories available</li>
           )}{" "}
         </StyledGrid>
-          <Div><ButtonLink  shop href={'/products'}>Shop Women's  <br /> Denim</ButtonLink></Div>
+          <Div><ButtonLink  shop href={'/products'}>Shop Women&apos;s  <br /> Denim</ButtonLink></Div>
 
       </div>
     </>

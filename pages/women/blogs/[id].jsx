@@ -19,11 +19,10 @@ const Wrap = styled.div`
     width: 800px;
     display: flex;
     padding-top: 40px;
-    figure{
-        margin: 0;
+    figure {
+      margin: 0;
     }
     img {
-    
       width: 100%;
       height: auto;
     }
@@ -227,7 +226,13 @@ export default function BlogPage({ blog }) {
                               {sub.subtitleImages &&
                                 sub.subtitleImages.map((image, imgIndex) => (
                                   <figure key={imgIndex}>
-                                    <img src={image} alt={sub.subtitle} />
+                                    <Image
+                                      width={700}
+                                      height={700}
+                                      layout="responsive"
+                                      src={image}
+                                      alt={sub.subtitle}
+                                    />
                                     {sub.subMediaCaptions &&
                                       sub.subMediaCaptions[imgIndex] && (
                                         <figcaption className="fig-caption">
@@ -264,7 +269,13 @@ export default function BlogPage({ blog }) {
                         >
                           {subtitle.subtitleImages.map((image, imgIndex) => (
                             <figure key={imgIndex}>
-                              <img src={image} alt={subtitle.subtitle} />
+                              <Image
+                                width={700}
+                                height={700}
+                                layout="responsive"
+                                src={image}
+                                alt={subtitle.subtitle}
+                              />
                               {subtitle.subMediaCaptions &&
                                 subtitle.subMediaCaptions[imgIndex] && (
                                   <figcaption className="fig-caption">
@@ -296,7 +307,10 @@ export default function BlogPage({ blog }) {
                                 </h5>
                               ) : (
                                 <>
-                                  <img
+                                  <Image
+                                    width={700}
+                                    height={700}
+                                    layout="responsive"
                                     src={product?.images[0]}
                                     alt={product.title}
                                   />
@@ -319,7 +333,6 @@ export default function BlogPage({ blog }) {
             {blog.featuredProducts && (
               <div className="carousel">
                 <ProductCarousel
-                
                   hideButton
                   genderName={path}
                   inBlog

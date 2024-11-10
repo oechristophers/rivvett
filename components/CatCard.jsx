@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import CartBag from "./icons/CartBag";
+import Image from "next/image";
 
 const ProductWrapper = styled.div``;
 const Box = styled(Link)`
@@ -47,7 +48,7 @@ export default function CategoryCard({
       <Box
         href={url}
       >
-        <img src={filteredMaleCat &&images[0] ||images[1] } alt={name} />
+        <Image width={700} height={700} layout="responsive" src={filteredMaleCat &&images[0] ||images[1] } alt={name} />
        
       </Box>
      

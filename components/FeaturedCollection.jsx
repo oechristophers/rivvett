@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import styled from "styled-components";
 const StyledGrid = styled.div`
@@ -32,17 +33,17 @@ export default function FeaturedCollection({
     <>
       <StyledGrid>
         {femaleCollection &&
-          femaleCollection.map((collection) => (
-            <Div>
-              <img src={`/images/women/${collection}.png`} alt={collection} />
+          femaleCollection.map((collection,index) => (
+            <Div key={index}>
+              <Image width={700} height={700} layout="responsive" src={`/images/women/${collection}.png`} alt={collection} />
 
               <Title>{collection}</Title>
             </Div>
           ))}
         {collections &&
-          collections.map((collection) => (
-            <Div>
-              <img src={`/images/men/${collection}.png`} alt={collection} />
+          collections.map((collection,index) => (
+            <Div key={index}>
+               <Image width={700} height={700} layout="responsive" src={`/images/men/${collection}.png`} alt={collection} />
 
               <Title>{collection}</Title>
             </Div>

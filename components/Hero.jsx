@@ -3,6 +3,7 @@ import Wrapper from "./Wrapper";
 import Button from "./Button";
 import ButtonLink from "./ButtonLink";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const HeroDiv = styled.div`
   width: 100%;
@@ -59,7 +60,7 @@ const HeroWrapper = styled.div`
 `;
 
 export default function Hero() {
-  const [isBigScreen, setIsBigScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isHome, setIsHome] = useState("");
 
   useEffect(() => {
@@ -67,10 +68,10 @@ export default function Hero() {
     if (typeof window !== "undefined") {
       const path = window.location.pathname.split("/")[1];
       // Set initial screen size
-      setIsBigScreen(window.innerWidth >= 768);
+      setIsSmallScreen(window.innerWidth <= 768);
 
       const handleResize = () => {
-        setIsBigScreen(window.innerWidth >= 768);
+        setIsSmallScreen(window.innerWidth <= 768);
       };
 
       // Add event listener for window resize
@@ -90,22 +91,58 @@ export default function Hero() {
   return (
     <HeroWrapper>
       <HeroDiv>
-        {isHome === "women" && isBigScreen ? (
-          <img src="/images/newgirl.png" alt="hero" />
+        {isHome === "women" && isSmallScreen ? (
+          <Image
+            width={1080}
+            height={1350}
+            layout="responsive"
+            src="/images/newgirlMobile.png"
+            alt="hero"
+          />
         ) : (
-          isHome === "women" && <img src="/images/newgirlMobile.png" alt="hero" />
+          isHome === "women" && (
+            <Image
+              width={2800}
+              height={1400}
+              layout="responsive"
+              src="/images/newgirl.png"
+              alt="hero"
+            />
+          )
         )}
 
-        {isHome === "men" && isBigScreen ? (
-          <img src="/images/newboy.png" alt="hero" />
+        {isHome === "men" && isSmallScreen ? (
+          <Image
+          width={1080}
+          height={1350}
+          layout="responsive" src="/images/newboyMobile.png" alt="hero" />
         ) : (
-          isHome === "men" && <img src="/images/newboyMobile.png" alt="hero" />
+          isHome === "men" && (
+            <Image
+              width={2800}
+              height={1400}
+              layout="responsive"
+              src="/images/newboy.png"
+              alt="hero"
+            />
+          )
         )}
 
-        {isHome === "" && isBigScreen ? (
-          <img src="/images/denimCollage.webp" alt="hero" />
+        {isHome === "" && isSmallScreen ? (
+          <Image
+          width={1080}
+          height={1350}
+          layout="responsive" src="/images/denimCollage2.webp" alt="hero" />
         ) : (
-          isHome === "" && <img src="/images/denimCollage2.webp" alt="hero" />
+          isHome === "" && (
+            <Image
+              width={2800}
+              height={1400}
+              layout="responsive"
+              src="/images/denimCollage.webp"
+              alt="hero"
+            />
+          )
         )}
 
         {isHome === "" && (

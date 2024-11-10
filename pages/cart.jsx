@@ -29,6 +29,7 @@ import ProductCarousel from "@/components/ProductCarousel";
 import { Product } from "@/models/Product";
 import { Gender } from "@/models/Gender";
 import Layout from "./layout";
+import Image from "next/image";
 
 const ColumnWrapper = styled.div`
   display: flex;
@@ -164,6 +165,7 @@ const InfoCell = styled.td`
 `;
 
 const ImageBox = styled.div`
+  position: relative;
   width: 6rem;
   height: 9rem;
   display: flex;
@@ -339,7 +341,7 @@ const Span = styled.span`
       font-family: "Futura Std Bold";
       font-size: 0.8rem;
     `}
-  img {
+  Img {
     width: 1.5rem;
     height: 1.5rem;
     z-index: 100;
@@ -443,88 +445,89 @@ export default function CartPage({ categories, products }) {
   }, [cartItems]);
 
   <ArrowDropDown
-  className="btn2"
-  onClick={() => handleQuantityOrRemoveItem(itemId, propsForItem.color, propsForItem.size)}
-/>
-
-// Helper functions outside of the component
-const handleQuantityOrRemoveItem = (itemId, color, size) => {
-  const uniqueId = `${itemId}-${color}-${size}`;
-  const item = items.find((i) => i._id === itemId);
-  const price = item?.price || 0;
-  const currentQuantity = itemProps[uniqueId]?.quantity || 0; // Default to 0 if undefined
-
-  if (currentQuantity > 1) {
-    // Reduce quantity if greater than 1
-    reduceQuantity(uniqueId, price);
-  } else if (currentQuantity === 1) {
-    // Remove item if quantity is 1
-    removeOne(uniqueId);
-  } else if (currentQuantity === 0) {
-    // If current quantity is 0, delete props and remove from cart
-    deleteItemFromCart(uniqueId);
-  }
-};
-
-const reduceQuantity = (uniqueId, price) => {
-  // Update itemProps to reduce the quantity
-  setItemProps((prevProps) => ({
-    ...prevProps,
-    [uniqueId]: {
-      ...prevProps[uniqueId],
-      quantity: prevProps[uniqueId].quantity - 1,
-    },
-  }));
-
-  // Update total price and cart length
-  setTotal((prevTotal) => prevTotal - price);
-  setCLength((prevLength) => prevLength - 1);
-
-  // Remove one instance of the uniqueId from cartItems
-  setCartItems((prevCartItems) => {
-    const index = prevCartItems.indexOf(uniqueId);
-    if (index > -1) {
-      const updatedCart = [...prevCartItems];
-      updatedCart.splice(index, 1); // Remove one instance of uniqueId
-      return updatedCart;
+    className="btn2"
+    onClick={() =>
+      handleQuantityOrRemoveItem(itemId, propsForItem.color, propsForItem.size)
     }
-    return prevCartItems;
-  });
+  />;
 
-  // Sync with localStorage
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-};
+  // Helper functions outside of the component
+  const handleQuantityOrRemoveItem = (itemId, color, size) => {
+    const uniqueId = `${itemId}-${color}-${size}`;
+    const item = items.find((i) => i._id === itemId);
+    const price = item?.price || 0;
+    const currentQuantity = itemProps[uniqueId]?.quantity || 0; // Default to 0 if undefined
 
-const removeOne = (uniqueId) => {
-  setItemProps((prevProps) => {
-    const updatedProps = { ...prevProps };
-    delete updatedProps[uniqueId];
-    return updatedProps;
-  });
+    if (currentQuantity > 1) {
+      // Reduce quantity if greater than 1
+      reduceQuantity(uniqueId, price);
+    } else if (currentQuantity === 1) {
+      // Remove item if quantity is 1
+      removeOne(uniqueId);
+    } else if (currentQuantity === 0) {
+      // If current quantity is 0, delete props and remove from cart
+      deleteItemFromCart(uniqueId);
+    }
+  };
 
-  const updatedCart = cartItems.filter((item) => item !== uniqueId);
-  setCartItems(updatedCart);
-  setCLength(updatedCart.length);
+  const reduceQuantity = (uniqueId, price) => {
+    // Update itemProps to reduce the quantity
+    setItemProps((prevProps) => ({
+      ...prevProps,
+      [uniqueId]: {
+        ...prevProps[uniqueId],
+        quantity: prevProps[uniqueId].quantity - 1,
+      },
+    }));
 
-  // Sync with localStorage
-  localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-};
+    // Update total price and cart length
+    setTotal((prevTotal) => prevTotal - price);
+    setCLength((prevLength) => prevLength - 1);
 
-const deleteItemFromCart = (uniqueId) => {
-  setItemProps((prevProps) => {
-    const updatedProps = { ...prevProps };
-    delete updatedProps[uniqueId];
-    return updatedProps;
-  });
+    // Remove one instance of the uniqueId from cartItems
+    setCartItems((prevCartItems) => {
+      const index = prevCartItems.indexOf(uniqueId);
+      if (index > -1) {
+        const updatedCart = [...prevCartItems];
+        updatedCart.splice(index, 1); // Remove one instance of uniqueId
+        return updatedCart;
+      }
+      return prevCartItems;
+    });
 
-  const updatedCart = cartItems.filter((item) => item !== uniqueId);
-  setCartItems(updatedCart);
-  setCLength(updatedCart.length);
+    // Sync with localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  };
 
-  // Sync with localStorage
-  localStorage.setItem("cartItems", JSON.stringify(updatedCart));
-};
+  const removeOne = (uniqueId) => {
+    setItemProps((prevProps) => {
+      const updatedProps = { ...prevProps };
+      delete updatedProps[uniqueId];
+      return updatedProps;
+    });
 
+    const updatedCart = cartItems.filter((item) => item !== uniqueId);
+    setCartItems(updatedCart);
+    setCLength(updatedCart.length);
+
+    // Sync with localStorage
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
+  const deleteItemFromCart = (uniqueId) => {
+    setItemProps((prevProps) => {
+      const updatedProps = { ...prevProps };
+      delete updatedProps[uniqueId];
+      return updatedProps;
+    });
+
+    const updatedCart = cartItems.filter((item) => item !== uniqueId);
+    setCartItems(updatedCart);
+    setCLength(updatedCart.length);
+
+    // Sync with localStorage
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
 
   //for product props selection
   let product = null;
@@ -573,7 +576,7 @@ const deleteItemFromCart = (uniqueId) => {
       }, 5000);
       clearCart();
     }
-  }, []);
+  }, [clearCart]);
   if (isSuccess) {
     return (
       <Layout>
@@ -592,10 +595,16 @@ const deleteItemFromCart = (uniqueId) => {
 
   return (
     <Layout>
-      {total > 170 && (
+      {total > 10 && (
         <Box delivery>
           <Span>
-            <img src="/icons8-confetti-48.png" alt="" />
+            <Image
+              width={100}
+              height={100}
+              layout="intrinsic"
+              src="/icons8-confetti-48.png"
+              alt=""
+            />
           </Span>
           <P delivery>
             <Span delivery>Free delivery on this order </Span>Congrats, you get
@@ -611,7 +620,7 @@ const deleteItemFromCart = (uniqueId) => {
           </Span>
           <H4>Your bag is empty</H4>
           <P empty>
-            Items remain in your bag for 60 minutes, and then they're moved to
+            Items remain in your bag for 60 minutes, and then they&apos;re moved to
             your Saved Items.
           </P>
           <PButton empty>View saved items</PButton>
@@ -629,7 +638,7 @@ const deleteItemFromCart = (uniqueId) => {
           <ItemWrap
             ref={contentRef}
             style={{
-              minHeight: "100vh", // To ensure there's enough content to scroll
+              minHeight: "100vh", // To ensure there&apos;s enough content to scroll
             }}
             className="content-scroll"
           >
@@ -681,7 +690,10 @@ const deleteItemFromCart = (uniqueId) => {
                           <InfoCell>
                             <ImageBox>
                               {/* Display the product image */}
-                              <img
+                              <Image
+                                width={500}
+                                height={500}
+                                layout="responsive"
                                 src={itemstoDisplay?.images[0]}
                                 alt={itemstoDisplay?.title || "Product Image"}
                               />
@@ -872,7 +884,10 @@ const deleteItemFromCart = (uniqueId) => {
               <InfoCell>
                 <ImageBox>
                   {/* Display the product image */}
-                  <img
+                  <Image
+                    width={100}
+                    height={100}
+                    layout="responsive"
                     src={"/images/shipping.png"}
                     alt={"shipping"}
                     className="shipping"
@@ -905,7 +920,7 @@ const deleteItemFromCart = (uniqueId) => {
                 </P>
                 <Title className="title">Only $19.99 for 12 months</Title>
                 <P title className="shipping">
-                  By signing up, you're agreeing to these terms and conditions.
+                  By signing up, you&apos;re agreeing to these terms and conditions.
                   *Cut-off times and dates, and postcode restrictions apply.
                 </P>
                 <br />
@@ -921,7 +936,7 @@ const deleteItemFromCart = (uniqueId) => {
               {/* <>{items.map((item)=> item.gender)}</> */}
             </Box>
             <Box ggrid>
-              {/* <img src="/fast-delivery.png" alt="" /> */}
+              {/* <Image width={"100%"} height={"100%"} src="/fast-delivery.png" alt="" /> */}
               <Div className="shipDiv2">
                 <Title className="title">Free* standard shipping</Title>&nbsp;
                 <P title className="shipping">

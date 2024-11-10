@@ -10,6 +10,7 @@ import ArrowL from "./icons/ArrowL";
 import ArrowR from "./icons/ArrowR";
 import BlogCard from "./BlogCard";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Title = styled.h2`
   text-align: center;
@@ -186,14 +187,14 @@ for (let i = 0; i < gallery[0].images.length; i += 2) {
          {isHighMobile && groupedImages.map((imageGroup, index) => (
       <Sect key={index} className="carousel-item">
         {imageGroup.map((image, idx) => (
-          <img key={idx} src={image} alt={gallery[0].title} />
+         <Image width={700} height={700} layout="responsive" key={idx} src={image} alt={gallery[0].title} />
         ))}
       </Sect>
     ))}
      {!isHighMobile && gallery &&
-        gallery[0].images.map((image) => (
-         <Sect>
-            <img src={image} alt={gallery[0].title} />
+        gallery[0].images.map((image,idx) => (
+         <Sect key={idx}>
+            <Image width={700} height={700} layout="responsive"  src={image} alt={gallery[0].title} />
          </Sect>
         ))}
         </Carousel>

@@ -269,7 +269,7 @@ export default function Footer({ activeButton }) {
                 </Div>
               ))}
             <Sect activeButton={activeButton}>
-              <H4>You're in </H4>{" "}
+              <H4>You&apos;re in </H4>{" "}
               <Span>
                 {CountryList && (
                   <img src={CountryList[0].flag} alt={CountryList[0].name} />
@@ -303,7 +303,7 @@ export default function Footer({ activeButton }) {
           <Div country>
             <Title hide>Shopping From:</Title>
             <Sect hide>
-              <H4>You're in </H4>{" "}
+              <H4>You&apos;re in </H4>{" "}
               <Span>
                 {CountryList && (
                   <img src={CountryList[0].flag} alt={CountryList[0].name} />

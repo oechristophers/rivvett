@@ -46,7 +46,7 @@ export default function ShopMore({ products }) {
       <StyledTitle>Shop More</StyledTitle>
       <Sect>
         {products &&
-          products.map((product) => <Pname><Span>{path}'s</Span> {product.title}</Pname>)}
+          products.map((product) => <Pname key={product._id}><Span>{path}&apos;s</Span> {product.title}</Pname>)}
       </Sect>
     </Wrap>
   );

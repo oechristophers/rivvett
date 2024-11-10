@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Title } from "./ProductCarousel";
+import Image from "next/image";
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -18,38 +19,46 @@ const Div = styled.div`
   }
 `;
 const SubTitle = styled.h2`
-text-align: center;
-font-family: "Futura Std Heavy";
-text-transform: uppercase;
-font-size: 1rem;
-letter-spacing: 1.3px;
-`
+  text-align: center;
+  font-family: "Futura Std Heavy";
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1.3px;
+`;
 const H1 = styled(Title)`
   padding-bottom: 0;
-  padding-top:10px;
+  padding-top: 10px;
   font-size: 1.3rem;
-`
-export default function FeaturedShops({
- shops,
- femaleShops,
-}) {
- 
+`;
+export default function FeaturedShops({ shops, femaleShops }) {
   return (
     <div>
       <H1>FEATURED SHOPS</H1>
       <StyledGrid>
         {shops &&
-          shops.map((shop) => (
-            <Div>
-              <img src={`/images/men/${shop}.png`} alt={shop} />
+          shops.map((shop, index) => (
+            <Div key={index}>
+              <Image
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/men/${shop}.png`}
+                alt={shop}
+              />
 
               <SubTitle>{shop}</SubTitle>
             </Div>
           ))}
         {femaleShops &&
-          femaleShops.map((shop) => (
-            <Div>
-              <img src={`/images/women/${shop}.png`} alt={shop} />
+          femaleShops.map((shop, index) => (
+            <Div key={index}>
+              <Image
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/women/${shop}.png`}
+                alt={shop}
+              />
 
               <SubTitle>{shop}</SubTitle>
             </Div>

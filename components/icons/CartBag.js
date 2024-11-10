@@ -15,7 +15,7 @@ export default function CartBag({size}){
     }else{
       setHasItem(false)
     }
-  })
+  },[cartItems.length])
     return(
       <>
       {hasItem ?

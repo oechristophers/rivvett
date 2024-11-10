@@ -418,8 +418,8 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
               >
                 <option value="">Please select</option>
                 {sizeProp?.length > 0 &&
-                  sizeProp.map((s) => (
-                    <option
+                  sizeProp.map((s,i) => (
+                    <option key={i}
                       value={`US Size ${s.toUpperCase()}`}
                     >{`US Size ${s.toUpperCase()}`}</option>
                   ))}

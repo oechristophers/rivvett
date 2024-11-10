@@ -28,6 +28,7 @@ import {
 } from "@mui/icons-material";
 import FooterIcons from "./FooterIcons";
 import Footer from "./Footer";
+import Image from "next/image";
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -455,7 +456,7 @@ export default function Header({
     } else {
       path !== "" && setIsHome("general");
     }
-  }, []);
+  }, [path]);
 
   useEffect(() => {
    {isNavView && setHamActive(false)}
@@ -475,12 +476,12 @@ export default function Header({
   return (
     <>
       <PreHeader>
-        <div>
+        <div className="pre" style={{position:'relative'}}>
           <Link href={"/"}>Marketplace</Link>
-          <Link href={"/blog"}>Help & FAQ's</Link>
+          <Link href={"/blog"}>Help & FAQ&apos;s</Link>
           <Link href={"/contact"}>
             {" "}
-            <img src="/flags/us.png" alt="" />{" "}
+            <Image width={100} height={100} layout="intrinsic" src="/flags/us.png" alt="" />{" "}
           </Link>
         </div>
       </PreHeader>
@@ -492,7 +493,7 @@ export default function Header({
                 <MenuSharp style={{ fontSize: "1.77rem" }} />
               </NavButton>
               <Logo href={"/"}>
-                <img src="/images/3.png" alt="Logo" />
+              <Image width={100} height={100}  src="/images/3.png" alt="Logo" />
               </Logo>
               <StyledNav forPc>
                 <NavLink isGender isHome={isHome === "women"} href={"/women"}>

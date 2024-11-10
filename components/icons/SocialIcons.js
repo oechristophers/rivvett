@@ -18,7 +18,7 @@ export default function SocialIcon({ height, width }) {
     <>
       {socialIcons &&
         socialIcons.map((icon, index) => (
-          <Link href={icon.name}>
+          <Link key={index} href={icon.name}>
             {" "}
             <StyledIcon
               key={index}
