@@ -46,6 +46,7 @@ export default function CategoryCard({ _id, name, images, filteredMaleCat }) {
             (filteredMaleCat && images[0]) || (!filteredMaleCat && images[1] ? images[1] : images[0])
           }
           alt={name}
+          onLoadingComplete={() => setIsLoaded(true)}
         />
       </Box>
     </ProductWrapper>

@@ -18,6 +18,7 @@ const StyledGrid = styled.div`
   padding: 25px;
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr;
+    padding: 25px 0;
   }
 `;
 const Div = styled.div`

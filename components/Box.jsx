@@ -48,8 +48,11 @@ const Box = styled.div`
       max-width: fit-content;
       padding: 0 30px;
       padding-bottom: 20px;
+      margin-bottom:20px;
+      width: calc(100% - 60px);
       @media screen and (min-width: 900px) {
         align-self: start;
+        width: 100%;
       }
     `}
     ${(props) =>
@@ -66,7 +69,7 @@ const Box = styled.div`
     ${(props) =>
     props.ggrid &&
     css`
-    position: relative;
+      position: relative;
       grid-area: g;
       display: flex;
       padding: 0 20px;
@@ -86,8 +89,8 @@ const Box = styled.div`
       margin-bottom: -10px;
     }
     .shipBtn {
-      padding-top:6px;
-      font-size:.8rem;
+      padding-top: 6px;
+      font-size: 0.8rem;
       font-family: "Futura Std Book";
       text-decoration: underline;
       width: fit-content;
@@ -104,7 +107,7 @@ const Box = styled.div`
       content: "";
       position: absolute;
       display: block;
-      margin-top:7px;
+      margin-top: 7px;
       left: 30px;
       top: 28px;
       background-size: 36px;

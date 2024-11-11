@@ -21,6 +21,7 @@ export const Title = styled.h2`
 const CarouselWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
+  padding:0 20px;
   @media screen and (min-width: 768px) {
     padding: 20px 60px;
   }
@@ -31,7 +32,7 @@ const CarouselWrapper = styled.div`
   .react-multi-carousel-dot-list {
     display: flex;
     position: absolute;
-    bottom: -10px;
+    bottom: -30px;
   }
   /* .react-multi-carousel-item {
     margin-right: ${({ withGap }) => (withGap ? "20px" : "0")};
@@ -88,6 +89,7 @@ const Div = styled.div`
 `;
 const Button = styled(ButtonLink)`
   background-color: black;
+  margin-top: 20px;
   font-family: "Futura Std Heavy";
   font-size: 0.9rem;
   letter-spacing: 1px;
@@ -148,7 +150,7 @@ const ProductCarousel = ({
       breakpoint: { max: 600, min: 0 },
       items: 2,
       slidesToSlide: 2,
-      partialVisibilityGutter: 20,
+      partialVisibilityGutter: 10,
     },
   };
 

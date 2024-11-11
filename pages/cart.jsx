@@ -35,13 +35,16 @@ const ColumnWrapper = styled.div`
   display: flex;
   padding: 0 15px;
   position: relative;
+  align-items: flex-start;
   gap: 10px;
   justify-content: center;
   margin-top: 40px;
   justify-content: center;
+  a,button{
+    color: black;
+  }
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    margin-top: 10px;
   }
 `;
 const ItemWrap = styled.div`
@@ -620,20 +623,15 @@ export default function CartPage({ categories, products }) {
           </Span>
           <H4>Your bag is empty</H4>
           <P empty>
-            Items remain in your bag for 60 minutes, and then they&apos;re moved to
-            your Saved Items.
+            Items remain in your bag for 60 minutes, and then they&apos;re moved
+            to your Saved Items.
           </P>
           <PButton empty>View saved items</PButton>
 
           <PButton shopmore> Continue Shopping</PButton>
         </Center>
       )}
-      <ColumnWrapper
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-        }}
-      >
+      <ColumnWrapper>
         {cartItems?.length > 0 && (
           <ItemWrap
             ref={contentRef}
@@ -920,8 +918,9 @@ export default function CartPage({ categories, products }) {
                 </P>
                 <Title className="title">Only $19.99 for 12 months</Title>
                 <P title className="shipping">
-                  By signing up, you&apos;re agreeing to these terms and conditions.
-                  *Cut-off times and dates, and postcode restrictions apply.
+                  By signing up, you&apos;re agreeing to these terms and
+                  conditions. *Cut-off times and dates, and postcode
+                  restrictions apply.
                 </P>
                 <br />
               </ExpandableDiv>
@@ -959,7 +958,6 @@ export default function CartPage({ categories, products }) {
                   : "sticky"
                 : "relative",
               top: isSticky && !scrollAway ? 0 : "auto",
-              width: "100%",
               zIndex: 10,
             }}
           >

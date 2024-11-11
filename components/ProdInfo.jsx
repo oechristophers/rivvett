@@ -269,6 +269,7 @@ export const SizeSelect = styled.select`
       padding-right: 0;
       width: fit-content;
       -webkit-appearance:;
+      background-color: transparent;
     `}
 `;
 export const Arrow = styled.div`

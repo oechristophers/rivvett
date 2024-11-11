@@ -9,6 +9,7 @@ const InfoBoxes = styled.div`
   gap: 20px;
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr 1fr ;
+    padding: 10px 0;
     
   }
 `;

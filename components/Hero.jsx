@@ -4,6 +4,7 @@ import Button from "./Button";
 import ButtonLink from "./ButtonLink";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { SkeletonLoader } from "./ImageSkeleton";
 
 const HeroDiv = styled.div`
   width: 100%;
@@ -59,31 +60,7 @@ const HeroWrapper = styled.div`
   }
 `;
 
-const shimmer = keyframes`
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-`;
 
-const SkeletonLoader = styled.div`
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
-  background-size: 200% 100%;
-  animation: ${shimmer} 1.5s infinite;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-`;
 
 export default function Hero() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -122,14 +99,14 @@ export default function Hero() {
         {!isLoaded &&<SkeletonLoader />}
 
         {isHome === "women" && isSmallScreen ? (
-          <Image
-            width={2800}
-            height={1400}
-            layout="responsive"
-            src="/images/newgirl.png"
-            alt="hero"
-            onLoadingComplete={() => setIsLoaded(true)}
-          />
+         <Image
+         width={1080}
+         height={1350}
+         layout="responsive"
+         src="/images/newgirlMobile.png"
+         alt="hero"
+         onLoadingComplete={() => setIsLoaded(true)}
+       />
         ) : (
           isHome === "women" && (
             <Image
