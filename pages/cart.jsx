@@ -94,6 +94,7 @@ const PButton = styled(Button)`
   ${(props) =>
     props.shopmore &&
     css`
+    color: black;
       background-color: transparent;
       text-decoration: underline;
       margin-top: 5px;

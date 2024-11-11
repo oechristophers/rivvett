@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -11,6 +10,7 @@ import ArrowR from "./icons/ArrowR";
 import BlogCard from "./BlogCard";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { SkeletonLoader } from "./ImageSkeleton";
 
 const Title = styled.h2`
   text-align: center;
@@ -22,8 +22,9 @@ const Title = styled.h2`
 `;
 const Wrap = styled.div`
   padding: 20px 20px;
-  padding-bottom:30px ;
-  background: ${({ isPage }) => (isPage ? "linear-gradient(90deg, #FF385C 0%, #F799BA 100%);" : "")};
+  padding-bottom: 30px;
+  background: ${({ isPage }) =>
+    isPage ? "linear-gradient(90deg, #FF385C 0%, #F799BA 100%);" : ""};
 `;
 const CarouselWrapper = styled.div`
   padding-bottom: 20px;
@@ -33,24 +34,22 @@ const CarouselWrapper = styled.div`
   }
   .carousel-container {
     position: unset;
-    
   }
 
   .carousel-item {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two items per row */
- 
-}
-
-/* Responsive design for small screens */
-@media (max-width: 768px) {
-  .carousel-item {
-    height: auto;
-    grid-template-columns: 1fr; /* One item per row */
-    grid-template-rows: 1fr 1fr;
-    gap:2px; /* Two rows */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two items per row */
   }
-}
+
+  /* Responsive design for small screens */
+  @media (max-width: 768px) {
+    .carousel-item {
+      height: auto;
+      grid-template-columns: 1fr; /* One item per row */
+      grid-template-rows: 1fr 1fr;
+      gap: 2px; /* Two rows */
+    }
+  }
   .react-multi-carousel-dot-list {
     display: flex;
     position: absolute;
@@ -103,9 +102,9 @@ const Div = styled.div`
   padding-top: 10px;
 `;
 const P = styled.p`
-text-align: center;
-margin-top: 0;
-`
+  text-align: center;
+  margin-top: 0;
+`;
 const Button = styled(ButtonLink)`
   font-family: "Futura Std bold";
   font-size: 0.9rem;
@@ -113,7 +112,7 @@ const Button = styled(ButtonLink)`
   padding: 14px 40px;
   text-transform: uppercase;
   color: black;
- border:1px solid black;
+  border: 1px solid black;
 `;
 const CustomLeftArrow = ({ onClick }) => (
   <button onClick={onClick} className="custom-arrow left">
@@ -130,16 +129,17 @@ const Sect = styled.div`
   height: auto;
   padding: 0 1px;
 
-img {
+  img {
     width: 100%;
     height: auto;
     max-height: 100%;
     min-height: 100%;
   }
-  
-`
+`;
 const GalleryDisplay = ({ gallery, isPage }) => {
-  const { isMobile, isTablet, isDesktop,isMidMobile,isHighMobile } = UseIsDevice();
+  const { isMobile, isTablet, isDesktop, isMidMobile, isHighMobile } =
+    UseIsDevice();
+  const [isLoaded, setIsLoaded] = useState(false);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -164,14 +164,19 @@ const GalleryDisplay = ({ gallery, isPage }) => {
     },
   };
   const groupedImages = [];
-for (let i = 0; i < gallery[0].images.length; i += 2) {
-  groupedImages.push(gallery[0].images.slice(i, i + 2));
-}
+  for (let i = 0; i < gallery[0].images.length; i += 2) {
+    groupedImages.push(gallery[0].images.slice(i, i + 2));
+  }
   return (
     <Wrap isPage={isPage}>
+      {!isLoaded && <SkeletonLoader />}
+
       <CarouselWrapper>
         <Title>AS SEEN ON ME</Title>
-        <P>Style inspiration served by you. Share and find RIVVETT fits using #AsSeenOnMe</P>
+        <P>
+          Style inspiration served by you. Share and find RIVVETT fits using
+          #AsSeenOnMe
+        </P>
         <Carousel
           responsive={responsive}
           showDots={true}
@@ -184,19 +189,36 @@ for (let i = 0; i < gallery[0].images.length; i += 2) {
           customLeftArrow={<CustomLeftArrow />}
           customRightArrow={<CustomRightArrow />}
         >
-         {isHighMobile && groupedImages.map((imageGroup, index) => (
-      <Sect key={index} className="carousel-item">
-        {imageGroup.map((image, idx) => (
-         <Image width={700} height={700} layout="responsive" key={idx} src={image} alt={gallery[0].title} />
-        ))}
-      </Sect>
-    ))}
-     {!isHighMobile && gallery &&
-        gallery[0].images.map((image,idx) => (
-         <Sect key={idx}>
-            <Image width={700} height={700} layout="responsive"  src={image} alt={gallery[0].title} />
-         </Sect>
-        ))}
+          {isHighMobile &&
+            groupedImages.map((imageGroup, index) => (
+              <Sect key={index} className="carousel-item">
+                {imageGroup.map((image, idx) => (
+                  <Image
+                    onLoadingComplete={() => setIsLoaded(true)}
+                    width={700}
+                    height={700}
+                    layout="responsive"
+                    key={idx}
+                    src={image}
+                    alt={gallery[0].title}
+                  />
+                ))}
+              </Sect>
+            ))}
+          {!isHighMobile &&
+            gallery &&
+            gallery[0].images.map((image, idx) => (
+              <Sect key={idx}>
+                <Image
+                  onLoadingComplete={() => setIsLoaded(true)}
+                  width={700}
+                  height={700}
+                  layout="responsive"
+                  src={image}
+                  alt={gallery[0].title}
+                />
+              </Sect>
+            ))}
         </Carousel>
       </CarouselWrapper>
       <Div>
@@ -208,7 +230,6 @@ for (let i = 0; i < gallery[0].images.length; i += 2) {
 
 export default GalleryDisplay;
 
-
 // import React from "react";
 // import styled from "styled-components";
 
@@ -219,7 +240,7 @@ export default GalleryDisplay;
 //   grid-template-columns: 1fr 1fr 1fr 1fr;
 //   gap: 10px;
 //   padding: 25px;
-  
+
 // `;
 // const Div = styled.div`
 //   height: 320px;
@@ -236,12 +257,12 @@ export default GalleryDisplay;
 //     <div>
 //       <h1>Gallery</h1>
 //       {/* <Grid>
-        // {gallery &&
-        //   gallery[0].images.map((image) => (
-        //     <Div>
-        //       <img src={image} alt={gallery[0].title} />
-        //     </Div>
-        //   ))}
+// {gallery &&
+//   gallery[0].images.map((image) => (
+//     <Div>
+//       <img src={image} alt={gallery[0].title} />
+//     </Div>
+//   ))}
 //       </Grid> */}
 //     </div>
 //   );

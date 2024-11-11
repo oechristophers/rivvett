@@ -1,6 +1,10 @@
 import React, { useContext, useState } from "react";
 import Button from "@/components/Button";
-import { ArrowDropDown } from "@mui/icons-material";
+import {
+  ArrowDropDown,
+  Favorite,
+  FavoriteBorderOutlined,
+} from "@mui/icons-material";
 import Truck from "@/components/icons/Truck";
 import Return from "@/components/icons/Return";
 import Copy from "@/components/icons/Copy";
@@ -10,6 +14,7 @@ import css from "styled-jsx/css";
 import Link from "next/link";
 import styled from "styled-components";
 import { CartContext } from "./CartContext";
+import { CartB } from "./ProductCard";
 
 const Div = styled.div`
   z-index: 100;
@@ -90,6 +95,10 @@ const Div = styled.div`
       }
     `}
 `;
+const FlexBtns = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 const StyledButton = styled(Button)`
   background-color: #018849;
   color: white;
@@ -97,7 +106,7 @@ const StyledButton = styled(Button)`
   letter-spacing: 1.2px;
   font-weight: 900;
   text-transform: uppercase;
-  width: 75%;
+  width: 80%;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -254,6 +263,7 @@ const Lines = styled.div`
     `}
 `;
 export const SizeSelect = styled.select`
+  color: black;
   height: 2.4rem;
   width: 100%;
   border-radius: 0;
@@ -268,7 +278,7 @@ export const SizeSelect = styled.select`
     css`
       padding-right: 0;
       width: fit-content;
-      -webkit-appearance:;
+      -webkit-appearance: ;
       background-color: transparent;
     `}
 `;
@@ -419,8 +429,9 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
               >
                 <option value="">Please select</option>
                 {sizeProp?.length > 0 &&
-                  sizeProp.map((s,i) => (
-                    <option key={i}
+                  sizeProp.map((s, i) => (
+                    <option
+                      key={i}
                       value={`US Size ${s.toUpperCase()}`}
                     >{`US Size ${s.toUpperCase()}`}</option>
                   ))}
@@ -430,12 +441,37 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
               </Arrow>
             </Div>
           </Span>
-          <StyledButton
-            primary
-            onClick={() => addItem(product._id, isColor, isSize)}
-          >
-            Add to bag
-          </StyledButton>
+          <FlexBtns>
+            <StyledButton
+              primary
+              onClick={() => addItem(product._id, isColor, isSize)}
+              style={{ color: "white" }}
+            >
+              Add to bag
+            </StyledButton>
+            <CartB inId>
+              <FavoriteBorderOutlined
+                className="fave"
+                style={{
+                  fontSize: "1rem",
+                  width: "20px",
+                  height: "20px",
+                  paddingLeft: "4.5px",
+                  paddingTop: "2px",
+                }}
+              />
+              <Favorite
+                className="fave2"
+                style={{
+                  fontSize: "1rem",
+                  width: "20px",
+                  height: "20px",
+                  paddingLeft: "4.5px",
+                  paddingTop: "2px",
+                }}
+              />
+            </CartB>
+          </FlexBtns>
           <Div mainInfo>
             <Div info>
               <Span>

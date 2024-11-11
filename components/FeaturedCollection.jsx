@@ -1,6 +1,7 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { SkeletonLoader } from "./ImageSkeleton";
 const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -18,32 +19,44 @@ const Div = styled.div`
   }
 `;
 const Title = styled.h2`
-text-align: center;
-font-family: "Futura Std Heavy";
-text-transform: uppercase;
-font-size: 1rem;
-letter-spacing: 1.3px;
-`
-export default function FeaturedCollection({
-  femaleCollection,
-  collections
-}) {
- 
+  text-align: center;
+  font-family: "Futura Std Heavy";
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 1.3px;
+`;
+export default function FeaturedCollection({ femaleCollection, collections }) {
+  const [isLoaded, setIsLoaded] = useState(false);
   return (
     <>
       <StyledGrid>
+        {!isLoaded && (<SkeletonLoader/>)}
         {femaleCollection &&
-          femaleCollection.map((collection,index) => (
+          femaleCollection.map((collection, index) => (
             <Div key={index}>
-              <Image width={700} height={700} layout="responsive" src={`/images/women/${collection}.png`} alt={collection} />
+              <Image
+                onLoadingComplete={() => setIsLoaded(true)}
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/women/${collection}.png`}
+                alt={collection}
+              />
 
               <Title>{collection}</Title>
             </Div>
           ))}
         {collections &&
-          collections.map((collection,index) => (
+          collections.map((collection, index) => (
             <Div key={index}>
-               <Image width={700} height={700} layout="responsive" src={`/images/men/${collection}.png`} alt={collection} />
+              <Image
+                onLoadingComplete={() => setIsLoaded(true)}
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/men/${collection}.png`}
+                alt={collection}
+              />
 
               <Title>{collection}</Title>
             </Div>

@@ -5,6 +5,10 @@ import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import { ClipLoader } from "react-spinners";
 import CartBag from "./icons/CartBag";
+import { UseIsDevice } from "./DeviceView";
+import { SkeletonLoader } from "./ImageSkeleton";
+import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
+import css from "styled-jsx/css";
 
 const ProductWrapper = styled.div`
   height: auto;
@@ -70,25 +74,42 @@ const Price = styled.div`
   font-family: "Futura Std Bold";
   color: #0000008f;
 `;
-const CartB = styled(Button)`
+export const CartB = styled(Button)`
   position: absolute;
+  right: 0;
   bottom: 0;
-  padding-bottom: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   z-index: 100;
-  width: 93%;
+  border: 1px solid #a8a1a12a;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   text-align: center;
   justify-content: center;
-  background: linear-gradient(to bottom left, white 50%, black 50%);
-  background-size: 200% 200%;
-  background-position: top right;
+  background-color: #f7f7f74b;
   transition: background-position 0.3s ease;
-
-  &:hover {
-    background-position: bottom left;
-    color: white;
+  .fave2 {
+    display: none;
+  }
+  &:hover .fave2 {
+    display: block;
+  }
+  &:hover .fave {
+    display: none;
   }
 
-  /* @media (max-width: 750px) {
+  ${(props) =>
+    props.inId &&
+    css`
+    
+  background-color: #928f8f6f;
+    margin: 0;
+      height: 45px;
+      width: 45px;
+      position: unset;
+    `}/* @media (max-width: 750px) {
     display: none;
   } */
 `;
@@ -110,6 +131,7 @@ export default function ProductCard({
   const handleMouseEnter = () => setIsHidden(false);
   const handleMouseLeave = () => setIsHidden(true);
   const { addItem } = useContext(CartContext);
+  const { isMobile, isDesktop } = UseIsDevice();
 
   const handleImageLoad = () => {
     setLoading(false); // Once the image is fully loaded, set loading to false
@@ -137,11 +159,7 @@ export default function ProductCard({
       >
         {loading && (
           <section>
-            <ClipLoader
-              color="#000" // Adjust color as needed
-              loading={loading}
-              size={50} // Adjust size as needed
-            />
+            <SkeletonLoader />
           </section>
         )}
         <img
@@ -150,22 +168,43 @@ export default function ProductCard({
           style={{ display: loading ? "none" : "block" }}
           alt={title}
         />
-        {!isHidden && (
-          <CartB
-            primary
-            onClick={(ev) => {
-              ev.preventDefault(); // Prevent "Box link"  from navigating away
-              ev.stopPropagation();
-              addItem(_id);
+
+        <CartB
+          primary
+          onClick={(ev) => {
+            ev.preventDefault(); // Prevent "Box link"  from navigating away
+            ev.stopPropagation();
+            addItem(_id);
+          }}
+        >
+          <FavoriteBorderOutlined
+            className="fave"
+            style={{
+              fontSize: "1rem",
+              width: "20px",
+              height: "20px",
+              paddingLeft: "4.5px",
+              paddingTop: "2px",
             }}
-          >
-            Add to cart
-          </CartB>
-        )}
+          />
+          <Favorite
+            className="fave2"
+            style={{
+              fontSize: "1rem",
+              width: "20px",
+              height: "20px",
+              paddingLeft: "4.5px",
+              paddingTop: "2px",
+            }}
+          />
+        </CartB>
       </Box>
       <ProductInfo>
         <Title href={url} inCart={inCart}>
-          {title}
+          {!isDesktop
+            ? title.split(" ").splice(0, 2).join(" ") +
+              (title.split(" ").length > 2 ? "...." : "")
+            : title}
           {/* {title.split(' ').slice(0, 2).map((word)=> word.toUpperCase()).join(' ') + (' ') + title.split(' ').slice(2).join('  ').toLowerCase()} */}
         </Title>
         <PriceRow>

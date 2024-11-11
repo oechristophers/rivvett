@@ -17,6 +17,7 @@ import ProductCarousel from "@/components/ProductCarousel";
 import ProductGrid from "@/components/ProductGrid";
 import GalleryDisplay from "@/components/GalleryDisplay";
 import { Gallery } from "@/models/Gallery";
+import { UseIsDevice } from "@/components/DeviceView";
 
 const ImageBox = styled(Box)`
   position: sticky;
@@ -32,6 +33,7 @@ const ImageBox = styled(Box)`
     width: 70%;
   }
   @media screen and (max-width: 780px) {
+    min-height: auto;
     width: 100%;
     position: relative;
   }
@@ -43,6 +45,10 @@ const ColWrapper = styled.div`
   justify-content: center;
   margin-top: 40px;
   justify-content: center;
+  a,
+  button {
+    color: black;
+  }
   @media screen and (max-width: 780px) {
     display: grid;
     grid-template-columns: 1fr;
@@ -65,12 +71,16 @@ const ColWrapper = styled.div`
 `;
 const Wrap = styled.div`
   padding: 0 80px;
-  border-top: 1px solid #1b1a1a15;
+  display: flex;
+  flex-direction: column;
+
   margin-top: 40px;
+
   ${(props) =>
     props.carousel &&
     css`
-      padding: 80px 160px;
+      border-top: 1px solid #1b1a1a15;
+      padding: 80px 7%;
       margin-bottom: 30px;
     `}
   ${(props) =>
@@ -78,8 +88,35 @@ const Wrap = styled.div`
     css`
       padding-bottom: 20px;
     `}
-    @media screen and (max-width: 780px) {
+    @media screen and (max-width: 1024px) {
+    padding: 80px 5%;
+    ${(props) =>
+      props.grid &&
+      css`
+        margin-top: 0px;
+      `}
+  }
+  @media screen and (max-width: 900px) {
     padding: 0;
+  }
+  @media screen and (max-width: 820px) {
+    ${(props) =>
+      props.grid &&
+      css`
+        margin-top: 10px;
+      `}
+    ${(props) =>
+      props.carousel &&
+      css`
+        padding-bottom: 40px;
+      `}
+  }
+  @media screen and (max-width: 500px) {
+    ${(props) =>
+      props.grid &&
+      css`
+        margin-top: 40px;
+      `}
   }
 `;
 export default function ProductPage({ product, products, gallery }) {
@@ -196,7 +233,7 @@ export default function ProductPage({ product, products, gallery }) {
             proCat={proCat}
           />
         </ColWrapper>
-        <Wrap>
+        <Wrap grid>
           <ProductGrid products={related} genderName={genderName} page />
         </Wrap>
         <Wrap carousel>
