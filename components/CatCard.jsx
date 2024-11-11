@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import CartBag from "./icons/CartBag";
 import Image from "next/image";
+import { SkeletonLoader } from "./ImageSkeleton";
 
 const ProductWrapper = styled.div``;
 const Box = styled(Link)`
@@ -16,7 +17,6 @@ const Box = styled(Link)`
   justify-content: center;
   text-decoration: none;
   height: auto;
-  background-color: red;
   object-fit: contain; /* Ensures images maintain aspect ratio and crop if needed */
   object-position: top;
   position: sticky;
@@ -30,10 +30,14 @@ const Box = styled(Link)`
 `;
 
 export default function CategoryCard({ _id, name, images, filteredMaleCat }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const url = "/categories/" + _id;
   return (
     <ProductWrapper>
       <Box href={url}>
+      {!isLoaded &&<SkeletonLoader />}
+
         <Image
           width={700}
           height={700}
