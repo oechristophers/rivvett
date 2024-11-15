@@ -8,12 +8,12 @@ import Layout from "../layout";
 const Wrapper = styled.div`
   padding: 30px;
   text-align: center;
-  h2{
-    font-family: 'Futura Std Heavy';
-    letter-spacing:1.2px;
+  h2 {
+    font-family: "Futura Std Heavy";
+    letter-spacing: 1.2px;
     margin: 0;
   }
-  p{
+  p {
     margin: 0;
     margin-bottom: 20px;
   }
@@ -42,9 +42,11 @@ export default function gallery({ gallery }) {
         <h2>ASOS LOOKS GOOD ON YOU</h2>
         <p>Tag @asos to get featured</p>
         <GalleryGrid>
-          {gallery &&
+        {gallery &&
             gallery.map((g) =>
-              g.images.map((image) => <img src={image} alt={gallery.title} />)
+              g.images.map((image, index) => (
+                <img src={image} key={index} alt={gallery.title} />
+              ))
             )}
         </GalleryGrid>
       </Wrapper>
