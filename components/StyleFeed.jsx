@@ -9,6 +9,7 @@ import ArrowL from "./icons/ArrowL";
 import ArrowR from "./icons/ArrowR";
 import BlogCard from "./BlogCard";
 import { useRouter } from "next/router";
+import css from "styled-jsx/css";
 
 const Title = styled.h2`
   text-align: center;
@@ -23,15 +24,22 @@ const Title = styled.h2`
   }
 `;
 const Wrap = styled.div`
-  background: #9cf0e0;
-  padding: 5px 20px;
+  background: ${({ inId }) => (inId ? "white" : "#9cf0e0")};
+  padding: ${({ inId }) => (inId ? " 5px 0" : "20px 60px")};
 `;
 const CarouselWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
   @media screen and (min-width: 768px) {
-    padding: 20px 60px;
+    padding: ${({ inId }) => (inId ? " 20px 0" : "5px 20px")};
   }
+  @media screen and (max-width: 768px) {
+    .custom-arrow.left,
+    .custom-arrow.right {
+      display: none;
+    }
+  }
+
   .carousel-container {
     position: unset;
   }
@@ -50,7 +58,7 @@ const CarouselWrapper = styled.div`
   .custom-arrow.left {
     background-color: transparent;
     border: none;
-    left: -1px;
+    left: -32px;
     transform: translateX(20%);
     font-size: 20px;
     color: black; /* Set the color of the arrow */
@@ -62,10 +70,34 @@ const CarouselWrapper = styled.div`
     }
   }
 
+  .custom-arrow.left2 {
+    right: 90px;
+    top: 0;
+    margin-top:20px;
+    transition: transform 0.3s ease;
+    border:1px solid #00000045;
+    background-color:white;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  .custom-arrow.right2 {
+    right: 20px;
+    top: 0;
+    margin-top:20px;
+    transition: transform 0.3s ease;
+    border:1px solid #00000045;
+    background-color:white;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
   .custom-arrow.right {
     background-color: transparent;
     border: none;
-    right: 7px;
+    right: -32px;
     transform: translateX(-15%);
     font-size: 20px;
     color: black;
@@ -86,6 +118,11 @@ const Div = styled.div`
   margin-top: 10px;
   padding-bottom: 20px;
   padding-top: 10px;
+  ${(props) =>
+    props.btn &&
+    css`
+      margin-top: 50%;
+    `}
 `;
 const P = styled.p`
   text-align: center;
@@ -94,7 +131,21 @@ const P = styled.p`
     display: none;
   }
 `;
-const Button = styled(ButtonLink)`
+const RoundBtn = styled.button`
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-color: transparent;
+  font-family: "Futura Std Heavy";
+  letter-spacing: 1.2px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`;
+export const Button = styled(ButtonLink)`
   font-family: "Futura Std bold";
   font-size: 0.9rem;
   letter-spacing: 1px;
@@ -105,7 +156,7 @@ const Button = styled(ButtonLink)`
   background-size: 200% 200%;
   background-position: top right;
   transition: background-position 0.3s ease;
- 
+
   &:hover {
     background-position: bottom left;
     color: white;
@@ -114,19 +165,27 @@ const Button = styled(ButtonLink)`
     display: none;
   }
 `;
-const CustomLeftArrow = ({ onClick }) => (
-  <button onClick={onClick} className="custom-arrow left">
+const CustomLeftArrow = ({ onClick, check }) => (
+  <button
+    onClick={onClick}
+    className={check ? "custom-arrow left2" : "custom-arrow left"}
+  >
     <ArrowL />
   </button>
 );
 
-const CustomRightArrow = ({ onClick }) => (
-  <button onClick={onClick} className="custom-arrow right">
+const CustomRightArrow = ({ onClick, check }) => (
+  <button
+    onClick={onClick}
+    className={check ? "custom-arrow right2" : "custom-arrow right"}
+  >
     <ArrowR />
   </button>
 );
-const StyleFeed = ({ blogs }) => {
-  const { isMobile, isTablet, isDesktop } = UseIsDevice();
+const StyleFeed = ({ blogs, inId, isId }) => {
+  const { isMobile, isTablet, isDesktop, isHighMobile, isNavView } =
+    UseIsDevice();
+  const relatedBlogs = blogs.filter((blog) => blog.id !== isId).splice(0, 4);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -138,6 +197,7 @@ const StyleFeed = ({ blogs }) => {
       breakpoint: { max: 1024, min: 768 },
       items: 3,
       slidesToSlide: 2,
+      partialVisibilityGutter: inId ? 60 : 0,
     },
     tablet: {
       breakpoint: { max: 768, min: 600 },
@@ -146,43 +206,62 @@ const StyleFeed = ({ blogs }) => {
     },
     mobile: {
       breakpoint: { max: 600, min: 0 },
-      items: 1,
+      items: inId ? 2 : 1,
       slidesToSlide: 1,
+      partialVisibilityGutter: inId ? 30 : 0,
     },
   };
-  
+
   const router = useRouter();
   const path = router.pathname.split("/")[1];
   return (
-    <Wrap>
-      <CarouselWrapper>
+    <Wrap inId={inId}>
+      <CarouselWrapper inId={inId}>
         <Title>Style Feed</Title>
-        <P>
-          {path === "men"
-            ? "Style. Grooming. Inspiration. Advice."
-            : "Outfit ideas, editor picks, styling inspiration and Face + Body tips"}
-        </P>
+        {!inId && (
+          <P>
+            {path === "men"
+              ? "Style. Grooming. Inspiration. Advice."
+              : "Outfit ideas, editor picks, styling inspiration and Face + Body tips"}
+          </P>
+        )}
+
         <Carousel
           responsive={responsive}
-          showDots={true}
-          infinite={true}
+          showDots={!inId}
+          infinite={!inId && !isHighMobile}
           renderDotsOutside={true}
+          partialVisible={true}
           renderArrowsWhenDisabled={true}
-          autoPlay={isTablet || isDesktop}
-          removeArrowOnDeviceType={["mobile"]}
+          autoPlay={(isTablet || isDesktop) && !inId}
+          removeArrowOnDeviceType={!inId && ["mobile"]}
           className="carousel-container"
-          customLeftArrow={<CustomLeftArrow />}
-          customRightArrow={<CustomRightArrow />}
+          customLeftArrow={<CustomLeftArrow check={inId} />}
+          customRightArrow={<CustomRightArrow check={inId} />}
         >
-          
-            {blogs &&
-              blogs.map((blog) => <BlogCard key={blog._id} {...blog} />)}
-        
+          {!inId &&
+            blogs &&
+            blogs.map((blog) => <BlogCard key={blog._id} {...blog} />)}
+          {inId &&
+            relatedBlogs &&
+            relatedBlogs.map((blog) => <BlogCard key={blog._id} {...blog} inId={inId} />)}
+          {isHighMobile && !inId && (
+            <Div btn>
+              <RoundBtn href={`/${path}/style-feed`}>VIEW ALL</RoundBtn>
+            </Div>
+          )}
+          {!isNavView && inId && (
+            <Div btn>
+              <RoundBtn href={`/${path}/style-feed`}>VIEW ALL</RoundBtn>
+            </Div>
+          )}
         </Carousel>
       </CarouselWrapper>
-      <Div>
-        <Button href={`/${path}/style-feed`}>VIEW STYLE AND NEWS</Button>
-      </Div>
+      {!inId && (
+        <Div>
+          <Button href={`/${path}/style-feed`}>VIEW STYLE AND NEWS</Button>
+        </Div>
+      )}
     </Wrap>
   );
 };

@@ -67,7 +67,7 @@ const PriceRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 12px;
+  padding-top: 2px;
 `;
 const Price = styled.div`
   font-size: 0.9rem;
@@ -81,6 +81,7 @@ export const CartB = styled(Button)`
   padding: 10px;
   margin-bottom: 10px;
   margin-right: 10px;
+  color: black;
   z-index: 100;
   border: 1px solid #a8a1a12a;
   width: 35px;

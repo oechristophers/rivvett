@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ButtonLink from "./ButtonLink";
 import { useRouter } from "next/router";
+import { SkeletonItem, SkeletonLoader, SkeletonLoader2 } from "./ImageSkeleton";
 
 const CatUl = styled.ul`
   display: flex;
@@ -133,16 +134,18 @@ const CategoryList = ({ categories, activeButton }) => {
                     {category.name}
                   </Button>
                   <ImageBox loaded={allImagesLoaded}>
-                  <img
-                    src={
-                      category.posterImages.length > 1
-                        ? category.posterImages[activeButton === "men" ? 0 : 1]
-                        : category.posterImages[0]
-                    }
-                    alt=""
-                    onLoad={() => handleImageLoad(category._id)}
-                  />
-                </ImageBox>
+                    <img
+                      src={
+                        category.posterImages.length > 1
+                          ? category.posterImages[
+                              activeButton === "men" ? 0 : 1
+                            ]
+                          : category.posterImages[0]
+                      }
+                      alt=""
+                      onLoad={() => handleImageLoad(category._id)}
+                    />
+                  </ImageBox>
                 </li>
               </>
             ))
@@ -189,7 +192,11 @@ const CategoryList = ({ categories, activeButton }) => {
               </>
             ))
           ) : (
-            <li>Loading....</li>
+            <SkeletonLoader2>
+              {[...Array(5)].map((_, index) => (
+                <SkeletonItem key={index} />
+              ))}
+            </SkeletonLoader2>
           )}{" "}
         </>
       )}

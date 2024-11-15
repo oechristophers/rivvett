@@ -139,6 +139,8 @@ const Sect = styled.div`
 const GalleryDisplay = ({ gallery, isPage }) => {
   const { isMobile, isTablet, isDesktop, isMidMobile, isHighMobile } =
     UseIsDevice();
+    const rout = useRouter();
+    const path  = rout.pathname.split("/")[1];
   const [isLoaded, setIsLoaded] = useState(false);
   const responsive = {
     superLargeDesktop: {
@@ -222,7 +224,7 @@ const GalleryDisplay = ({ gallery, isPage }) => {
         </Carousel>
       </CarouselWrapper>
       <Div>
-        <Button href={"/"}>VIEW GALLERY</Button>
+        <Button href={`/${path}/gallery`}>VIEW GALLERY</Button>
       </Div>
     </Wrap>
   );

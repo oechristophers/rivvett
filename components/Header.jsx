@@ -510,8 +510,13 @@ export default function Header({
               showResults={showResults}
               showInput={showInput}
               tabIndex={0} // Make the container focusable
-              onFocus={() => setShowResults(true)}
-              onBlur={() => setShowResults(false)}
+              onFocus={() => {
+                setShowInput(true);
+                setShowResults(true);
+              }}
+              onBlur={() =>{
+                setShowResults(false);
+              }}
               search
             >
               <Search

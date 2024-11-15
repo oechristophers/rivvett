@@ -26,7 +26,18 @@ const SearchButton = styled.button`
   border: none;
   display: flex;
   align-items: center;
-
+  .closeBtn {
+    position: absolute;
+    right: 0;
+    margin-right: 30px;
+    top: 0;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.7rem;
+    z-index: 4000;
+    background-color: transparent;
+    border: none;
+  }
   @media screen and (max-width: 800px) {
     left: ${({ showInput }) => (showInput ? "90%" : "96%")};
     color: ${({ showInput }) => (showInput ? "#000" : "#fff")};
@@ -58,6 +69,9 @@ const Div = styled.div`
     letter-spacing: 1.2px;
     font-size: 0.8rem;
     padding: 5px 0;
+  }
+  @media screen and (max-width: 700px) {
+    flex-direction: column;
   }
 `;
 
@@ -100,7 +114,7 @@ const Loader = styled.div`
   &:before {
     content: "R";
     position: absolute;
-    font-family: 'Futura Std Bold', sans-serif;
+    font-family: "Futura Std Bold", sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
     color: black;
@@ -179,6 +193,7 @@ export default function Search({
   };
   // console.log(showInput)
   //
+  console.log(showInput);
   return (
     <Wrap className="Scontain" showInput={showInput}>
       <Sect className="flexed" showInput={showInput}>
@@ -200,14 +215,37 @@ export default function Search({
           />
         )}
         {higherMobile ? (
-          <SearchButton
-            onClick={() => setShowInput(true)}
-            showInput={showInput}
-          >
-            <SearchIcon />
+          <SearchButton showInput={showInput}>
+            { showInput && (
+              <Close
+                className="closeBtn"
+                onClick={() => {
+                  setShowInput(!showInput);
+                  setShowResults(false);
+                }}
+              />
+            )}
+          
+          <div showInput={showInput}
+              onClick={() => setShowInput(true)}>
+            <SearchIcon
+              
+            /> 
+          </div>
+           
           </SearchButton>
         ) : (
           <SearchButton type="submit" className="btn">
+            {query.length > 0 && showInput && (
+              <Close
+                className="closeBtn"
+                onClick={() => {
+                  setShowInput(!showInput);
+                  setShowResults(false);
+                }}
+              />
+            )}
+
             <SearchIcon />
           </SearchButton>
         )}
@@ -215,13 +253,6 @@ export default function Search({
       {query.length > 0 && message && showResults && (
         <Div className="search-results">
           <Loader />
-
-          <Close
-            onClick={() => {
-              setShowInput(!true);
-              setShowResults(!showResults);
-            }}
-          />
         </Div>
       )}
       {((query.length > 1 && filteredData.products.length > 0) ||
@@ -271,12 +302,6 @@ export default function Search({
                 </ul>
               </div>
             )}
-            <Close
-              onClick={() => {
-                setShowInput(!true);
-                setShowResults(!showResults);
-              }}
-            />
           </Div>
         )}
     </Wrap>

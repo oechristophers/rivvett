@@ -10,6 +10,11 @@ const BlogWrapper = styled.div`
   @media (max-width: 450px) {
     padding: 0 ;
   }
+  transition: transform 0.3s ease;
+&:hover {
+  transform: ${({ inId }) => (inId ? "scale(1.04)" : "none")};
+}
+
 `;
 const Box = styled(Link)`
   position: relative;
@@ -92,6 +97,7 @@ export default function BlogCard({
   mediaCaptions,
   mainImages,
   createdAt,
+  inId,
 }) {
   const rout = useRouter();
   const path = rout.pathname.split('/')[1]
@@ -102,7 +108,7 @@ export default function BlogCard({
     setLoading(false); // Once the image is fully loaded, set loading to false
   };
   return (
-    <BlogWrapper>
+    <BlogWrapper inId >
       <Box href={url}>
         {loading && (
           <section>

@@ -9,8 +9,8 @@ import ArrowL from "./icons/ArrowL";
 import ArrowR from "./icons/ArrowR";
 
 export const Title = styled.h2`
-  text-align: ${({ withGap, inCart,inBlog }) =>
-    withGap || inCart ||inBlog ? "left" : "center"};
+  text-align: ${({ withGap, inCart, inBlog }) =>
+    withGap || inCart || inBlog ? "left" : "center"};
   text-transform: uppercase;
   font-family: "Futura Std Heavy";
   letter-spacing: 2px;
@@ -21,9 +21,12 @@ export const Title = styled.h2`
 const CarouselWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
-  padding:0 20px;
+  padding: 0 5px;
   @media screen and (min-width: 768px) {
     padding: 20px 60px;
+  }
+  @media screen and (max-width: 600px) {
+    padding: 0 ;
   }
   .carousel-container {
     position: unset;
@@ -61,7 +64,7 @@ const CarouselWrapper = styled.div`
   .custom-arrow.right {
     background-color: transparent;
     border: none;
-    right: 7px;
+    right: -1px;
     transform: translateX(-15%);
     font-size: 20px;
     color: black;
@@ -114,9 +117,17 @@ const StyledProductCard = styled.div`
       : inCart
       ? "2px"
       : "0"}; // Add spacing between cards
-  padding: ${({ inBlog }) => (inBlog ? " 20px" : "0")};
+  padding: ${({ inBlog }) => (inBlog ? " 20px" : "2px")};
   padding-bottom: ${({ inBlog }) => (inBlog ? " 40px" : "0")};
   background-color: ${({ inBlog }) => (inBlog ? "white" : "transparent")};
+  
+  transition: transform 0.3s ease;
+&:hover {
+  transform: ${({ inBlog }) => (inBlog ? "scale(1.02)" : "none")};
+}
+@media screen and (max-width: 600px) {
+  margin-right: 15px;
+}
 `;
 const ProductCarousel = ({
   products,
@@ -138,19 +149,19 @@ const ProductCarousel = ({
     },
     desktop: {
       breakpoint: { max: 1024, min: 768 },
-      items: inCart ? 3 : 4,
+      items: inCart ? 3 : inBlog ? 2 : 4,
       slidesToSlide: 2,
     },
     tablet: {
       breakpoint: { max: 768, min: 600 },
-      items: 3,
+      items: inBlog ? 2 : 3,
       slidesToSlide: 2,
     },
     mobile: {
       breakpoint: { max: 600, min: 0 },
-      items: 2,
-      slidesToSlide: 2,
-      partialVisibilityGutter: 10,
+      items: inBlog ? 1 : 2,
+      slidesToSlide: inBlog ? 1 : 2,
+      partialVisibilityGutter: inBlog ? 160 : 12,
     },
   };
 
@@ -183,7 +194,7 @@ const ProductCarousel = ({
           renderDotsOutside={true}
           partialVisible={true}
           renderArrowsWhenDisabled={true}
-          autoPlay={(!inBlog) && (!withGap) && (isDesktop || isTablet)}
+          autoPlay={!inBlog && !withGap && (isDesktop || isTablet)}
           removeArrowOnDeviceType={["mobile"]}
           className="carousel-container"
           customLeftArrow={<CustomLeftArrow />}
