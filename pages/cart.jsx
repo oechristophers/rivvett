@@ -22,7 +22,6 @@ import CartTable from '@/components/frontend/cart/CartTable';
 import Title from '@/components/frontend/cart/Title';
 import P from '@/components/frontend/cart/Paragraph';
 import Div from '@/components/frontend/cart/Div';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 import Spinner from '@/components/frontend/Spinner';
 
 const ItemWrap = styled.div`
