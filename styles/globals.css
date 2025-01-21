@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+<<<<<<< HEAD
+@import '../public/futura-font/style.css';
+body {
+  background-color: #eee;
+}
+
+.server {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+  }
+  select {
+    appearance: none; /* Removes browser's native styles */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+  }
+  @layer utilities {
+    .text-balance {
+      text-wrap: balance;
+    }
+  }
+
+  img {
+    max-height: 100%;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply border h-10 border-[#d8b4fe3e] bg-transparent  px-1 w-full text-[#0000009d] font-futura text-sm  tracking-wide;
+    @apply mb-2;
+  }
+  textarea {
+    @apply h-20;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply border-2 border-purple-300 outline-none;
+  }
+  h1 {
+    @apply text-white mb-2 text-xl font-bold;
+  }
+  .btn-primary {
+    @apply bg-[gray] text-white px-4 rounded-md py-1;
+  }
+
+  table.basic {
+    @apply w-full bg-white text-black rounded-sm shadow-md;
+  }
+  table.basic thead tr td,
+  table.basic thead tr th {
+    @apply text-sm text-gray-600 uppercase border-b-[3px] border-gray-500 px-4 py-3 border-t border-t-[#31303022];
+  }
+  table.basic tr td {
+    @apply px-4 py-2;
+  }
+  table.basic a {
+    @apply px-4 rounded-sm bg-white text-gray-800  mx-1 items-center border border-gray-200 shadow-sm gap-1 text-sm py-1 inline-flex;
+  }
+  table.basic a:nth-of-type(2),
+  .btn-red {
+    @apply bg-red-200 text-red-600 px-4 py-1 rounded-sm shadow-sm;
+  }
+  .btn-default,
+  .btn-red {
+    @apply px-4 py-1 rounded-md;
+  }
+  .btn-red {
+    @apply bg-red-200 text-red-600 px-4 py-1 rounded-sm shadow-sm;
+  }
+  .btn-default {
+    @apply bg-white text-gray-800 px-4 py-1 rounded-sm border border-gray-200 shadow-sm;
+  }
+
+  .checkbox-container {
+    display: inline-block;
+    padding: 0.5em;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin: 0.2em;
+    min-width: 4rem;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .checkbox-container input[type='checkbox'] {
+    display: none;
+  }
+
+  .checkbox-container.selected {
+    background-color: gray;
+    color: white;
+    border: 1px solid black;
+  }
+
+  select {
+    background-color: transparent;
+    font-size: 16px;
+    color: white;
+  }
+
+  option {
+    background-color: #000000ec;
+    color: white;
+  }
+
+  label {
+    @apply text-gray-500 font-semibold text-sm tracking-wide;
+  }
+
+  .picDiv label {
+    display: none;
+  }
+
+  .picDiv:hover label {
+    display: block;
+  }
+}
+
+.more-1 {
+  background: url('/images/rainbow.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.more-2 {
+  background: linear-gradient(to top, #b7e10f, #cdef07);
+  span {
+    border: 2px solid;
+    border-radius: 9999px;
+    padding: 5px 10px;
+  }
+}
+.more-3 {
+  background: url('/images/gift.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.more-4 {
+  background: url('/images/app.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.more {
+  width: 100%;
+  padding-bottom: 20px;
+  background-color: #e8e5e5;
+  .mDiv {
+    border: 1px solid #0000002a;
+  }
+  p {
+    font-size: 0.7rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Futura Std Heavy';
+    letter-spacing: 1.3px;
+    padding: 0px 10px;
+    width: 21ch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+  }
+}
+.more h2 {
+  font-size: 0.8rem;
+  font-family: 'Futura Std Heavy';
+  letter-spacing: 1.5px;
+  padding-left: 20px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+.more section {
+  height: 100px;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Futura Std Book';
+  letter-spacing: 1.4px;
+}
+/* .sect-div {
+    display: grid;
+    grid-template-columns: auto 1fr ;
+    gap: 20px;
+    padding: 20px 20px;
+    background-color: white;
+  } */
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+=======
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+>>>>>>> 59898e29fa75d6c45f45918962c560191a5ac714
+  }
+}
