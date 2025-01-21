@@ -1,12 +1,11 @@
 {
-  "name": "e-com-admin",
+  "name": "rivvett",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-<<<<<<< HEAD
     "lint": "next lint",
     "email": "email dev"
   },
@@ -66,19 +65,5 @@
     "prettier-plugin-tailwind-styled-components": "^0.0.4",
     "react-email": "3.0.3",
     "tailwindcss": "^3.4.4"
-=======
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.4"
-  },
-  "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4"
->>>>>>> 59898e29fa75d6c45f45918962c560191a5ac714
   }
 }

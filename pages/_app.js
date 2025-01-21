@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import '@/styles/globals.css';
 import { createGlobalStyle } from 'styled-components';
 import '../public/futura-font/style.css';
@@ -34,10 +33,4 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
       </SessionProvider>
     </>
   );
-=======
-import "@/styles/globals.css";
-
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
->>>>>>> 59898e29fa75d6c45f45918962c560191a5ac714
 }
