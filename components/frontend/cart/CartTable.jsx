@@ -1,12 +1,12 @@
 import React from 'react';
-import Table from '../../Table';
+import Table from '../Table';
 import InfoCell from './InfoCell';
 import ImageBox from './ImageBox';
 import Image from 'next/image';
 import Div from './Div';
 import P from './Paragraph';
 import Link from 'next/link';
-import { Arrow, SizeSelect } from '../../ProdInfo';
+import { Arrow, SizeSelect } from '../ProdInfo';
 import {
   ArrowDropDown,
   Close,
@@ -14,7 +14,7 @@ import {
 } from '@mui/icons-material';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
-import Button from '../../Button';
+import Button from '../Button';
 
 export const ControlBtn = styled(Button)`
   background-color: transparent;

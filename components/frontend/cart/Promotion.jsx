@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from '../../Box';
+import Box from '../Box';
 import Span from './Span';
 import Image from 'next/image';
 import P from './Paragraph';

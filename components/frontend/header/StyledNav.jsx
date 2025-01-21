@@ -1,5 +1,5 @@
 import {
-    Close,
+  Close,
   FavoriteBorderSharp,
   PersonOutlineSharp,
   WorkOutlineSharp,
@@ -8,11 +8,11 @@ import {
 import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
-import { UseIsDevice } from '../../DeviceView';
+import { UseIsDevice } from '../DeviceView';
 import Link from 'next/link';
-import FooterIcons from '../../FooterIcons';
-import Footer from '../../Footer';
-import CategoryList from '../../CategoryNavigate';
+import FooterIcons from '../FooterIcons';
+import Footer from '../Footer';
+import CategoryList from '../CategoryNavigate';
 
 const Button = styled.button`
   width: 50%;
@@ -248,7 +248,7 @@ export function NavForPc({ isHome }) {
   );
 }
 
-export function NavIcons({ toggleAcc, cartItems, clength,toggleCart }) {
+export function NavIcons({ toggleAcc, cartItems, clength, toggleCart }) {
   const { isHighMobile } = UseIsDevice();
   return (
     <Nav isNavIcons style={{ zIndex: '10' }}>
@@ -311,7 +311,13 @@ export function NavIcons({ toggleAcc, cartItems, clength,toggleCart }) {
   );
 }
 
-export function MobNav({ hamActive, activeButton, categories2, setHamActive, setActiveButton }) {
+export function MobNav({
+  hamActive,
+  activeButton,
+  categories2,
+  setHamActive,
+  setActiveButton,
+}) {
   return (
     <Nav mobNav className={hamActive ? 'active' : 'inactive'}>
       <Nav forMobile>
@@ -331,7 +337,10 @@ export function MobNav({ hamActive, activeButton, categories2, setHamActive, set
         </div>
         <div className="overflow-y-scroll h-screen pt-6 no-scroll">
           <div className="nav-content">
-            <CategoryList activeButton={activeButton} categories={categories2} />
+            <CategoryList
+              activeButton={activeButton}
+              categories={categories2}
+            />
             <div className="more">
               <h2 className="">MORE RIVVETT</h2>
               <div className="grid grid-cols-2 gap-[20px] p-[20px] bg-white">

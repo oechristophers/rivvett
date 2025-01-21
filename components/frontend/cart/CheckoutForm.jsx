@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PButton from './PButton';
-import Box from '../../Box';
+import Box from '../Box';
 import styled from 'styled-components';
-import Input from '../../Input';
+import Input from '../Input';
 
 const CityHolder = styled.div`
   display: flex;

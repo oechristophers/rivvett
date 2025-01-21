@@ -1,5 +1,5 @@
 import React from 'react';
-import Center from '../../Center';
+import Center from '../Center';
 import Span from './Span';
 import { WorkOutlineSharp } from '@mui/icons-material';
 import P from './Paragraph';

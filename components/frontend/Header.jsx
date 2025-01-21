@@ -10,10 +10,10 @@ import { useRouter } from 'next/router';
 import { MenuSharp } from '@mui/icons-material';
 import CartPreview from './CartPreview';
 import AccountNav from './AccountNav';
-import PreHeader from './icons/header/PreHeader';
-import { MobNav, NavForPc, NavIcons } from './icons/header/StyledNav';
-import HeaderSkeleton from './icons/header/Skeleton';
-import SearchBar from './icons/header/SearchBar';
+import PreHeader from './header/PreHeader';
+import { MobNav, NavForPc, NavIcons } from './header/StyledNav';
+import HeaderSkeleton from './header/Skeleton';
+import SearchBar from './header/SearchBar';
 
 const StyledHeader = styled.header`
   background-color: #222;

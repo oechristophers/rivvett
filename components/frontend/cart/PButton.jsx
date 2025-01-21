@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
-import Button from '../../Button';
+import Button from '../Button';
 
 const StyledButton = styled(Button)`
   background: #000;
@@ -29,9 +29,9 @@ const StyledButton = styled(Button)`
     `}
 `;
 export default function PButton({ children, className, ...rest }) {
-    return (
-      <StyledButton className={`pbutton ${className}`} {...rest}>
-        {children}
-      </StyledButton>
-    );
-  }
+  return (
+    <StyledButton className={`pbutton ${className}`} {...rest}>
+      {children}
+    </StyledButton>
+  );
+}

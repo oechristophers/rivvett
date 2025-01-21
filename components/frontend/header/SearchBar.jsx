@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
-import Search from '../../Search';
-import { UseIsDevice } from '../../DeviceView';
+import Search from '../Search';
+import { UseIsDevice } from '../DeviceView';
 
 const Div = styled.div`
   display: flex;
@@ -38,9 +38,9 @@ export default function SearchBar({
   setShowInput,
   setShowResults,
   searchContainerRef,
-  data
+  data,
 }) {
-    const {higherMobile} = UseIsDevice()
+  const { higherMobile } = UseIsDevice();
   return (
     <Div
       ref={searchContainerRef}
@@ -54,7 +54,6 @@ export default function SearchBar({
       onBlur={() => {
         setShowResults(false);
       }}
-      
     >
       <Search
         showResults={showResults}
