@@ -12,7 +12,7 @@ import { Gender } from '@/models/Gender';
 import RootLayout from './layout';
 import { UseIsDevice } from '@/components/frontend/DeviceView';
 import Link from 'next/link';
-import OrderSuccess from '@/components/frontend/icons/cart/success';
+import OrderSuccess from '@/components/frontend/cart/success';
 import Promotion from '@/components/frontend/cart/Promotion';
 import EmptyBag from '@/components/frontend/cart/EmptyBag';
 import ColumnWrapper from '@/components/frontend/cart/ColumnWrapper';
