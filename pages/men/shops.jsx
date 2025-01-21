@@ -83,7 +83,7 @@ export default function shops({ products, categories, properties }) {
 
     router.push({
       pathname: '/men/shops',
-      query: defaultQuery ? { shop: defaultQuery } : {}, 
+      query: defaultQuery ? { shop: defaultQuery } : {},
     });
   };
 
@@ -99,8 +99,7 @@ export default function shops({ products, categories, properties }) {
         className="text-center py-3 uppercase"
         style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
       >
-        "Men's shops" :{' '}
-        <span>{query.shop && query.shop}</span>
+        "Men's shops" : <span>{query.shop && query.shop}</span>
       </h2>
       <FiltersContainer className="hidden md:flex px-10 justify-between py-5 bg-[#c6c4c4]">
         <Select
@@ -347,6 +346,12 @@ export default function shops({ products, categories, properties }) {
       <Wrapper>
         <ProductGrid products={products} />
       </Wrapper>
+
+      {!products.length && (
+        <div className="text-center py-12">
+          <p>No products found matching your criteria.</p>
+        </div>
+      )}
     </RootLayout>
   );
 }
@@ -355,28 +360,46 @@ export async function getServerSideProps({ query }) {
   await mongooseConnect();
 
   const maleGenderId = '669161b8bbede0f410af829e'; // male gender ID
-  const unisexGenderId = '669161e1bbede0f410af82a7'; // Unisex gender ID
+  const unisexGenderId = '669161e1bbede0f410af82a7'; // unisex gender ID
 
-  // Base filter to exclude male gender
+  // Base gender filter for male and unisex
   const baseGenderFilter = {
-    $or: [
-      { gender: maleGenderId },
-      { gender: unisexGenderId },
-    ],
+    $or: [{ gender: maleGenderId }, { gender: unisexGenderId }],
   };
 
-  // Fetch the distinct list of shops only for products matching the base gender filter
-  const allShops = await Product.distinct('properties.shop', baseGenderFilter);
+  // Fetch the selected category based on query.category
+  const selectedCategory = query.category
+    ? await Category.findById(query.category)
+    : null;
 
-  // Dynamically build the product filter based on query parameters
-  const productFilter = { ...baseGenderFilter };
+  if (query.category && !selectedCategory) {
+    return {
+      notFound: true,
+    };
+  }
 
+  // Find all child categories if a selected category exists
+  const childCategories = selectedCategory
+    ? await Category.find({ parent: selectedCategory._id })
+    : [];
+
+  // Aggregate category IDs (selected + children) for filtering
+  const categoryIds = selectedCategory
+    ? [selectedCategory._id, ...childCategories.map((cat) => cat._id)]
+    : [];
+
+  // Base product filter
+  const productFilter = {
+    ...baseGenderFilter,
+    ...(categoryIds.length && { category: { $in: categoryIds } }),
+  };
+
+  // Add additional filters dynamically from query
   if (query.shop) productFilter['properties.shop'] = query.shop;
   if (query.color) productFilter['properties.color'] = query.color;
   if (query.size) productFilter['properties.size'] = query.size;
-  if (query.category) productFilter.category = query.category;
 
-  // Sorting logic based on the query parameter 'sort'
+  // Sorting logic
   const sort =
     query.sort === 'price-asc'
       ? { price: 1 }
@@ -384,13 +407,16 @@ export async function getServerSideProps({ query }) {
         ? { price: -1 }
         : { _id: -1 }; // Default: Most recent
 
-  // Fetch the filtered products from the database
+  // Fetch the filtered products
   const products = await Product.find(productFilter, null, { sort }).populate([
     'category',
     'gender',
   ]);
 
-  // Fetch distinct values for colors and sizes based on the filtered products
+  // Fetch the distinct list of shops for products matching the base filter
+  const allShops = await Product.distinct('properties.shop', baseGenderFilter);
+
+  // Fetch additional filter options
   const [categories, genders, colorProperties, sizeProperties] =
     await Promise.all([
       Category.find({
@@ -398,15 +424,15 @@ export async function getServerSideProps({ query }) {
         parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
       }),
       Gender.find({}),
-      Product.distinct('properties.color', productFilter), // Colors for filtered products
-      Product.distinct('properties.size', productFilter), // Sizes for filtered products
+      Product.distinct('properties.color', productFilter),
+      Product.distinct('properties.size', productFilter),
     ]);
 
   // Aggregate properties into a single object
   const properties = {
     color: colorProperties.filter(Boolean), // Remove falsy values
     size: sizeProperties.filter(Boolean),
-    shop: allShops.filter(Boolean), // Use the filtered shop list
+    shop: allShops.filter(Boolean), // Filtered shops
   };
 
   return {

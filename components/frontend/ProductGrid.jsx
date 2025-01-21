@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ProductCard from './ProductCard';
+import { useEffect, useState } from 'react';
 
 const StyledGrid = styled.div`
   display: grid;
@@ -27,7 +28,14 @@ const StyledCardContainer = styled.div`
   }
 `;
 
-export default function ProductGrid({ products, page, genderName }) {
+export default function ProductGrid({ products, page }) {
+  const [prevPath, setPrevPath] = useState('');
+  useEffect(()=>{
+    if(typeof window !== 'undefined' && localStorage){
+      const path = localStorage.getItem('prevPath');
+      setPrevPath(path);
+    }
+  })
   return (
     <StyledGrid page={page}>
       {products?.length > 1 &&
@@ -36,7 +44,7 @@ export default function ProductGrid({ products, page, genderName }) {
             <ProductCard
               key={product._id}
               {...product}
-              genderName={genderName}
+              genderName={product.gender.name !=='unisex'? product.gender.name : prevPath? prevPath : 'women'}
             />
           </StyledCardContainer>
         ))}

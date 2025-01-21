@@ -177,7 +177,7 @@ export default function ProductCard({
   const [loading, setLoading] = useState(true);
   const handleMouseEnter = () => setIsHidden(false);
   const handleMouseLeave = () => setIsHidden(true);
-  const { addItem } = useContext(CartContext);
+  const { addItem,addFavourite } = useContext(CartContext);
   const { isMobile, isDesktop } = UseIsDevice();
 
   const handleRemove = () => {
@@ -246,7 +246,7 @@ export default function ProductCard({
             onClick={(ev) => {
               ev.preventDefault(); // Prevent "Box link"  from navigating away
               ev.stopPropagation();
-              addItem(_id);
+              addFavourite(_id, 'Blue', 'S')
             }}
           >
             <FavoriteBorderOutlined

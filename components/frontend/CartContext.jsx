@@ -1,8 +1,10 @@
+import { useToast } from '@/hooks/use-toast';
 import axios from 'axios';
 
 const { createContext, useState, useEffect } = require('react');
 
 export const CartContext = createContext({});
+
 
 export function CartContextProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
@@ -10,6 +12,7 @@ export function CartContextProvider({ children }) {
   const [itemProps, setItemProps] = useState({}); // Manage properties (color, size) per item
   const [selectedSizes, setSelectedSizes] = useState({});
   const [clength, setCLength] = useState(0);
+  const {toast} = useToast();
   // Load cart and item properties from localStorage when component mounts
   const handleSizeChange = (itemId, newSize) => {
     setCartItems((prevItems) =>
@@ -80,6 +83,10 @@ export function CartContextProvider({ children }) {
       });
   
       if (response.status === 200) {
+        toast({
+          title: "Item added to Favorites",
+          
+        })
         console.log('Favorite updated successfully:', response.data);
       } else {
         console.error('Failed to update favorite:', response.data);

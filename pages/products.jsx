@@ -112,10 +112,12 @@ export default function ProductsPage({
 
   return (
     <RootLayout>
-      <h2 className='text-center py-3 uppercase'
-      
-      style={{fontFamily:'Futura Std Book', letterSpacing: 0.9}}
-      >"All Products"</h2>
+      <h2
+        className="text-center py-3 uppercase"
+        style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
+      >
+        "All Products"
+      </h2>
       <FiltersContainer className="hidden md:flex px-10 justify-between py-5 bg-[#c6c4c4]">
         <Select
           name="category"
@@ -124,7 +126,6 @@ export default function ProductsPage({
             handleFilterChange(value, 'category');
           }}
           value={query.category || ''}
-          
         >
           <SelectTrigger className=" border-x-0 h-12 rounded-none shadow-none focus:outline-none outline-none focus:ring-0 w-[18%] border-y-2  ">
             <SelectValue placeholder="Category" />
@@ -177,7 +178,7 @@ export default function ProductsPage({
           <SelectContent>
             <SelectItem>Color</SelectItem>
             {properties.color.map((color, index) => (
-              <SelectItem key={index}  value={color }>
+              <SelectItem key={index} value={color}>
                 {color}
               </SelectItem>
             ))}
@@ -199,7 +200,7 @@ export default function ProductsPage({
           <SelectContent>
             <SelectItem>Size</SelectItem>
             {properties.size.map((size, index) => (
-              <SelectItem key={index}  value={size} >
+              <SelectItem key={index} value={size}>
                 US Size {size}
               </SelectItem>
             ))}
@@ -328,7 +329,7 @@ export default function ProductsPage({
             <SelectContent>
               <SelectItem>Color</SelectItem>
               {properties.color.map((color, index) => (
-                <SelectItem key={index}  value={color }>
+                <SelectItem key={index} value={color}>
                   {color}
                 </SelectItem>
               ))}
@@ -350,7 +351,7 @@ export default function ProductsPage({
             <SelectContent>
               <SelectItem>Size</SelectItem>
               {properties.size.map((size, index) => (
-                <SelectItem key={index}  value={size} >
+                <SelectItem key={index} value={size}>
                   US Size {size}
                 </SelectItem>
               ))}
@@ -366,6 +367,12 @@ export default function ProductsPage({
       <Wrapper>
         <ProductGrid products={products} />
       </Wrapper>
+
+      {!products.length && (
+        <div className="text-center py-12">
+          <p>No products found matching your criteria.</p>
+        </div>
+      )}
     </RootLayout>
   );
 }
@@ -373,14 +380,36 @@ export default function ProductsPage({
 export async function getServerSideProps({ query }) {
   await mongooseConnect();
 
-  // Base filter object for products
-  const productFilter = {};
+  // Validate and find the selected category
+  const selectedCategory = query.category
+    ? await Category.findById(query.category)
+    : null;
 
-  // Apply filters based on query parameters
+  if (query.category && !selectedCategory) {
+    return {
+      notFound: true,
+    };
+  }
+
+  // Find all child categories
+  const childCategories = selectedCategory
+    ? await Category.find({ parent: selectedCategory._id })
+    : [];
+
+  // Aggregate category IDs (selected + children)
+  const categoryIds = selectedCategory
+    ? [selectedCategory._id, ...childCategories.map((cat) => cat._id)]
+    : [];
+
+  // Base product filter
+  const productFilter = categoryIds.length
+    ? { category: { $in: categoryIds } }
+    : {}; // No category filter if none selected
+
+  // Add additional filters
   if (query.gender) productFilter.gender = query.gender;
   if (query.color) productFilter['properties.color'] = query.color;
   if (query.size) productFilter['properties.size'] = query.size;
-  if (query.category) productFilter.category = query.category;
 
   // Sorting logic
   const sort =
@@ -390,27 +419,30 @@ export async function getServerSideProps({ query }) {
         ? { price: -1 }
         : { _id: -1 }; // Default: Most recent
 
-  // Fetch products with applied filters and sort
+  // Fetch products
   const products = await Product.find(productFilter, null, { sort }).populate([
     'category',
     'gender',
   ]);
 
-  // Fetch all categories, genders, and distinct property values
+  // Fetch additional data for filters
   const [categories, genders, colorProperties, sizeProperties] =
     await Promise.all([
-      Category.find({
-        name: { $ne: 'BLOG CATEGORY' },
-        parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
-      }),
-      Gender.find({}),
-      Product.distinct('properties.color'),
-      Product.distinct('properties.size'),
+      Category.find(
+        {
+          name: { $ne: 'BLOG CATEGORY' },
+          parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
+        },
+        '_id name parent' // Projection for only necessary fields
+      ),
+      Gender.find({}, '_id name'), // Only fetch `_id` and `name`
+      Product.distinct('properties.color', productFilter), // Filter-specific distinct
+      Product.distinct('properties.size', productFilter),
     ]);
 
-  // Aggregate properties into a single object
+  // Aggregate properties for filters
   const properties = {
-    color: colorProperties.filter(Boolean), // Remove falsy values
+    color: colorProperties.filter(Boolean), // Remove empty values
     size: sizeProperties.filter(Boolean),
   };
 

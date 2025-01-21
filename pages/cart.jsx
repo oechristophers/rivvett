@@ -156,7 +156,7 @@ export default function CartPage({ categories, products }) {
       setItems([]);
       setLoading(false); // Stop loading if no cart items
     }
-  }, [cartItems]);
+  }, []);
 
   // Helper functions outside of the component
   const handleQuantityOrRemoveItem = (itemId, color, size) => {

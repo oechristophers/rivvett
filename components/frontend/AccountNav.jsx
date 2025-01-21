@@ -24,15 +24,15 @@ const Box = styled.div`
       h2 {
         font-size: 1rem;
         font-family: 'Futura Std Heavy';
-      }
+      };
       span {
         font-family: 'Futura Std Book';
         padding-top: 3px;
-      }
+      };
       a {
         color: #000000e0;
         font-size: 0.9rem;
-      }
+      };
     `};
 
   button {
@@ -40,7 +40,7 @@ const Box = styled.div`
     padding-top: 3px;
     font-size: 0.8rem;
     text-decoration: underline;
-  }
+  };
 
   ${(props) =>
     props.b &&
@@ -49,18 +49,19 @@ const Box = styled.div`
       gap: 20px;
       display: flex;
       flex-direction: column;
+
       ul {
         list-style-type: none;
         list-style: none;
-      }
-    `}
+      };
+    `};
   li a {
     text-decoration: none;
     color: black;
     display: flex;
     align-items: center;
     gap: 20px;
-  }
+  };
   li {
     list-style-type: none;
     list-style: none;
@@ -68,7 +69,7 @@ const Box = styled.div`
     font-weight: 100;
     font-size: 0.8rem;
     color: #0000007e;
-  }
+  };
 `;
 export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
   const { data: session, status } = useSession();
@@ -99,7 +100,7 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
       ease-in-out 
       duration-700 
       transform 
-      z-10
+      z-[12]
       overflow-hidden 
       ${accOpen ? 'top-[60px] ' : 'top-[-600px] '}
       ${!isVisible ? 'mt-6' : 'mt-0'}
@@ -111,10 +112,11 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
       {!session && (
         <Box a>
           <section
-            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent:'space-between', width:'100%', }}
           >
-            <Link href={'/auth/sign-in'}>Sign In</Link>|
-            <Link href={'/auth/sign-in'}>Join</Link>{' '}
+            <span className='space-x-2'>
+            <Link href={'/auth/sign-in'}>Sign In</Link> |
+            <Link href={'/auth/sign-in'}>Join</Link>{' '}</span>
             <button
               className="cursor-pointer "
               onClick={() => setAccOpen(false)}
@@ -135,10 +137,7 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
             </h2>
             ,<button onClick={handleSignOut}>Sign out</button>
           </section>
-          <button
-            className="cursor-pointer "
-            onClick={() => setAccOpen(false)}
-          >
+          <button className="cursor-pointer " onClick={() => setAccOpen(false)}>
             <Close style={{ fontSize: '2rem' }} />
           </button>
         </Box>

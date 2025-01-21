@@ -4,7 +4,7 @@ import {
   ArrowUpward,
   Close,
 } from '@mui/icons-material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
 import Table from './Table';
@@ -186,6 +186,7 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
     setCLength,
   } = useContext(CartContext);
 
+
   useEffect(() => {
     const itemIds = cartItems.map((item) => item.split('-')[0]);
     // console.log(itemIds);
@@ -200,6 +201,23 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
       setItems([]);
     }
   }, [cartItems]);
+
+  const prevLength = useRef(cartItems);
+
+  useEffect(() => {
+    if (prevLength.current !== undefined && clength === prevLength.current + 1 && addItem) {
+      setCartOpen(true); // Open cart if clength has incremented by 1
+
+      // Close cart after 3 seconds
+      const timeout = setTimeout(() => {
+        setCartOpen(false);
+      }, 3000);
+
+      // Cleanup timeout on component unmount or before the next effect
+      return () => clearTimeout(timeout);
+    }
+    prevLength.current = clength; // Update the previous length for the next render
+  }, [clength]);
 
   // console.log(cartItems);
   const toggleCart = () => {
@@ -223,7 +241,7 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
       ease-in-out 
       duration-700 
       transform 
-      z-10
+      z-[12]
       overflow-hidden 
       ${cartOpen ? 'top-[60px] ' : 'top-[-600px] '}
       ${!isVisible ? 'mt-6' : 'mt-0'}

@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import { CartContext } from './CartContext';
 import { CartB } from './ProductCard';
 import { useSession } from 'next-auth/react';
+import { color } from 'framer-motion';
 
 const Div = styled.div`
   z-index: 10;
@@ -29,11 +30,11 @@ const Div = styled.div`
         height: auto;
         padding: 0 40px;
       }
-    `}
+    `};
   .lastSpan {
-    width: 15px;
-    height: 10px;
-  }
+    width: 10px;
+    height: 7px;
+  };
   .linkP {
     padding-left: 28px;
   }
@@ -78,7 +79,7 @@ const Div = styled.div`
         margin: 0;
         padding-top: 10px;
         flex-wrap: wrap;
-      };
+      }
     `}
   ${(props) =>
     props.infoLast &&
@@ -93,7 +94,7 @@ const Div = styled.div`
         text-decoration: underline;
         padding-left: 10px;
         padding-bottom: 10px;
-      };
+      }
     `}
 `;
 const FlexBtns = styled.div`
@@ -102,7 +103,6 @@ const FlexBtns = styled.div`
 `;
 const StyledButton = styled(Button)`
   background-color: #018849;
-  color: white;
   font-family: 'Futura Std Bold';
   letter-spacing: 1.2px;
   font-weight: 900;
@@ -111,11 +111,30 @@ const StyledButton = styled(Button)`
   display: flex;
   justify-content: center;
   text-align: center;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  position: relative;
+  &:hover .tooltip {
+    display: ${(props) => (props.disabled ? 'block' : 'none')};
+  }
+`;
+const Tooltip = styled.div`
+  display: none;
+  background-color: #000000d1;
+  color: white;
+  padding: 5px;
+  font-size: .5rem;
+  border-radius: 5px;
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  font-family: 'Futura Std Book';
+  font-weight: 100;
+  z-index: 10;
 `;
 const PriceRow = styled.div`
   display: flex;
   flex-direction: column;
-  gap:5px;
+  gap: 5px;
 `;
 const Price = styled.span`
   font-size: 1rem;
@@ -162,7 +181,7 @@ const P = styled.p`
         a {
           color: black;
           font-size: 0.67rem;
-        };
+        }
       }
     `}
 `;
@@ -318,6 +337,7 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
   const [isSize, setIsSize] = useState(null);
   const [isColor, setIsColor] = useState(null);
   const lowerTitle = product.title.toLowerCase();
+  const [showTooltip, setShowTooltip] = useState(false); const handleMouseOver = () => { if (!isSize || !isColor) { setShowTooltip(true); } }; const handleMouseOut = () => { setShowTooltip(false); };
   const prodCatParent = categories.find(
     (cats) =>
       cats._id === categories.find((cat) => cat._id === product.category).parent
@@ -376,18 +396,18 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
           OR Pay in 4 payments of ${product.price / 4} with{' '}
           <Span pace>PACEPAY.</Span>
         </P>
-        <div className='flex flex-col gap-3'>
+        <div className="flex flex-col gap-3">
           <Span promo>
             <SellOutlinedIcon
-              style={{ transform: 'rotate(90deg)', }}
-              className='md:mb-[23px]'
+              style={{ transform: 'rotate(90deg)' }}
+              className="md:mb-[23px]"
             />
             <P promo>
               NEW HERE? Get 10% off selected styles!* With code:{' '}
               <strong>NEWBIE</strong>{' '}
             </P>
           </Span>
-          <Span >
+          <Span>
             <P active>
               Color: <Span active>{isColor}</Span>{' '}
             </P>
@@ -400,7 +420,7 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
                   onClick={() =>
                     isColorInParent === true
                       ? setIsColor(color)
-                      : setIsColor('unavailable')
+                      : setIsColor(null)
                   }
                   active={isColor === color}
                   key={index}
@@ -453,11 +473,25 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
             <StyledButton
               primary
               onClick={() => addItem(product._id, isColor, isSize)}
-              style={{ color: 'white' }}
+              disabled={!isSize || !isColor}
+              onMouseOver={handleMouseOver}
+              onMouseOut={handleMouseOut}
+              style={{opacity: (isSize && isColor) ? 1 : 0.4, color:'white' }}
             >
-              Add to bag
+              {' '}
+              Add to bag{' '}
+              {(!isSize || !isColor) && (
+                <Tooltip className="tooltip">
+                  {' '}
+                  You must select color and size before adding to the bag{' '}
+                </Tooltip>
+              )}{' '}
             </StyledButton>
-            <CartB inId onClick={()=> addFavourite(product._id, isColor, isSize)} >
+
+            <CartB
+              inId
+              onClick={() => addFavourite(product._id, isColor, isSize)}
+            >
               <FavoriteBorderOutlined
                 className="fave"
                 style={{
@@ -483,7 +517,7 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
           <Div mainInfo>
             <Div info>
               <Span>
-                <Truck  />
+                <Truck />
               </Span>
               <P> Free shipping on qualifying orders.</P>{' '}
             </Div>
@@ -498,7 +532,9 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
                 {' '}
                 <Link href={'/'}>View our Delivery & Returns Policy</Link>
               </P>{' '}
-              <Span className="lastSpan">
+              <Span className="lastSpan"
+              style={{width: '10px', height:'10px', fontSize:'5px'}}
+              >
                 <Copy />
               </Span>
             </Div>
