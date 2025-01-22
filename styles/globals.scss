@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '../public/futura-font/style.css';
+@import "../public/futura-font/style.css";
 
 body {
   background-color: #eee;
@@ -109,7 +109,7 @@ body {
     letter-spacing: 1px;
   }
 
-  .checkbox-container input[type='checkbox'] {
+  .checkbox-container input[type="checkbox"] {
     display: none;
   }
 
@@ -144,7 +144,7 @@ body {
 }
 
 .more-1 {
-  background: url('/images/rainbow.jpg');
+  background: url("/images/rainbow.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -157,12 +157,12 @@ body {
   }
 }
 .more-3 {
-  background: url('/images/gift.webp');
+  background: url("/images/gift.webp");
   background-repeat: no-repeat;
   background-size: cover;
 }
 .more-4 {
-  background: url('/images/app.png');
+  background: url("/images/app.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -172,27 +172,27 @@ body {
   width: 100%;
   padding-bottom: 20px;
   background-color: #e8e5e5;
-  .mDiv {
-    border: 1px solid #0000002a;
-  }
-  p {
-    font-size: 0.7rem;
-    text-align: center;
-    text-transform: uppercase;
-    font-family: 'Futura Std Heavy';
-    letter-spacing: 1.3px;
-    padding: 0px 10px;
-    width: 21ch;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 3rem;
-  }
+}
+.more p {
+  font-size: 0.7rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Futura Std Heavy";
+  letter-spacing: 1.3px;
+  padding: 0px 10px;
+  width: 21ch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 3rem;
+}
+.more .mDiv {
+  border: 1px solid #0000002a;
 }
 .more h2 {
   font-size: 0.8rem;
-  font-family: 'Futura Std Heavy';
+  font-family: "Futura Std Heavy";
   letter-spacing: 1.5px;
   padding-left: 20px;
   padding-top: 30px;
@@ -204,7 +204,7 @@ body {
   font-size: 1rem;
   align-items: center;
   justify-content: center;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   letter-spacing: 1.4px;
 }
 

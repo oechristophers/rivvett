@@ -1,14 +1,14 @@
-import styled, { keyframes } from 'styled-components';
-import SearchIcon from './icons/SearchIcon';
-import Input from './Input';
-import { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from '@mui/material';
-import css from 'styled-jsx/css';
-import { UseIsDevice } from './DeviceView';
-import { Close } from '@mui/icons-material';
-import Spinner from './Spinner';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import styled, { keyframes } from "styled-components";
+import SearchIcon from "./icons/SearchIcon";
+import Input from "./Input";
+import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@mui/material";
+import css from "styled-jsx/css";
+import { UseIsDevice } from "./DeviceView";
+import { Close } from "@mui/icons-material";
+import Spinner from "./Spinner";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Wrap = styled.div`
   position: relative;
@@ -42,8 +42,8 @@ const SearchButton = styled.button`
     border: none;
   }
   @media screen and (max-width: 800px) {
-    left: ${({ showInput }) => (showInput ? '90%' : '96%')};
-    color: ${({ showInput }) => (showInput ? '#000' : '#fff')};
+    left: ${({ showInput }) => (showInput ? "90%" : "96%")};
+    color: ${({ showInput }) => (showInput ? "#000" : "#fff")};
   }
 `;
 
@@ -69,7 +69,7 @@ const Div = styled.div`
   li,
   a {
     list-style: none;
-    font-family: 'Futura Std Book';
+    font-family: "Futura Std Book";
     letter-spacing: 1.2px;
     font-size: 0.8rem;
     padding: 5px 0;
@@ -121,23 +121,23 @@ const Loader = styled.div`
 
   // "R" text in the center
   &:before {
-    content: 'R';
+    content: "R";
     position: absolute;
-    font-family: 'Futura Std Bold', sans-serif;
+    font-family: "Futura Std Bold", sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
     color: black;
   }
 `;
 const highlightMatch = (text, query) => {
-  const regex = new RegExp(`(${query})`, 'gi');
+  const regex = new RegExp(`(${query})`, "gi");
   const parts = text.split(regex);
   return parts.map((part, index) =>
     part.toLowerCase() === query.toLowerCase() ? (
       <strong key={index}>{part}</strong>
     ) : (
       part
-    ),
+    )
   );
 };
 
@@ -148,8 +148,8 @@ export default function Search({
   showInput,
   setShowInput,
 }) {
-  const [query, setQuery] = useState('');
-  const [message, setMessage] = useState('');
+  const [query, setQuery] = useState("");
+  const [message, setMessage] = useState("");
   const { higherMobile } = UseIsDevice();
   const [filteredData, setFilteredData] = useState({
     products: [],
@@ -163,36 +163,36 @@ export default function Search({
     setQuery(value);
 
     if (value.trim().length < 1) {
-      setMessage('');
+      setMessage("");
       setShowResults(false);
       return;
     }
     if (value.trim().length > 0 && value.trim().length < 2) {
-      setMessage('Enter at least two characters to search');
+      setMessage("Enter at least two characters to search");
       setShowResults(true);
       return;
     }
     if (value.trim() && value.trim().length > 1) {
-      setMessage('');
+      setMessage("");
       const products = data.filter(
         (item) =>
-          item.type === 'product' &&
-          item.title.toLowerCase().includes(value.toLowerCase()),
+          item.type === "product" &&
+          item.title.toLowerCase().includes(value.toLowerCase())
       );
       const categories = data.filter(
         (item) =>
-          item.type === 'category' &&
-          item.name.toLowerCase().includes(value.toLowerCase()),
+          item.type === "category" &&
+          item.name.toLowerCase().includes(value.toLowerCase())
       );
       const blogs = data.filter(
         (item) =>
-          item.type === 'blog' &&
-          item.title.toLowerCase().includes(value.toLowerCase()),
+          item.type === "blog" &&
+          item.title.toLowerCase().includes(value.toLowerCase())
       );
       const shops = data.filter(
         (item) =>
-          item.type === 'shop' &&
-          item.name.toLowerCase().includes(value.toLowerCase()),
+          item.type === "shop" &&
+          item.name.toLowerCase().includes(value.toLowerCase())
       );
       setFilteredData({ products, categories, blogs, shops });
       setShowResults(true);
@@ -275,12 +275,12 @@ export default function Search({
                     <li
                       onClick={(e) => {
                         router.push(
-                          `/${product.gender.name}/product/${product._id}`,
+                          `/${product.gender.name}/product/${product._id}`
                         );
                       }}
                       key={product.id}
                     >
-                      {' '}
+                      {" "}
                       {highlightMatch(product.title, query)}
                     </li>
                   ))}
@@ -308,7 +308,7 @@ export default function Search({
                         router.push(`/${blog.gender.name}/blogs/${blog._id}`);
                       }}
                     >
-                      {' '}
+                      {" "}
                       {highlightMatch(blog.title, query)}
                     </li>
                   ))}

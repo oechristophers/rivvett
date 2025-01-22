@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/globals.scss';
 // import '../public/futura-font/style.css';
 import { createGlobalStyle } from 'styled-components';
 import { CartContextProvider } from '@/components/frontend/CartContext';
