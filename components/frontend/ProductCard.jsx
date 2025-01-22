@@ -274,8 +274,9 @@ export default function ProductCard({
         )}
       </Box>
       <ProductInfo>
-        <Title href={url} inCart={inCart}>
-          {title.length > 20 ? title.slice(0, 20) + '...' : title}
+        <Title href={url} inCart={inCart} className='truncate'>
+          {title}
+          {/* {title.length > 20 ? title.slice(0, 20) + '...' : title} */}
           {/* {title.split(' ').slice(0, 2).map((word)=> word.toUpperCase()).join(' ') + (' ') + title.split(' ').slice(2).join('  ').toLowerCase()} */}
         </Title>
         <PriceRow>
