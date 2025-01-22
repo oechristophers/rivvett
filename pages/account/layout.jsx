@@ -1,8 +1,10 @@
+'use client';
+
 import Nav from '@/components/account/Nav';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Dash = styled.div`
@@ -11,16 +13,19 @@ const Dash = styled.div`
   height: 100%;
 
   &::before {
-    content: var(--initials, 'NA');
-    top: 20;
-    margin-top: -5px;
-    width: fit-content;
-    height: auto;
+    content: attr(data-initials);
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
     color: white;
     border-radius: 50%;
     padding: 30px;
     background-color: #000000bc;
-    margin-left: -35px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 18px;
+    margin-right: 10px;
   }
 `;
 
@@ -34,11 +39,22 @@ export default function Layout({ children }) {
   const path = router.pathname.split('/')[2];
   const isLoading = status === 'loading';
   const username = session?.user?.name;
-  const initials = username?.slice(0, 2).toUpperCase() || '';
+  const initials = username?.slice(0, 2).toUpperCase() || 'NA';
 
+  useEffect(() => {
+    if (!session && !isLoading) {
+      router.push('/auth/sign-in');
+    }
+  }, [session, isLoading, router]);
+
+  // Show a loading state or a placeholder while the session is loading
+  if (!session && isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  // Prevent rendering until the redirect logic runs
   if (!session) {
-    router.push('/auth/sign-in');
-    return null; // Return null to avoid rendering the component when the user is not authenticated.  This prevents unnecessary re-renders.
+    return null;
   }
 
   return (
@@ -48,20 +64,12 @@ export default function Layout({ children }) {
           <Link href={'/'}>Rivvet</Link>
         </Span>
         <div className="bg-white relative p-7 flex">
-          <Dash style={{ '--initials': `"${initials}"` }}>
+          <Dash data-initials={initials}>
             <section className="flex flex-col mt-5 pl-4">
-              {isLoading ? (
-                <p>Loading...</p>
-              ) : session ? (
-                <>
-                  <p>Hi,</p>
-                  <p>
-                    <strong>{username || 'User'}</strong>
-                  </p>
-                </>
-              ) : (
-                <p>Not signed in</p>
-              )}
+              <p>Hi,</p>
+              <p>
+                <strong>{username || 'User'}</strong>
+              </p>
             </section>
           </Dash>
         </div>
