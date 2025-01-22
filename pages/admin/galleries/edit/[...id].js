@@ -1,7 +1,7 @@
-import GalleryForm from "@/components/admin/GalleryForm";
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import GalleryForm from '@/components/admin/GalleryForm';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 export default function EditGallery() {
   const [galleryInfo, setGalleryInfo] = useState(null);

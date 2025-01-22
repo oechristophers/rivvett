@@ -68,7 +68,7 @@ const ColWrapper = styled.div`
 `;
 const Wrap = styled.div`
   padding: 0 80px;
- 
+
   display: flex;
   flex-direction: column;
 
@@ -80,7 +80,6 @@ const Wrap = styled.div`
       border-top: 1px solid #1b1a1a15;
       padding: 80px 7%;
       margin-bottom: 30px;
-     
     `}
   ${(props) =>
     props.last &&
@@ -176,7 +175,7 @@ export default function ProductPage({ product, products, gallery }) {
 
   const genderName = product.gender.name;
   const femaleProducts = products.filter(
-    (prod) => prod.gender.name === genderName
+    (prod) => prod.gender.name === genderName,
   );
 
   const relatedByShop = femaleProducts.filter((prod) => {
@@ -191,7 +190,7 @@ export default function ProductPage({ product, products, gallery }) {
   });
 
   const related = femaleProducts.filter(
-    (prod) => prod.category === product.category
+    (prod) => prod.category === product.category,
   );
   const relatedByColl = femaleProducts.filter((prod) => {
     const productsColls = Array.isArray(product.properties.collection)
@@ -204,7 +203,6 @@ export default function ProductPage({ product, products, gallery }) {
     return productsColls.some((coll) => prodColls.includes(coll));
   });
 
-  
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },

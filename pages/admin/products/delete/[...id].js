@@ -1,6 +1,6 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 
 export default function DeleteProductPage() {
   const [productInfo, setProductInfo] = useState(null);
@@ -15,12 +15,12 @@ export default function DeleteProductPage() {
     });
   }, [id]);
   function goBack() {
-    router.push("/products");
+    router.push('/products');
   }
   async function deleteProduct() {
     await axios
       .delete(`/api/products?id=` + id)
-      .then((window.location.pathname = "/products"));
+      .then((window.location.pathname = '/products'));
     goBack();
   }
   return (

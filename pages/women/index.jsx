@@ -14,27 +14,27 @@ const AppPromote = dynamic(() => import('@/components/frontend/AppPromote'), {
 });
 const PromotionBox = dynamic(
   () => import('@/components/frontend/PromotionBox'),
-  { ssr: true }
+  { ssr: true },
 );
 const BottomP = dynamic(() => import('@/components/frontend/BottomP'), {
   ssr: false,
 });
 const FeaturedCollection = dynamic(
   () => import('@/components/frontend/FeaturedCollection'),
-  { ssr: false }
+  { ssr: false },
 );
 const FeaturedShops = dynamic(
   () => import('@/components/frontend/FeaturedShops'),
-  { ssr: false }
+  { ssr: false },
 );
 const GalleryDisplay = dynamic(
   () => import('@/components/frontend/GalleryDisplay'),
-  { ssr: false }
+  { ssr: false },
 );
 const Hero = dynamic(() => import('@/components/frontend/Hero'), { ssr: true });
 const ProductCarousel = dynamic(
   () => import('@/components/frontend/ProductCarousel'),
-  { ssr: false }
+  { ssr: false },
 );
 const ShopMore = dynamic(() => import('@/components/frontend/ShopMore'), {
   ssr: false,
@@ -61,7 +61,7 @@ export default function WomenHome({
   // console.log(femaleProps)
 
   const femalePropertyNames = femaleCat[0].properties.find(
-    (property) => property.name === 'collection'
+    (property) => property.name === 'collection',
   ).values;
 
   // console.log(femalePropertyNames.filter((item) => item === "collision-edit"));
@@ -70,13 +70,13 @@ export default function WomenHome({
     femaleProps
       .map((prop) => prop)
       .flat()
-      .includes(collection)
+      .includes(collection),
   );
 
   //for CatNav
   const find = femaleProducts.map((prod) => prod.category);
   const cathy = femaleCategories.filter((category) =>
-    find.includes(category._id)
+    find.includes(category._id),
   );
   const femaleCategories2 = femaleCat2
     .filter((cat) => cat.name !== 'BLOG CATEGORY')
@@ -84,7 +84,7 @@ export default function WomenHome({
   // console.log(femaleCategories2)
 
   const newCollections = collections.push(
-    femalePropertyNames.filter((item) => item === 'collision-edit')
+    femalePropertyNames.filter((item) => item === 'collision-edit'),
   );
 
   const femaleCollection = collections.flat();
@@ -95,14 +95,14 @@ export default function WomenHome({
   const shopProps = femaleProd.map((product) => product.shop);
 
   const shopPropValue = femaleCat[0].properties.find(
-    (property) => property.name === 'shop'
+    (property) => property.name === 'shop',
   ).values;
 
   const femaleShops = shopPropValue.filter((shop) =>
     shopProps
       .map((prop) => prop)
       .flat()
-      .includes(shop)
+      .includes(shop),
   );
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
@@ -194,7 +194,6 @@ export default function WomenHome({
   );
 }
 
-
 export async function getServerSideProps() {
   const femaleGenderId = '669161c1bbede0f410af82a2';
   await mongooseConnect();
@@ -204,9 +203,9 @@ export async function getServerSideProps() {
     },
     { $sample: { size: 12 } }, // Just match, no sampling
   ]);
-  const femaleProducts = await Product.find({ gender: femaleGenderId }).populate(
-    'gender'
-  );
+  const femaleProducts = await Product.find({
+    gender: femaleGenderId,
+  }).populate('gender');
 
   const femaleCategories = await Category.find({}).exec();
   const femaleBlogs = await Blog.find({ gender: femaleGenderId }).exec();

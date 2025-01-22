@@ -1,10 +1,10 @@
 import '../styles/globals.css';
 // import '../public/futura-font/style.css';
 import { createGlobalStyle } from 'styled-components';
-import { CartContextProvider } from '@/components/frontend/CartContext'; 
+import { CartContextProvider } from '@/components/frontend/CartContext';
 import { SessionProvider } from 'next-auth/react';
 import useDeliveryUpdates from '@/lib/deliveryHook';
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import isPropValid from '@emotion/is-prop-valid';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -20,14 +20,18 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-
-export default function App({ Component, pageProps: { session, ...pageProps } }) {
-  useDeliveryUpdates()
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
+  useDeliveryUpdates();
   return (
     <>
-      <SessionProvider session={session}> {/* Ensure session is passed */}
+      <SessionProvider session={session}>
+        {' '}
+        {/* Ensure session is passed */}
         <GlobalStyles shouldForwardProp={isPropValid} />
-        <SpeedInsights/>
+        <SpeedInsights />
         <Toaster />
         <CartContextProvider>
           <Component {...pageProps} />

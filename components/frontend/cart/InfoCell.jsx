@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 const Div = styled.td`
@@ -55,9 +55,9 @@ const Div = styled.td`
   }
 `;
 export default function InfoCell({ children, className, ...rest }) {
-    return (
-      <Div className={`span ${className}`} {...rest}>
-        {children}
-      </Div>
-    );
-  }
+  return (
+    <Div className={`span ${className}`} {...rest}>
+      {children}
+    </Div>
+  );
+}

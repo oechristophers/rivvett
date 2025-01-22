@@ -91,7 +91,7 @@ const BigImageWrapper = styled.div`
   width: 450px;
   height: 610px;
   position: relative;
- 
+
   @media screen and (max-width: 780px) {
     width: 100%;
     height: auto;

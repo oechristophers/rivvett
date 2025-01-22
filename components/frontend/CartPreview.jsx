@@ -186,7 +186,6 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
     setCLength,
   } = useContext(CartContext);
 
-
   useEffect(() => {
     const itemIds = cartItems.map((item) => item.split('-')[0]);
     // console.log(itemIds);
@@ -205,7 +204,11 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
   const prevLength = useRef(cartItems);
 
   useEffect(() => {
-    if (prevLength.current !== undefined && clength === prevLength.current + 1 && addItem) {
+    if (
+      prevLength.current !== undefined &&
+      clength === prevLength.current + 1 &&
+      addItem
+    ) {
       setCartOpen(true); // Open cart if clength has incremented by 1
 
       // Close cart after 3 seconds
@@ -257,10 +260,7 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
             {clength} {clength === 1 ? 'item' : 'items'}
           </span>{' '}
         </section>
-        <button
-          className="cursor-pointer "
-          onClick={() => setCartOpen(false)}
-        >
+        <button className="cursor-pointer " onClick={() => setCartOpen(false)}>
           <Close style={{ fontSize: '2rem' }} />
         </button>
       </Box>
@@ -349,7 +349,7 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
                             cartItems.filter(
                               (item) =>
                                 item ===
-                                `${itemId}-${propsForItem.color}-${propsForItem.size}`
+                                `${itemId}-${propsForItem.color}-${propsForItem.size}`,
                             ).length
                           }
                         </span>
@@ -374,7 +374,7 @@ export default function CartPreview({ cartOpen, setCartOpen, isVisible }) {
 
             // Filter items to match the base item ID
             const matchingItems = items.filter(
-              (item) => item._id === baseItemId
+              (item) => item._id === baseItemId,
             );
 
             // Calculate the total price for the current itemId

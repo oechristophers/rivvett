@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-
-
 
 const Container = styled.div`
   background-color: white;
@@ -42,19 +40,19 @@ const Container = styled.div`
 export default function PreHeader() {
   return (
     <Container>
-    <div className="pre">
-      <Link href={'/'}>Marketplace</Link>
-      <Link href={'/blog'}>Help & FAQ&apos;s</Link>
-      <Link href={'/contact'}>
-        <Image
-          width={100}
-          height={100}
-          layout="intrinsic"
-          src="/flags/us.png"
-          alt=""
-        />
-      </Link>
-    </div>
-  </Container>
-  )
+      <div className="pre">
+        <Link href={'/'}>Marketplace</Link>
+        <Link href={'/blog'}>Help & FAQ&apos;s</Link>
+        <Link href={'/contact'}>
+          <Image
+            width={100}
+            height={100}
+            layout="intrinsic"
+            src="/flags/us.png"
+            alt=""
+          />
+        </Link>
+      </div>
+    </Container>
+  );
 }

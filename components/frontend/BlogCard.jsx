@@ -93,9 +93,9 @@ const BlogInfo = styled.div`
   line-height: 1.2;
   height: 130px;
   background-color: white;
-  p{
+  p {
     padding-top: 10px;
-    font-size: .85rem;
+    font-size: 0.85rem;
   }
   @media (max-width: 768px) {
     height: 160px;

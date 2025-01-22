@@ -1,10 +1,10 @@
-import GalleryForm from "@/components/admin/GalleryForm";
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { withSwal } from "react-sweetalert2";
-import Layout from "./layout";
-import { Add } from "@mui/icons-material";
+import GalleryForm from '@/components/admin/GalleryForm';
+import axios from 'axios';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { withSwal } from 'react-sweetalert2';
+import Layout from './layout';
+import { Add } from '@mui/icons-material';
 function Galleries({ swal }) {
   const [galleries, setGalleries] = useState([]);
   useEffect(() => {
@@ -12,7 +12,7 @@ function Galleries({ swal }) {
   }, []);
 
   function fetchGallery() {
-    axios.get("/api/server/galleries").then((response) => {
+    axios.get('/api/server/galleries').then((response) => {
       setGalleries(response.data);
     });
   }
@@ -20,12 +20,12 @@ function Galleries({ swal }) {
   function deleteGallery(gallery) {
     swal
       .fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: `Do you want to delete ${gallery.title}?`,
         showCancelButton: true,
-        cancelButtonText: "Cancel",
-        confirmButtonText: "Yes, delete !",
-        confirmButtonColor: "#d55",
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Yes, delete !',
+        confirmButtonColor: '#d55',
         reverseButtons: true,
       })
       .then(async (result) => {
@@ -33,7 +33,7 @@ function Galleries({ swal }) {
         console.log({ result });
         if (result.isConfirmed) {
           const _id = gallery._id;
-          await axios.delete("/api/server/galleries?_id=" + _id);
+          await axios.delete('/api/server/galleries?_id=' + _id);
           fetchGallery();
         }
       })
@@ -45,10 +45,10 @@ function Galleries({ swal }) {
     <Layout>
       <div className="flex justify-end">
         <Link
-          href={"/galleries/new"}
+          href={'/galleries/new'}
           className="bg-gray-500 text-white py-2 px-2 rounded-sm mt-2  "
         >
-          <Add/>
+          <Add />
           New
         </Link>
       </div>
@@ -65,7 +65,7 @@ function Galleries({ swal }) {
               <td>{gallery.title}</td>
               <td>
                 <Link
-                  href={"/galleries/edit/" + gallery._id}
+                  href={'/galleries/edit/' + gallery._id}
                   className="btn-primary text-sm p-1 rounded-md px-2 inline-flex gap-1 mr-1"
                 >
                   <svg

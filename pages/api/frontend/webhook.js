@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     event = stripe.webhooks.constructEvent(
       await buffer(req),
       sig,
-      endpointSecret
+      endpointSecret,
     );
     console.log('Webhook event successfully constructed:', event);
   } catch (err) {
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
         const updatedOrder = await Order.findByIdAndUpdate(
           orderId,
           { paid: true },
-          { new: true } // Return the updated document
+          { new: true }, // Return the updated document
         );
         console.log('Updated Order:', updatedOrder);
       } else {

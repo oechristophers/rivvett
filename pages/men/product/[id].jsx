@@ -187,7 +187,7 @@ export default function ProductPage({ product, products, gallery }) {
 
   const genderName = product.gender.name;
   const maleProducts = products.filter(
-    (prod) => prod.gender.name === genderName
+    (prod) => prod.gender.name === genderName,
   );
 
   const relatedByShop = maleProducts.filter((prod) => {
@@ -202,7 +202,7 @@ export default function ProductPage({ product, products, gallery }) {
   });
 
   const related = maleProducts.filter(
-    (prod) => prod.category === product.category
+    (prod) => prod.category === product.category,
   );
   const relatedByColl = maleProducts.filter((prod) => {
     const productsColls = Array.isArray(product.properties.collection)

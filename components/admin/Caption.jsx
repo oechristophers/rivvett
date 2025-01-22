@@ -1,25 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-export default function Caption({captions, setCaptions}) {
-    const [newCaption, setNewCaption] = useState("");
-    const handleAddCaption = () => {
-          setCaptions([...captions, newCaption]);
-          setNewCaption(""); // Clear the input after adding
-        
-      };
+export default function Caption({ captions, setCaptions }) {
+  const [newCaption, setNewCaption] = useState('');
+  const handleAddCaption = () => {
+    setCaptions([...captions, newCaption]);
+    setNewCaption(''); // Clear the input after adding
+  };
 
-       // Handle updating a specific caption
+  // Handle updating a specific caption
   const handleCaptionChange = (index, value) => {
     const updatedCaptions = captions.map((caption, i) =>
-      i === index ? value : caption
+      i === index ? value : caption,
     );
     setCaptions(updatedCaptions);
   };
 
-    
   return (
     <div>
-         {captions.length === 0 && (
+      {captions.length === 0 && (
         <>
           <button
             className="btn-primary mt-2"
@@ -31,10 +29,9 @@ export default function Caption({captions, setCaptions}) {
             Add media caption
           </button>
           <br />
-         
         </>
       )}
-     
+
       {captions.length > 0 &&
         captions.map((c, index) => (
           <div key={index}>
@@ -68,5 +65,5 @@ export default function Caption({captions, setCaptions}) {
           </div>
         ))}
     </div>
-  )
+  );
 }

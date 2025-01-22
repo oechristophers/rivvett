@@ -175,9 +175,9 @@ const P = styled.p`
 `;
 
 const Span = styled.div`
-  margin-top: 12px; 
+  margin-top: 12px;
   img {
-    width:25px;
+    width: 25px;
     height: 15px;
     border-right: 2px solid #494747dd;
     padding-right: 7px;
@@ -250,7 +250,7 @@ export default function Footer({ activeButton }) {
     <FooterWrapper activeButton={activeButton}>
       <FooterGrid activeButton={activeButton}>
         {activeButton ? (
-          <div className='flex flex-col'>
+          <div className="flex flex-col">
             {FooterNav &&
               FooterNav.map((item, index) => (
                 <Div key={index} activeButton={activeButton}>
@@ -313,9 +313,12 @@ export default function Footer({ activeButton }) {
               <H4>You&apos;re in </H4>{' '}
               <Span>
                 {CountryList && (
-                  
-                    <img src={CountryList[0].flag} alt={CountryList[0].name} className='w-4 h-4
-                    ' />
+                  <img
+                    src={CountryList[0].flag}
+                    alt={CountryList[0].name}
+                    className="w-4 h-4
+                    "
+                  />
                 )}
               </Span>{' '}
               <Title foot>

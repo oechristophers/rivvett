@@ -349,13 +349,11 @@ export default function Collections({ products, categories, properties }) {
         <ProductGrid products={products} genderName={genderName} />
       </Wrapper>
 
-      {
-          !products.length && (
-            <div className="text-center py-12">
-              <p>No products found matching your criteria.</p>
-            </div>
-          )
-      }
+      {!products.length && (
+        <div className="text-center py-12">
+          <p>No products found matching your criteria.</p>
+        </div>
+      )}
     </RootLayout>
   );
 }
@@ -368,10 +366,7 @@ export async function getServerSideProps({ query }) {
 
   // Base gender filter for male and unisex
   const baseGenderFilter = {
-    $or: [
-      { gender: femaleGenderId },
-      { gender: unisexGenderId },
-    ],
+    $or: [{ gender: femaleGenderId }, { gender: unisexGenderId }],
   };
 
   // Fetch the selected category based on query.category
@@ -402,7 +397,8 @@ export async function getServerSideProps({ query }) {
   };
 
   // Add additional filters dynamically from query
-  if (query.collection) productFilter['properties.collection'] = query.collection;
+  if (query.collection)
+    productFilter['properties.collection'] = query.collection;
   if (query.color) productFilter['properties.color'] = query.color;
   if (query.size) productFilter['properties.size'] = query.size;
 
@@ -411,8 +407,8 @@ export async function getServerSideProps({ query }) {
     query.sort === 'price-asc'
       ? { price: 1 }
       : query.sort === 'price-desc'
-      ? { price: -1 }
-      : { _id: -1 }; // Default: Most recent
+        ? { price: -1 }
+        : { _id: -1 }; // Default: Most recent
 
   // Fetch the filtered products
   const products = await Product.find(productFilter, null, { sort }).populate([
@@ -421,18 +417,22 @@ export async function getServerSideProps({ query }) {
   ]);
 
   // Fetch the distinct list of collections for products matching the base filter
-  const allCollections = await Product.distinct('properties.collection', baseGenderFilter);
+  const allCollections = await Product.distinct(
+    'properties.collection',
+    baseGenderFilter,
+  );
 
   // Fetch additional filter options
-  const [categories, genders, colorProperties, sizeProperties] = await Promise.all([
-    Category.find({
-      name: { $ne: 'BLOG CATEGORY' },
-      parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
-    }),
-    Gender.find({}),
-    Product.distinct('properties.color', productFilter),
-    Product.distinct('properties.size', productFilter),
-  ]);
+  const [categories, genders, colorProperties, sizeProperties] =
+    await Promise.all([
+      Category.find({
+        name: { $ne: 'BLOG CATEGORY' },
+        parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
+      }),
+      Gender.find({}),
+      Product.distinct('properties.color', productFilter),
+      Product.distinct('properties.size', productFilter),
+    ]);
 
   // Aggregate properties into a single object
   const properties = {

@@ -5,7 +5,7 @@ import InfoBox from '@/components/frontend/InfoBox';
 import PromotionBox from '@/components/frontend/PromotionBox';
 import { mongooseConnect } from '@/lib/mongoose';
 import { Product } from '@/models/Product';
-import { Category } from '@/models/Category'; 
+import { Category } from '@/models/Category';
 import { Gender } from '@/models/Gender';
 import RootLayout from './layout';
 import { motion } from 'framer-motion';
@@ -17,7 +17,7 @@ export default function HomePage({
   maleProducts,
   maleCategories,
   femaleCategories,
-})  {
+}) {
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -40,11 +40,9 @@ export default function HomePage({
 
   return (
     <RootLayout>
-     
-        <PromotionBox />
+      <PromotionBox />
 
-      
-        <Hero />
+      <Hero />
 
       <motion.div
         initial="hidden"

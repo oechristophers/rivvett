@@ -12,15 +12,15 @@ import { FavoriteBorderSharp } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 export default function Favourites({ wishList, products }) {
-  const router = useRouter()
+  const router = useRouter();
   const [wishlist, setWishlist] = useState(wishList || []);
   const [wishProducts, setWishProducts] = useState(
     () =>
       wishlist
         .map((wish) =>
-          products.find((product) => product._id.toString() === wish.productId)
+          products.find((product) => product._id.toString() === wish.productId),
         )
-        .filter(Boolean) // Remove undefined/null products
+        .filter(Boolean), // Remove undefined/null products
   );
   const [loadingIds, setLoadingIds] = useState([]); // Track IDs of products being deleted
 
@@ -28,9 +28,9 @@ export default function Favourites({ wishList, products }) {
     setWishProducts(
       wishlist
         .map((wish) =>
-          products.find((product) => product._id.toString() === wish.productId)
+          products.find((product) => product._id.toString() === wish.productId),
         )
-        .filter(Boolean) // Remove undefined/null products
+        .filter(Boolean), // Remove undefined/null products
     );
   }, [wishlist, products]);
 
@@ -76,7 +76,7 @@ export default function Favourites({ wishList, products }) {
               if (!item) return null; // Skip null/undefined items
 
               const wishId = wishlist?.find(
-                (wish) => wish?.productId === item?._id.toString()
+                (wish) => wish?.productId === item?._id.toString(),
               )?._id;
               const isLoading = loadingIds.includes(wishId); // Check if the product is being deleted
 
@@ -109,8 +109,11 @@ export default function Favourites({ wishList, products }) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center text-center p-10 min-h-screen">
-            <span><FavoriteBorderSharp/> </span>
-            <h2 className="text-[.9rem] capitalize font-bold mb-2 text-[#000000c1]"
+            <span>
+              <FavoriteBorderSharp />{' '}
+            </span>
+            <h2
+              className="text-[.9rem] capitalize font-bold mb-2 text-[#000000c1]"
               style={{ fontFamily: 'Futura Std Heavy', letterSpacing: 0.4 }}
             >
               Your have no saved items yet!
@@ -119,12 +122,15 @@ export default function Favourites({ wishList, products }) {
               Start saving as you shop by selecting the little heart. <br />
               We will sync your items across all devices.Easy.
             </p>
-            <button className='bg-black text-white mt-2 p-3 py-2'
-             style={{ fontFamily: 'Futura Std Heavy', letterSpacing: 0.9 }}
-             onClick={() => {
-              router.push('/products');
-             }}
-            >START SHOPPING</button>
+            <button
+              className="bg-black text-white mt-2 p-3 py-2"
+              style={{ fontFamily: 'Futura Std Heavy', letterSpacing: 0.9 }}
+              onClick={() => {
+                router.push('/products');
+              }}
+            >
+              START SHOPPING
+            </button>
           </div>
         )}
       </div>

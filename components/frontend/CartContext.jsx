@@ -5,20 +5,19 @@ const { createContext, useState, useEffect } = require('react');
 
 export const CartContext = createContext({});
 
-
 export function CartContextProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [favItems, setFavItems] = useState([]);
   const [itemProps, setItemProps] = useState({}); // Manage properties (color, size) per item
   const [selectedSizes, setSelectedSizes] = useState({});
   const [clength, setCLength] = useState(0);
-  const {toast} = useToast();
+  const { toast } = useToast();
   // Load cart and item properties from localStorage when component mounts
   const handleSizeChange = (itemId, newSize) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === itemId ? { ...item, size: newSize } : item
-      )
+        item.id === itemId ? { ...item, size: newSize } : item,
+      ),
     );
   };
 
@@ -73,7 +72,7 @@ export function CartContextProvider({ children }) {
   async function addFavourite(itemId, color = null, size = null) {
     const uniqueItemId = `${itemId}-${color || 'noColor'}-${size || 'noSize'}`;
     const baseId = itemId;
-  
+
     try {
       // Make API call to update the favorites on the server
       const response = await axios.post('/api/frontend/favourites', {
@@ -81,12 +80,11 @@ export function CartContextProvider({ children }) {
         color,
         size,
       });
-  
+
       if (response.status === 200) {
         toast({
-          title: "Item added to Favorites",
-          
-        })
+          title: 'Item added to Favorites',
+        });
         console.log('Favorite updated successfully:', response.data);
       } else {
         console.error('Failed to update favorite:', response.data);
@@ -95,7 +93,6 @@ export function CartContextProvider({ children }) {
       console.error('Error updating favorite:', error.message);
     }
   }
-  
 
   // Remove an item based on its unique identifier
   function removeItem(uniqueItemId, itemQuant, itemProp) {
@@ -141,7 +138,7 @@ export function CartContextProvider({ children }) {
       return updatedProps;
     });
     setCLength(
-      cartItems.length - cartItems.filter((item) => item === itemId).length
+      cartItems.length - cartItems.filter((item) => item === itemId).length,
     );
   }
 

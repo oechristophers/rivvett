@@ -1,8 +1,8 @@
-import { Add } from "@mui/icons-material";
-import Layout from "./layout";
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { Add } from '@mui/icons-material';
+import Layout from './layout';
+import axios from 'axios';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ export default function Products() {
   const itemsPerPage = 10;
 
   useEffect(() => {
-    axios.get("/api/server/products").then((response) => {
+    axios.get('/api/server/products').then((response) => {
       setProducts(response.data);
     });
   }, []);
@@ -34,7 +34,7 @@ export default function Products() {
     <Layout>
       <div className="flex justify-end">
         <Link
-          href={"/admin/products/new"}
+          href={'/admin/products/new'}
           className="bg-gray-500 text-white py-2 px-2 font-futura tracking-wide rounded-sm mt-2"
         >
           <Add />
@@ -53,7 +53,7 @@ export default function Products() {
             <tr key={product._id}>
               <td>{product.title}</td>
               <td>
-                <Link href={"/admin/products/edit/" + product._id}>
+                <Link href={'/admin/products/edit/' + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -71,7 +71,7 @@ export default function Products() {
                   Edit
                 </Link>
                 <Link
-                  href={"/admin/products/delete/" + product._id}
+                  href={'/admin/products/delete/' + product._id}
                   className="ml-2 text-red-500"
                 >
                   <svg
@@ -109,7 +109,9 @@ export default function Products() {
             key={index}
             onClick={() => handlePageChange(index + 1)}
             className={`px-4 py-2 mx-1 ${
-              currentPage === index + 1 ? "bg-gray-500 text-white" : "bg-gray-300"
+              currentPage === index + 1
+                ? 'bg-gray-500 text-white'
+                : 'bg-gray-300'
             } rounded`}
           >
             {index + 1}

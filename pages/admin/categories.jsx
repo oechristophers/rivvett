@@ -34,7 +34,7 @@ function Categories({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedCategories = categories.slice(
     startIndex,
-    startIndex + itemsPerPage
+    startIndex + itemsPerPage,
   );
 
   function handlePageChange(newPage) {
@@ -154,7 +154,9 @@ function Categories({
               <option value=""></option>
               {categories.length > 0 &&
                 categories.map((category) => (
-                  <option key={category._id} value={category._id}>{category.name}</option>
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
                 ))}
             </select>
           </div>
@@ -300,32 +302,34 @@ function Categories({
           </table>
         )}{' '}
         <div className="flex justify-center mt-4">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-        {[...Array(totalPages)].map((_, index) => (
           <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 mx-1 ${
-              currentPage === index + 1 ? "bg-gray-500 text-white" : "bg-gray-300"
-            } rounded`}
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
           >
-            {index + 1}
+            Previous
           </button>
-        ))}
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
-      </div>
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 mx-1 ${
+                currentPage === index + 1
+                  ? 'bg-gray-500 text-white'
+                  : 'bg-gray-300'
+              } rounded`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 mx-1 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </>
     </Layout>
   );

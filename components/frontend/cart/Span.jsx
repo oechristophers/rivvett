@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
 
@@ -22,9 +22,9 @@ const StyledP = styled.span`
   }
 `;
 export default function Span({ children, className, ...rest }) {
-    return (
-      <StyledP className={`span ${className}`} {...rest}>
-        {children}
-      </StyledP>
-    );
-  }
+  return (
+    <StyledP className={`span ${className}`} {...rest}>
+      {children}
+    </StyledP>
+  );
+}

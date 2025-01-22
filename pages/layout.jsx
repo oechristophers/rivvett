@@ -50,7 +50,7 @@ const RootLayout = ({ children }) => {
       const data = await response.json();
 
       const filteredProducts = data.filter(
-        (product) => product.gender.name === activeButton
+        (product) => product.gender.name === activeButton,
       );
       setProducts(filteredProducts);
 
@@ -68,10 +68,10 @@ const RootLayout = ({ children }) => {
 
       const prodCats = filteredProducts.map((prod) => prod.category);
       const parentCategories = data.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
+        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY',
       );
       const relatedCategories = data.filter((cat) =>
-        prodCats.includes(cat._id)
+        prodCats.includes(cat._id),
       );
 
       const combinedCategories = [...parentCategories, ...relatedCategories];
@@ -94,7 +94,7 @@ const RootLayout = ({ children }) => {
       const data = await response.json();
 
       const filteredBlogs = data.filter(
-        (blog) => blog.gender.name === activeButton
+        (blog) => blog.gender.name === activeButton,
       );
       setBlogs(filteredBlogs);
 
@@ -133,7 +133,7 @@ const RootLayout = ({ children }) => {
       const filteredProducts = data.filter(
         (product) =>
           product.gender.name !== activeButton &&
-          product.gender.name !== 'unisex'
+          product.gender.name !== 'unisex',
       );
 
       setForMNav(filteredProducts);
@@ -152,16 +152,13 @@ const RootLayout = ({ children }) => {
 
       const prodCats2 = forMNav.map((prod) => prod.category);
       const parentCategories = data.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
+        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY',
       );
       const relatedCategories2 = data.filter((cat) =>
-        prodCats2.includes(cat._id)
+        prodCats2.includes(cat._id),
       );
 
-      const combinedCategories2 = [
-        ...parentCategories,
-        ...relatedCategories2,
-      ];
+      const combinedCategories2 = [...parentCategories, ...relatedCategories2];
       setCategories2(combinedCategories2);
     } catch (error) {
       setError(error.message);

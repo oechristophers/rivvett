@@ -119,7 +119,7 @@ export default function CartPage({ categories, products }) {
   }, [scrollAway]);
 
   const casrouselP = products.filter(
-    (product) => product.gender.name === 'men'
+    (product) => product.gender.name === 'men',
   );
   const calculateTotal = (cartItems, items, itemProps) => {
     let total = 0; // Initialize total to 0
@@ -248,10 +248,10 @@ export default function CartPage({ categories, products }) {
   const prodCatParent = categories.find(
     (cats) =>
       cats._id ===
-      categories.find((cat) => cat._id === product?.category)?.parent
+      categories.find((cat) => cat._id === product?.category)?.parent,
   );
   const sizeProp = prodCatParent?.properties.find(
-    (prop) => prop.name === 'size'
+    (prop) => prop.name === 'size',
   )?.values;
   const productSize = product?.properties?.size;
 

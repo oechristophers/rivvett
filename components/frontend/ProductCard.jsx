@@ -177,7 +177,7 @@ export default function ProductCard({
   const [loading, setLoading] = useState(true);
   const handleMouseEnter = () => setIsHidden(false);
   const handleMouseLeave = () => setIsHidden(true);
-  const { addItem,addFavourite } = useContext(CartContext);
+  const { addItem, addFavourite } = useContext(CartContext);
   const { isMobile, isDesktop } = UseIsDevice();
 
   const handleRemove = () => {
@@ -195,7 +195,7 @@ export default function ProductCard({
     const firstTwoWords = words
       .slice(0, 2)
       .map(
-        (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
       );
 
     // Return the first two words capitalized and the rest unchanged
@@ -246,7 +246,7 @@ export default function ProductCard({
             onClick={(ev) => {
               ev.preventDefault(); // Prevent "Box link"  from navigating away
               ev.stopPropagation();
-              addFavourite(_id, 'Blue', 'S')
+              addFavourite(_id, 'Blue', 'S');
             }}
           >
             <FavoriteBorderOutlined
@@ -274,7 +274,7 @@ export default function ProductCard({
         )}
       </Box>
       <ProductInfo>
-        <Title href={url} inCart={inCart} className='truncate'>
+        <Title href={url} inCart={inCart} className="truncate">
           {title}
           {/* {title.length > 20 ? title.slice(0, 20) + '...' : title} */}
           {/* {title.split(' ').slice(0, 2).map((word)=> word.toUpperCase()).join(' ') + (' ') + title.split(' ').slice(2).join('  ').toLowerCase()} */}

@@ -137,7 +137,7 @@ const highlightMatch = (text, query) => {
       <strong key={index}>{part}</strong>
     ) : (
       part
-    )
+    ),
   );
 };
 
@@ -177,22 +177,22 @@ export default function Search({
       const products = data.filter(
         (item) =>
           item.type === 'product' &&
-          item.title.toLowerCase().includes(value.toLowerCase())
+          item.title.toLowerCase().includes(value.toLowerCase()),
       );
       const categories = data.filter(
         (item) =>
           item.type === 'category' &&
-          item.name.toLowerCase().includes(value.toLowerCase())
+          item.name.toLowerCase().includes(value.toLowerCase()),
       );
       const blogs = data.filter(
         (item) =>
           item.type === 'blog' &&
-          item.title.toLowerCase().includes(value.toLowerCase())
+          item.title.toLowerCase().includes(value.toLowerCase()),
       );
       const shops = data.filter(
         (item) =>
           item.type === 'shop' &&
-          item.name.toLowerCase().includes(value.toLowerCase())
+          item.name.toLowerCase().includes(value.toLowerCase()),
       );
       setFilteredData({ products, categories, blogs, shops });
       setShowResults(true);
@@ -275,7 +275,7 @@ export default function Search({
                     <li
                       onClick={(e) => {
                         router.push(
-                          `/${product.gender.name}/product/${product._id}`
+                          `/${product.gender.name}/product/${product._id}`,
                         );
                       }}
                       key={product.id}
@@ -303,7 +303,6 @@ export default function Search({
                 <ul>
                   {filteredData.blogs.map((blog) => (
                     <li
-                  
                       key={blog.id}
                       onClick={(e) => {
                         router.push(`/${blog.gender.name}/blogs/${blog._id}`);

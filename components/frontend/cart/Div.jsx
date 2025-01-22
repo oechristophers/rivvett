@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
 
@@ -40,9 +40,9 @@ const StyledDiv = styled.div`
 `;
 
 export default function Div({ children, className, ...rest }) {
-    return (
-      <StyledDiv className={`div ${className}`} {...rest}>
-        {children}
-      </StyledDiv>
-    );
-  }
+  return (
+    <StyledDiv className={`div ${className}`} {...rest}>
+      {children}
+    </StyledDiv>
+  );
+}

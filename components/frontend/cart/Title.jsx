@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 const Text = styled.h2`
@@ -10,9 +10,9 @@ const Text = styled.h2`
 `;
 
 export default function Title({ children, className, ...rest }) {
-    return (
-      <Text className={`Title ${className}`} {...rest}>
-        {children}
-      </Text>
-    );
-  }
+  return (
+    <Text className={`Title ${className}`} {...rest}>
+      {children}
+    </Text>
+  );
+}

@@ -433,7 +433,7 @@ export async function getServerSideProps({ query }) {
           name: { $ne: 'BLOG CATEGORY' },
           parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
         },
-        '_id name parent' // Projection for only necessary fields
+        '_id name parent', // Projection for only necessary fields
       ),
       Gender.find({}, '_id name'), // Only fetch `_id` and `name`
       Product.distinct('properties.color', productFilter), // Filter-specific distinct

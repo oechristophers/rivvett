@@ -182,7 +182,7 @@ const ProductCarousel = ({
       : genderName === 'women'
         ? '669161c1bbede0f410af82a2'
         : '';
-   const routTo = `/products?gender=${genderId}`; 
+  const routTo = `/products?gender=${genderId}`;
   return (
     <>
       <CarouselWrapper

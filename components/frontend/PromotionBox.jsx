@@ -11,7 +11,8 @@ const Skeleton = styled.div`
   animation: pulse 1.5s infinite ease-in-out;
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       background-color: #bdbdbd79; /* Darker pulse start and end */
     }
     50% {
@@ -35,11 +36,11 @@ const ProWrapper = styled.div`
 
       :first-child:not(:last-of-type) {
         background: #9cf0e0;
-      };
+      }
       :nth-child(2) {
         background: black;
         color: white;
-      };
+      }
     `}
 `;
 
@@ -167,8 +168,8 @@ export default function PromotionBox() {
 
   if (isLoading) {
     return (
-      <div className=''>
-        <Skeleton  />
+      <div className="">
+        <Skeleton />
       </div>
     );
   }
@@ -196,7 +197,10 @@ export default function PromotionBox() {
             <Sect>
               With code:&nbsp;<Span>FALL</Span>
             </Sect>
-            <P>See website banner for Ts&Cs. Selected marked products excluded from promo.</P>
+            <P>
+              See website banner for Ts&Cs. Selected marked products excluded
+              from promo.
+            </P>
           </ProLink>
         </>
       )}

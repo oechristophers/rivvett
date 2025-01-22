@@ -61,7 +61,8 @@ export default async function handler(req, res) {
 
     // Process each order to update
     for (const order of ordersToUpdate) {
-      const { status, trackingNumber, estimatedDeliveryDate, nextUpdateAt } = order.deliveryDetails;
+      const { status, trackingNumber, estimatedDeliveryDate, nextUpdateAt } =
+        order.deliveryDetails;
 
       // Get next status and next update time
       const { newStatus, nextUpdate } = getNextStatusAndTime(status, now);
@@ -73,7 +74,7 @@ export default async function handler(req, res) {
           'deliveryDetails.status': newStatus,
           'deliveryDetails.nextUpdateAt': nextUpdate,
         },
-        { new: true }
+        { new: true },
       );
 
       if (updatedOrder) {
@@ -90,7 +91,7 @@ export default async function handler(req, res) {
                 'orderHistory.$.status': newStatus,
                 'orderHistory.$.nextUpdateAt': nextUpdate,
               },
-            }
+            },
           );
         }
       }

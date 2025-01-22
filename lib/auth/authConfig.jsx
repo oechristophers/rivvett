@@ -1,4 +1,3 @@
-
 import GoogleProvider from 'next-auth/providers/google';
 import Nodemailer from 'next-auth/providers/nodemailer';
 import NextAuth from 'next-auth';

@@ -25,10 +25,10 @@ export default function BlogForm({
   const [mainImages, setMainImages] = useState(existingMainImages || []);
   const [gender, setGender] = useState(assignedGender || '');
   const [featuredProducts, setFeaturedProducts] = useState(
-    existingFeaturedProducts || []
+    existingFeaturedProducts || [],
   );
   const [mediaCaptions, setMediaCaptions] = useState(
-    existingMediaCaptions || []
+    existingMediaCaptions || [],
   );
   const [goToBlogs, setGoToBlogs] = useState(false);
   const [genders, setGenders] = useState([]);
@@ -298,7 +298,7 @@ export default function BlogForm({
                   updateSubtitle(index, 'subtitleImages', newImages || []);
                   console.log(
                     `Updated subtitleImages for index ${index}:`,
-                    newImages
+                    newImages,
                   ); // Log the updated images
                 }}
                 images={s.subtitleImages || []} // Ensuring subtitleImages is always an array
@@ -310,7 +310,7 @@ export default function BlogForm({
                     updateSubtitle(
                       index,
                       'subMediaCaptions',
-                      newCaptions || []
+                      newCaptions || [],
                     );
                   }}
                   captions={s.subMediaCaptions || []}

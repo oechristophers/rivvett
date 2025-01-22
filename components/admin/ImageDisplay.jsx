@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { ReactSortable } from "react-sortablejs";
-import Spinner from "./Spinner";
-import UploadButton from "./UploadButton";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { ReactSortable } from 'react-sortablejs';
+import Spinner from './Spinner';
+import UploadButton from './UploadButton';
+import axios from 'axios';
 
 export default function ImageDisplay({
   setImages,

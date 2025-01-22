@@ -14,27 +14,27 @@ const AppPromote = dynamic(() => import('@/components/frontend/AppPromote'), {
 });
 const PromotionBox = dynamic(
   () => import('@/components/frontend/PromotionBox'),
-  { ssr: true }
+  { ssr: true },
 );
 const BottomP = dynamic(() => import('@/components/frontend/BottomP'), {
   ssr: false,
 });
 const FeaturedCollection = dynamic(
   () => import('@/components/frontend/FeaturedCollection'),
-  { ssr: false }
+  { ssr: false },
 );
 const FeaturedShops = dynamic(
   () => import('@/components/frontend/FeaturedShops'),
-  { ssr: false }
+  { ssr: false },
 );
 const GalleryDisplay = dynamic(
   () => import('@/components/frontend/GalleryDisplay'),
-  { ssr: false }
+  { ssr: false },
 );
 const Hero = dynamic(() => import('@/components/frontend/Hero'), { ssr: true });
 const ProductCarousel = dynamic(
   () => import('@/components/frontend/ProductCarousel'),
-  { ssr: false }
+  { ssr: false },
 );
 const ShopMore = dynamic(() => import('@/components/frontend/ShopMore'), {
   ssr: false,
@@ -61,18 +61,18 @@ export default function MenHome({
   const colProps = maleProd.map((product) => product.collection);
 
   const collectionPropValue = maleCat[0].properties.find(
-    (property) => property.name === 'collection'
+    (property) => property.name === 'collection',
   ).values;
 
   const collections = collectionPropValue.filter((collection) =>
     colProps
       .map((prop) => prop)
       .flat()
-      .includes(collection)
+      .includes(collection),
   );
 
   const newCollections = collections.push(
-    collectionPropValue.filter((item) => item === 'collision-edit')
+    collectionPropValue.filter((item) => item === 'collision-edit'),
   );
 
   const maleCollection = collections.shift();
@@ -81,14 +81,14 @@ export default function MenHome({
   const shopProps = maleProd.map((product) => product.shop);
 
   const shopPropValue = maleCat[0].properties.find(
-    (property) => property.name === 'shop'
+    (property) => property.name === 'shop',
   ).values;
 
   const shops = shopPropValue.filter((shop) =>
     shopProps
       .map((prop) => prop)
       .flat()
-      .includes(shop)
+      .includes(shop),
   );
 
   const fadeUp = {
@@ -158,7 +158,7 @@ export default function MenHome({
         <GalleryDisplay gallery={maleGallery} />
       </motion.div>
 
-      <div className='overflow-x-hidden'>
+      <div className="overflow-x-hidden">
         <motion.div
           initial="hidden"
           whileInView="visible"

@@ -129,7 +129,7 @@ export default function CartTable({
                             const index = cartItems.findIndex(
                               (item) =>
                                 item ===
-                                `${itemId}-${propsForItem.color}-${propsForItem.size}`
+                                `${itemId}-${propsForItem.color}-${propsForItem.size}`,
                             );
 
                             if (index !== -1) {
@@ -227,7 +227,7 @@ export default function CartTable({
                               handleQuantityOrRemoveItem(
                                 itemId,
                                 propsForItem.color,
-                                propsForItem.size
+                                propsForItem.size,
                               )
                             }
                           />
@@ -246,7 +246,7 @@ export default function CartTable({
                       <ControlBtn
                         onClick={() =>
                           removeWholeItem(
-                            `${itemId}-${propsForItem.color}-${propsForItem.size}`
+                            `${itemId}-${propsForItem.color}-${propsForItem.size}`,
                           )
                         }
                       >
@@ -257,7 +257,7 @@ export default function CartTable({
                 </InfoCell>
               </tr>
             );
-          }
+          },
         );
       })()}
     </Table>

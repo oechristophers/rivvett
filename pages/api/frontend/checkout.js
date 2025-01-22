@@ -80,7 +80,7 @@ export default async function handler(req, res) {
       total:
         line_items.reduce(
           (sum, item) => sum + item.price_data.unit_amount * item.quantity,
-          0
+          0,
         ) / 100,
       createdAt: new Date(),
     });

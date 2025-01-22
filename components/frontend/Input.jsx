@@ -7,7 +7,7 @@ const StyledInput = styled.input`
   border: 1px solid #ccc;
   box-sizing: border-box;
   font-family: Futura Std Medium;
-  font-size:.88rem ;
+  font-size: 0.88rem;
   ${(props) =>
     props.search &&
     `

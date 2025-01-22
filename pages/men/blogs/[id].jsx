@@ -370,7 +370,7 @@ export default function BlogPage({ blog, blogs }) {
                                   )}
                                 </section>
                               </div>
-                            )
+                            ),
                         )}
                       </div>
                     );
@@ -439,12 +439,12 @@ export default function BlogPage({ blog, blogs }) {
                                     {subtitle.subProducts && (
                                       <h5 className="sub-prod-title">
                                         {subtitle.subProducts.map(
-                                          (product) => product.title
+                                          (product) => product.title,
                                         )}
                                       </h5>
                                     )}
                                   </>
-                                )
+                                ),
                               )}
                             </section>
                           )}

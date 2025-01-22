@@ -98,14 +98,14 @@ const cacheImages = async (srcArray) => {
           img.onload = resolve;
           img.onerror = reject;
         });
-      })
+      }),
     );
   } catch (error) {
     console.error('Error caching images:', error);
   }
 };
 
-const CategoryList = ({ categories, activeButton,prevPath }) => {
+const CategoryList = ({ categories, activeButton, prevPath }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
@@ -113,7 +113,7 @@ const CategoryList = ({ categories, activeButton,prevPath }) => {
   const [loadedImages, setLoadedImages] = useState(imageLoadingStates);
 
   const pathname = usePathname();
-  const path = pathname.split('/')[1] 
+  const path = pathname.split('/')[1];
   // console.log(prevPath)
   // console.log(path)
   const genderId =
@@ -131,7 +131,7 @@ const CategoryList = ({ categories, activeButton,prevPath }) => {
       const imageUrls = categories.flatMap((category) =>
         category.posterImages.length > 1
           ? [category.posterImages[0], category.posterImages[1]]
-          : [category.posterImages[0]]
+          : [category.posterImages[0]],
       );
       cacheImages(imageUrls);
     }
@@ -152,7 +152,6 @@ const CategoryList = ({ categories, activeButton,prevPath }) => {
     <CatUl>
       {loading && <CatUl>&nbsp;</CatUl>}
       {activeButton ? (
-        
         <>
           <li>
             <Button href="/">TRENDING</Button>
@@ -208,7 +207,7 @@ const CategoryList = ({ categories, activeButton,prevPath }) => {
       ) : (
         <>
           {loading && <CatUl>&nbsp;</CatUl>}
-          
+
           <li>
             <Sale href="/">
               <span>Sale</span>
@@ -221,7 +220,9 @@ const CategoryList = ({ categories, activeButton,prevPath }) => {
             categories.map((category) => (
               <>
                 <li key={category._id}>
-                  <Button href={`/products?category=${category._id}&gender=${genderId}`}>
+                  <Button
+                    href={`/products?category=${category._id}&gender=${genderId}`}
+                  >
                     {category.name}
                   </Button>
                 </li>

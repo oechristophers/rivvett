@@ -1,11 +1,11 @@
-import Layout from "@/pages/admin/layout";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import Spinner from "./Spinner";
-import { ReactSortable } from "react-sortablejs";
-import UploadButton from "./UploadButton";
-import ImageDisplay from "./ImageDisplay";
+import Layout from '@/pages/admin/layout';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
+import Spinner from './Spinner';
+import { ReactSortable } from 'react-sortablejs';
+import UploadButton from './UploadButton';
+import ImageDisplay from './ImageDisplay';
 
 export default function ProductForm({
   _id,
@@ -17,24 +17,24 @@ export default function ProductForm({
   gender: assignedGender,
   properties: assignedProperties,
 }) {
-  const [title, setTitle] = useState(existingTitle || "");
-  const [description, setDescription] = useState(existingDescription || "");
+  const [title, setTitle] = useState(existingTitle || '');
+  const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || 0);
   const [goToProducts, setGoToProducts] = useState(false);
   const [images, setImages] = useState(existingImages || []);
-  const [category, setCategory] = useState(assignedCategory || "");
-  const [gender, setGender] = useState(assignedGender || "");
+  const [category, setCategory] = useState(assignedCategory || '');
+  const [gender, setGender] = useState(assignedGender || '');
   const [categories, setCategories] = useState([]);
   const [genders, setGenders] = useState([]);
   const [productProperties, setProductProperties] = useState(
-    assignedProperties || {}
+    assignedProperties || {},
   );
   const router = useRouter();
   useEffect(() => {
-    axios.get("/api/server/categories").then((result) => {
+    axios.get('/api/server/categories').then((result) => {
       setCategories(result.data);
     });
-    axios.get("/api/server/genders").then((response) => {
+    axios.get('/api/server/genders').then((response) => {
       setGenders(response.data);
     });
   }, []);
@@ -54,13 +54,13 @@ export default function ProductForm({
       await axios.put(`/api/server/products/`, { ...data, _id });
     } else {
       //create product
-      await axios.post("/api/server/products", data);
+      await axios.post('/api/server/products', data);
     }
 
     setGoToProducts(true);
   }
   if (goToProducts) {
-    router.push("/products");
+    router.push('/products');
   }
 
   function setProdProp(propName, value) {
@@ -70,7 +70,7 @@ export default function ProductForm({
       if (newProductProps[propName]?.includes(value)) {
         // If it does, remove the value from the array
         newProductProps[propName] = newProductProps[propName].filter(
-          (v) => v !== value
+          (v) => v !== value,
         );
       } else {
         // If it doesn't, add the value to the array
@@ -89,7 +89,7 @@ export default function ProductForm({
     propsToFill.push(...catInfo.properties);
     while (catInfo?.parent?._id) {
       const parentCat = categories.find(
-        ({ _id }) => _id === catInfo?.parent?._id
+        ({ _id }) => _id === catInfo?.parent?._id,
       );
       propsToFill.push(...parentCat.properties);
       catInfo = parentCat;
@@ -110,18 +110,18 @@ export default function ProductForm({
           value={gender}
           onChange={(ev) => setGender(ev.target.value)}
           style={{
-            color: "#0000009d",
-            fontSize: ".9rem",
-            backgroundColor: "white",
-            letterSpacing: "1px",
+            color: '#0000009d',
+            fontSize: '.9rem',
+            backgroundColor: 'white',
+            letterSpacing: '1px',
           }}
         >
           <option
             style={{
-              color: "#0000009d",
-              fontSize: ".9rem",
-              backgroundColor: "white",
-              letterSpacing: "1px",
+              color: '#0000009d',
+              fontSize: '.9rem',
+              backgroundColor: 'white',
+              letterSpacing: '1px',
             }}
             value=""
             className="text-black"
@@ -133,10 +133,10 @@ export default function ProductForm({
               <option
                 key={g._id}
                 style={{
-                  color: "#0000009d",
-                  fontSize: ".9rem",
-                  backgroundColor: "white",
-                  letterSpacing: "1px",
+                  color: '#0000009d',
+                  fontSize: '.9rem',
+                  backgroundColor: 'white',
+                  letterSpacing: '1px',
                 }}
                 value={g._id}
               >
@@ -150,18 +150,18 @@ export default function ProductForm({
           value={category}
           onChange={(ev) => setCategory(ev.target.value)}
           style={{
-            color: "#0000009d",
-            fontSize: ".9rem",
-            backgroundColor: "white",
-            letterSpacing: "1px",
+            color: '#0000009d',
+            fontSize: '.9rem',
+            backgroundColor: 'white',
+            letterSpacing: '1px',
           }}
         >
           <option
             style={{
-              color: "#0000009d",
-              fontSize: ".9rem",
-              backgroundColor: "white",
-              letterSpacing: "1px",
+              color: '#0000009d',
+              fontSize: '.9rem',
+              backgroundColor: 'white',
+              letterSpacing: '1px',
             }}
             value=""
           >
@@ -173,13 +173,13 @@ export default function ProductForm({
                 key={c._id}
                 value={c._id}
                 style={{
-                  color: "#0000009d",
-                  fontSize: ".9rem",
-                  backgroundColor: "white",
-                  letterSpacing: "1px",
+                  color: '#0000009d',
+                  fontSize: '.9rem',
+                  backgroundColor: 'white',
+                  letterSpacing: '1px',
                 }}
               >
-                {c.name}{" "}
+                {c.name}{' '}
               </option>
             ))}
         </select>
@@ -195,7 +195,7 @@ export default function ProductForm({
                     <label
                       key={v}
                       className={`checkbox-container ${
-                        productProperties[p.name]?.includes(v) ? "selected" : ""
+                        productProperties[p.name]?.includes(v) ? 'selected' : ''
                       }`}
                     >
                       <input

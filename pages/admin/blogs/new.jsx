@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import BlogForm from "@/components/admin/BlogForm";
+import React, { useState } from 'react';
+import BlogForm from '@/components/admin/BlogForm';
 
 export default function NewBlog() {
   return (

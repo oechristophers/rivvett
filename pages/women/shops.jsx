@@ -99,7 +99,8 @@ export default function Shops({ products, categories, properties }) {
         className="text-center py-3 uppercase"
         style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
       >
-        &ldquo;Women&apos;s Shops&ldquo; : <span>{query.shop && query.shop}</span>
+        &ldquo;Women&apos;s Shops&ldquo; :{' '}
+        <span>{query.shop && query.shop}</span>
       </h2>
       <FiltersContainer className="hidden md:flex px-10 justify-between py-5 bg-[#c6c4c4]">
         <Select
@@ -346,28 +347,22 @@ export default function Shops({ products, categories, properties }) {
       <Wrapper>
         <ProductGrid products={products} />
       </Wrapper>
-      {
-          !products && (
-            <div className="text-center py-12">
-              <p>No products found matching your criteria.</p>
-            </div>
-          )
-      }
+      {!products && (
+        <div className="text-center py-12">
+          <p>No products found matching your criteria.</p>
+        </div>
+      )}
     </RootLayout>
   );
 }
 export async function getServerSideProps({ query }) {
   await mongooseConnect();
 
- 
   const femaleGenderId = '669161c1bbede0f410af82a2'; // female gender ID
   const unisexGenderId = '669161e1bbede0f410af82a7'; // Unisex gender ID
   // Base gender filter for male and unisex
   const baseGenderFilter = {
-    $or: [
-      { gender: femaleGenderId },
-      { gender: unisexGenderId },
-    ],
+    $or: [{ gender: femaleGenderId }, { gender: unisexGenderId }],
   };
 
   // Fetch the selected category based on query.category
@@ -407,8 +402,8 @@ export async function getServerSideProps({ query }) {
     query.sort === 'price-asc'
       ? { price: 1 }
       : query.sort === 'price-desc'
-      ? { price: -1 }
-      : { _id: -1 }; // Default: Most recent
+        ? { price: -1 }
+        : { _id: -1 }; // Default: Most recent
 
   // Fetch the filtered products
   const products = await Product.find(productFilter, null, { sort }).populate([
@@ -420,15 +415,16 @@ export async function getServerSideProps({ query }) {
   const allShops = await Product.distinct('properties.shop', baseGenderFilter);
 
   // Fetch additional filter options
-  const [categories, genders, colorProperties, sizeProperties] = await Promise.all([
-    Category.find({
-      name: { $ne: 'BLOG CATEGORY' },
-      parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
-    }),
-    Gender.find({}),
-    Product.distinct('properties.color', productFilter),
-    Product.distinct('properties.size', productFilter),
-  ]);
+  const [categories, genders, colorProperties, sizeProperties] =
+    await Promise.all([
+      Category.find({
+        name: { $ne: 'BLOG CATEGORY' },
+        parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
+      }),
+      Gender.find({}),
+      Product.distinct('properties.color', productFilter),
+      Product.distinct('properties.size', productFilter),
+    ]);
 
   // Aggregate properties into a single object
   const properties = {

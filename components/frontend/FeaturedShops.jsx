@@ -45,45 +45,45 @@ const H1 = styled(Title)`
   }
 `;
 export default function FeaturedShops({ shops, femaleShops }) {
-    const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   return (
-   <>
-   <H1>FEATURED SHOPS</H1>
-        <StyledGrid>
-          {!isLoaded && <SkeletonLoader />}
-          {femaleShops &&
-            femaleShops.map((shop, index) => (
-              <Div href={`women/shops?shop=${shop}`} key={index}>
-                <Image
-                  onLoadingComplete={() => setIsLoaded(true)}
-                  width={700}
-                  height={700}
-                  layout="responsive"
-                  src={`/images/women/${shop}.png`}
-                  alt={shop}
-                />
-  
-                <Title>
-                  <b>{shop}</b>
-                </Title>
-              </Div>
-            ))}
-          {shops &&
-            shops.map((shop, index) => (
-              <Div href={`men/shops?shop=${shop}`} key={index}>
-                <Image
-                  onLoadingComplete={() => setIsLoaded(true)}
-                  width={700}
-                  height={700}
-                  layout="responsive"
-                  src={`/images/men/${shop}.png`}
-                  alt={shop}
-                />
-  
-                <Title>{shop}</Title>
-              </Div>
-            ))}
-        </StyledGrid>
-      </>
+    <>
+      <H1>FEATURED SHOPS</H1>
+      <StyledGrid>
+        {!isLoaded && <SkeletonLoader />}
+        {femaleShops &&
+          femaleShops.map((shop, index) => (
+            <Div href={`women/shops?shop=${shop}`} key={index}>
+              <Image
+                onLoadingComplete={() => setIsLoaded(true)}
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/women/${shop}.png`}
+                alt={shop}
+              />
+
+              <Title>
+                <b>{shop}</b>
+              </Title>
+            </Div>
+          ))}
+        {shops &&
+          shops.map((shop, index) => (
+            <Div href={`men/shops?shop=${shop}`} key={index}>
+              <Image
+                onLoadingComplete={() => setIsLoaded(true)}
+                width={700}
+                height={700}
+                layout="responsive"
+                src={`/images/men/${shop}.png`}
+                alt={shop}
+              />
+
+              <Title>{shop}</Title>
+            </Div>
+          ))}
+      </StyledGrid>
+    </>
   );
 }

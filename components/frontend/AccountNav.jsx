@@ -24,15 +24,15 @@ const Box = styled.div`
       h2 {
         font-size: 1rem;
         font-family: 'Futura Std Heavy';
-      };
+      }
       span {
         font-family: 'Futura Std Book';
         padding-top: 3px;
-      };
+      }
       a {
         color: #000000e0;
         font-size: 0.9rem;
-      };
+      }
     `};
 
   button {
@@ -40,7 +40,7 @@ const Box = styled.div`
     padding-top: 3px;
     font-size: 0.8rem;
     text-decoration: underline;
-  };
+  }
 
   ${(props) =>
     props.b &&
@@ -53,7 +53,7 @@ const Box = styled.div`
       ul {
         list-style-type: none;
         list-style: none;
-      };
+      }
     `};
   li a {
     text-decoration: none;
@@ -61,7 +61,7 @@ const Box = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-  };
+  }
   li {
     list-style-type: none;
     list-style: none;
@@ -69,7 +69,7 @@ const Box = styled.div`
     font-weight: 100;
     font-size: 0.8rem;
     color: #0000007e;
-  };
+  }
 `;
 export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
   const { data: session, status } = useSession();
@@ -112,11 +112,18 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
       {!session && (
         <Box a>
           <section
-            style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent:'space-between', width:'100%', }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              justifyContent: 'space-between',
+              width: '100%',
+            }}
           >
-            <span className='space-x-2'>
-            <Link href={'/auth/sign-in'}>Sign In</Link> |
-            <Link href={'/auth/sign-in'}>Join</Link>{' '}</span>
+            <span className="space-x-2">
+              <Link href={'/auth/sign-in'}>Sign In</Link> |
+              <Link href={'/auth/sign-in'}>Join</Link>{' '}
+            </span>
             <button
               className="cursor-pointer "
               onClick={() => setAccOpen(false)}

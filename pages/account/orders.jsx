@@ -72,7 +72,13 @@ export default function OrdersPage({ orderHistory }) {
 
   return (
     <Layout>
-      <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', backgroundColor:'white' }}>
+      <div
+        style={{
+          padding: '20px',
+          fontFamily: 'Arial, sans-serif',
+          backgroundColor: 'white',
+        }}
+      >
         <h1>My Orders</h1>
         {orders.length === 0 ? (
           <p>No orders found.</p>

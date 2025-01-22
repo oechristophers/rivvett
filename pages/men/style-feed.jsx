@@ -1,15 +1,14 @@
-
-
 import React from 'react';
 import RootLayout from '../layout';
 import { mongooseConnect } from '@/lib/mongoose';
 import { Blog } from '@/models/Blog';
 import BlogCard from '@/components/frontend/BlogCard';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';  // Import Framer Motion
+import { motion } from 'framer-motion'; // Import Framer Motion
 
 // Styled components for layout and styling
-const BlogGrid = styled(motion.div)`  // Convert BlogGrid to a motion.div for animation
+const BlogGrid = styled(motion.div)`
+  // Convert BlogGrid to a motion.div for animation
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 1000px;
@@ -65,19 +64,19 @@ const gridVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,  // Stagger the animations of the grid items
+      staggerChildren: 0.3, // Stagger the animations of the grid items
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.9 },  // Start from below and scaled down
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    scale: 1,  // Card scales up after appearing
-    transition: { duration: 0.6 }
-  },  
+  hidden: { opacity: 0, y: 50, scale: 0.9 }, // Start from below and scaled down
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1, // Card scales up after appearing
+    transition: { duration: 0.6 },
+  },
 };
 
 export default function FashionFeed({ blogs }) {
@@ -87,21 +86,20 @@ export default function FashionFeed({ blogs }) {
         <Title>MEN&rsquo;S STYLE FEED</Title>
         <Sub>Style. Grooming. Inspiration. Advice</Sub>
 
-
         {/* Wrap BlogGrid in motion.div with staggered animations */}
         <BlogGrid
           initial="hidden"
           animate="visible"
-          variants={gridVariants}  // Add grid animation variants
+          variants={gridVariants} // Add grid animation variants
         >
           {blogs &&
             blogs.map((blog) => (
               <motion.div
                 key={blog._id}
                 variants={cardVariants}
-                whileInView="visible"  // Trigger animation when in view
-                initial="hidden"  // Start with hidden state
-                viewport={{ once: false, amount: 0.2 }}  // Trigger when 20% is in view
+                whileInView="visible" // Trigger animation when in view
+                initial="hidden" // Start with hidden state
+                viewport={{ once: false, amount: 0.2 }} // Trigger when 20% is in view
               >
                 <BlogCard {...blog} />
               </motion.div>

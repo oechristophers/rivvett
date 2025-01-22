@@ -73,7 +73,6 @@ const Div = styled.div`
 `;
 
 export default function Nav() {
- 
   return (
     <>
       <Div className="bg-white flex flex-col  ">
@@ -181,8 +180,8 @@ export default function Nav() {
         </li>
       </Div>
 
-      <Div noborder className="bg-white flex flex-col  " >
-        <li className="noborder" >
+      <Div noborder className="bg-white flex flex-col  ">
+        <li className="noborder">
           <button onClick={handleSignOut}>
             <Logout
               style={{

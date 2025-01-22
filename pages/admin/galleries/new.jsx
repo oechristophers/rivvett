@@ -1,5 +1,5 @@
-import GalleryForm from "@/components/admin/GalleryForm";
-import React from "react";
+import GalleryForm from '@/components/admin/GalleryForm';
+import React from 'react';
 
 export default function NewGallery() {
   return (

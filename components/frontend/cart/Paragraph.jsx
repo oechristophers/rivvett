@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import css from 'styled-jsx/css';
- 
 
 const Paragraph = styled.p`
   text-align: left;
@@ -113,9 +112,9 @@ const Paragraph = styled.p`
 `;
 
 export default function P({ children, className, ...rest }) {
-    return (
-      <Paragraph className={`p ${className}`} {...rest}>
-        {children}
-      </Paragraph>
-    );
-  }
+  return (
+    <Paragraph className={`p ${className}`} {...rest}>
+      {children}
+    </Paragraph>
+  );
+}

@@ -1,7 +1,7 @@
-import ProductForm from "@/components/admin/ProductForm";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import ProductForm from '@/components/admin/ProductForm';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 export default function EditProductPage() {
   const [productInfo, setProductInfo] = useState(null);
@@ -15,9 +15,5 @@ export default function EditProductPage() {
       setProductInfo(response.data);
     });
   }, [id]);
-  return (
-    <>
-      {productInfo && <ProductForm {...productInfo} />}
-    </>
-  );
+  return <>{productInfo && <ProductForm {...productInfo} />}</>;
 }

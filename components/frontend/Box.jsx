@@ -79,7 +79,7 @@ const Box = styled.div`
       gap: 20px;
       transition: all 0.3s ease; /* duration and timing function */
       @media screen and (max-width: 600px) {
-        padding:0;
+        padding: 0;
       }
     `}
 
@@ -90,17 +90,15 @@ const Box = styled.div`
     gap: 0;
     transition: all 0.3s ease;
     @media screen and (max-width: 600px) {
-        padding:20px 10px;
-        padding-left:60px;
-       
-      }
+      padding: 20px 10px;
+      padding-left: 60px;
+    }
     .title {
       margin-top: 10px;
       margin-bottom: -10px;
-     
     }
-    p{
-      font-size: .75rem;
+    p {
+      font-size: 0.75rem;
       font-family: 'Futura Std Book';
       color: #000;
     }

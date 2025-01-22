@@ -66,9 +66,9 @@ export default function Nav({ show }) {
         '   text-black w-full min-h-screen md:w-auto transition-all md:flex-col '
       }
     >
-        <div className="mb-4 ml-9 w-[15.7rem] p-3 pl-6 bg-white">
-          <Logo />
-        </div>
+      <div className="mb-4 ml-9 w-[15.7rem] p-3 pl-6 bg-white">
+        <Logo />
+      </div>
       <nav className="flex flex-col gap-2 w-[18rem] pl-9 ">
         <Div $activeLink={pathname === '/'}>
           <Link

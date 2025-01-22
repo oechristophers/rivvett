@@ -6,7 +6,7 @@ import { authOptions } from '../auth/[...nextauth]';
 
 export default async function handler(req, res) {
   await mongooseConnect();
-  
+
   const session = await getServerSession(req, res, authOptions);
   const userEmail = session.user.email;
 

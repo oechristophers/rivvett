@@ -34,7 +34,7 @@ const Div = styled.div`
   .lastSpan {
     width: 10px;
     height: 7px;
-  };
+  }
   .linkP {
     padding-left: 28px;
   }
@@ -122,7 +122,7 @@ const Tooltip = styled.div`
   background-color: #000000d1;
   color: white;
   padding: 5px;
-  font-size: .5rem;
+  font-size: 0.5rem;
   border-radius: 5px;
   position: absolute;
   top: -35px;
@@ -337,18 +337,27 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
   const [isSize, setIsSize] = useState(null);
   const [isColor, setIsColor] = useState(null);
   const lowerTitle = product.title.toLowerCase();
-  const [showTooltip, setShowTooltip] = useState(false); const handleMouseOver = () => { if (!isSize || !isColor) { setShowTooltip(true); } }; const handleMouseOut = () => { setShowTooltip(false); };
+  const [showTooltip, setShowTooltip] = useState(false);
+  const handleMouseOver = () => {
+    if (!isSize || !isColor) {
+      setShowTooltip(true);
+    }
+  };
+  const handleMouseOut = () => {
+    setShowTooltip(false);
+  };
   const prodCatParent = categories.find(
     (cats) =>
-      cats._id === categories.find((cat) => cat._id === product.category).parent
+      cats._id ===
+      categories.find((cat) => cat._id === product.category).parent,
   );
   const colorProp = prodCatParent?.properties.find(
-    (prop) => prop.name === 'color'
+    (prop) => prop.name === 'color',
   )?.values;
   const productColor = product?.properties?.color;
 
   const sizeProp = prodCatParent?.properties.find(
-    (prop) => prop.name === 'size'
+    (prop) => prop.name === 'size',
   )?.values;
   const productSize = product?.properties?.size;
 
@@ -413,7 +422,7 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
             </P>
             {colorProp?.map((color, index) => {
               const isColorInParent = productColor?.some((col) =>
-                col.includes(color)
+                col.includes(color),
               );
               return (
                 <ColorSpan
@@ -476,7 +485,7 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
               disabled={!isSize || !isColor}
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              style={{opacity: (isSize && isColor) ? 1 : 0.4, color:'white' }}
+              style={{ opacity: isSize && isColor ? 1 : 0.4, color: 'white' }}
             >
               {' '}
               Add to bag{' '}
@@ -532,8 +541,9 @@ export default function ProdInfo({ product, categories, proCat, contentRef }) {
                 {' '}
                 <Link href={'/'}>View our Delivery & Returns Policy</Link>
               </P>{' '}
-              <Span className="lastSpan"
-              style={{width: '10px', height:'10px', fontSize:'5px'}}
+              <Span
+                className="lastSpan"
+                style={{ width: '10px', height: '10px', fontSize: '5px' }}
               >
                 <Copy />
               </Span>

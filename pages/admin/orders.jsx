@@ -1,11 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Layout from "./layout";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import Layout from './layout';
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    axios.get("/api/server/orders").then((response) => {
+    axios.get('/api/server/orders').then((response) => {
       setOrders(response.data);
     });
   }, []);
@@ -31,11 +31,11 @@ export default function OrdersPage() {
                   <span
                     className={
                       order.paid
-                        ? "text-green-800 border bg-green-300  px-2 rounded-lg py-[0.15rem]"
-                        : "text-yellow-700 bg-yellow-200 px-2 py-[0.15rem] rounded-lg"
+                        ? 'text-green-800 border bg-green-300  px-2 rounded-lg py-[0.15rem]'
+                        : 'text-yellow-700 bg-yellow-200 px-2 py-[0.15rem] rounded-lg'
                     }
                   >
-                    {order.paid ? "Succeed" : "Pending"}
+                    {order.paid ? 'Succeed' : 'Pending'}
                   </span>
                 </td>
                 <td>

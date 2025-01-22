@@ -1,13 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { withSwal } from "react-sweetalert2";
-import Layout from "./layout";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { withSwal } from 'react-sweetalert2';
+import Layout from './layout';
 function Genders({ swal }) {
   const [genders, setGenders] = useState([]);
   const [editedGender, setEditedGender] = useState(null);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
- 
   useEffect(() => {
     fetchGenders();
   }, []);
@@ -15,10 +14,10 @@ function Genders({ swal }) {
   // Fetching all genders
   async function fetchGenders() {
     try {
-      const response = await axios.get("/api/server/genders");
+      const response = await axios.get('/api/server/genders');
       setGenders(response.data);
     } catch (error) {
-      console.error("Error fetching genders", error);
+      console.error('Error fetching genders', error);
     }
   }
 
@@ -33,18 +32,18 @@ function Genders({ swal }) {
       try {
         await axios.put(`/api/server/genders/`, data);
       } catch (error) {
-        console.error("Error updating gender", error);
+        console.error('Error updating gender', error);
       }
     } else {
       try {
-        await axios.post("/api/server/genders", data);
+        await axios.post('/api/server/genders', data);
       } catch (error) {
-        console.error("Error creating gender", error);
+        console.error('Error creating gender', error);
       }
     }
 
     setEditedGender(null);
-    setName("");
+    setName('');
     fetchGenders(); // Refresh the gender list
   }
 
@@ -52,19 +51,19 @@ function Genders({ swal }) {
   function editGender(gender) {
     setEditedGender(gender);
     setName(gender.name);
-    console.log("Editing gender:", gender); // Debugging selected gender
+    console.log('Editing gender:', gender); // Debugging selected gender
   }
 
   // Delete gender with confirmation dialog
   function deleteGender(gender) {
     swal
       .fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: `Do you want to delete ${gender.name}?`,
         showCancelButton: true,
-        cancelButtonText: "Cancel",
-        confirmButtonText: "Yes, delete!",
-        confirmButtonColor: "#d55",
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Yes, delete!',
+        confirmButtonColor: '#d55',
         reverseButtons: true,
       })
       .then(async (result) => {
@@ -73,7 +72,7 @@ function Genders({ swal }) {
             await axios.delete(`/api/server/genders?_id=${gender._id}`);
             fetchGenders(); // Refresh the gender list after deletion
           } catch (error) {
-            console.error("Deletion was not successful", error);
+            console.error('Deletion was not successful', error);
           }
         }
       });
@@ -85,7 +84,7 @@ function Genders({ swal }) {
       <label>
         {editedGender
           ? `Edit Gender ${editedGender.name}`
-          : "Create Gender name"}
+          : 'Create Gender name'}
       </label>
       <form onSubmit={saveGender} className="flex gap-1">
         <input

@@ -1,11 +1,11 @@
-import { useSession } from "next-auth/react";
-import Layout from "./layout";
+import { useSession } from 'next-auth/react';
+import Layout from './layout';
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
 
   // Handle loading state
-  if (status === "loading") {
+  if (status === 'loading') {
     return (
       <Layout>
         <div>Loading...</div>
@@ -23,7 +23,7 @@ export default function AdminDashboard() {
   }
 
   // Check if the user is a customer (assuming you're checking role from session)
-  const isCustomer = session?.user?.role === "customer"; // Adjust according to your session data structure
+  const isCustomer = session?.user?.role === 'customer'; // Adjust according to your session data structure
 
   // Handle when the user is not a customer (e.g., admin or other role)
   if (!isCustomer) {
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
         </h2>
         <div className="flex bg-gray-300 text-black gap-1 rounded-lg overflow-hidden">
           <img
-            src={session?.user?.image || "/default-profile.png"} // Fallback if no image
+            src={session?.user?.image || '/default-profile.png'} // Fallback if no image
             alt="dp"
             className="w-6 h-6"
           />

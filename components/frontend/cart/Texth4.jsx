@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 const Text = styled.h4`
@@ -7,9 +7,9 @@ const Text = styled.h4`
   font-weight: 900;
 `;
 export default function H4({ children, className, ...rest }) {
-    return (
-      <Text className={`h4 ${className}`} {...rest}>
-        {children}
-      </Text>
-    );
-  }
+  return (
+    <Text className={`h4 ${className}`} {...rest}>
+      {children}
+    </Text>
+  );
+}

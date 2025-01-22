@@ -1,9 +1,9 @@
-import axios from "axios";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { withSwal } from "react-sweetalert2";
-import Layout from "./layout";
-import { Add } from "@mui/icons-material";
+import axios from 'axios';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { withSwal } from 'react-sweetalert2';
+import Layout from './layout';
+import { Add } from '@mui/icons-material';
 
 function Blogs({ swal }) {
   const [blogs, setBlogs] = useState([]);
@@ -12,7 +12,7 @@ function Blogs({ swal }) {
   }, []);
 
   function fetchBlogs() {
-    axios.get("/api/server/blogs").then((response) => {
+    axios.get('/api/server/blogs').then((response) => {
       setBlogs(response.data);
     });
   }
@@ -20,12 +20,12 @@ function Blogs({ swal }) {
   function deleteBlog(blog) {
     swal
       .fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: `Do you want to delete ${blog.title}?`,
         showCancelButton: true,
-        cancelButtonText: "Cancel",
-        confirmButtonText: "Yes, delete !",
-        confirmButtonColor: "#d55",
+        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Yes, delete !',
+        confirmButtonColor: '#d55',
         reverseButtons: true,
       })
       .then(async (result) => {
@@ -33,7 +33,7 @@ function Blogs({ swal }) {
         console.log({ result });
         if (result.isConfirmed) {
           const _id = blog._id;
-          await axios.delete("/api/server/blogs?_id=" + _id);
+          await axios.delete('/api/server/blogs?_id=' + _id);
           fetchBlogs();
         }
       })
@@ -45,10 +45,10 @@ function Blogs({ swal }) {
     <Layout>
       <div className="flex justify-end">
         <Link
-          href={"/admin/blogs/new"}
+          href={'/admin/blogs/new'}
           className="bg-gray-500 text-white py-2 px-2 rounded-sm mt-2  "
         >
-          <Add/>
+          <Add />
           New
         </Link>
       </div>
@@ -65,7 +65,7 @@ function Blogs({ swal }) {
               <td>{blog.title}</td>
               <td>
                 <Link
-                  href={"/admin/blogs/edit/" + blog._id}
+                  href={'/admin/blogs/edit/' + blog._id}
                   className="btn-primary text-sm p-1 rounded-md px-2 inline-flex gap-1 mr-1"
                 >
                   <svg

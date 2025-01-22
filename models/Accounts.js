@@ -1,4 +1,4 @@
-import mongoose, { model, models, Schema } from "mongoose";
+import mongoose, { model, models, Schema } from 'mongoose';
 
 const UserSchema = new Schema(
   {
@@ -14,7 +14,7 @@ const UserSchema = new Schema(
     },
     addresses: [
       {
-        type: { type: String, enum: ["shipping", "billing"], required: true },
+        type: { type: String, enum: ['shipping', 'billing'], required: true },
         addressLine1: { type: String, required: true },
         addressLine2: { type: String },
         city: { type: String, required: true },
@@ -25,8 +25,8 @@ const UserSchema = new Schema(
     ],
     orderHistory: [
       {
-        orderId: { type: mongoose.Schema.Types.ObjectId, ref: "Order" },
-        status: { type: String},
+        orderId: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' },
+        status: { type: String },
         trackingNumber: { type: String, default: 'SIM123456789' },
         estimatedDeliveryDate: { type: Date, default: null },
         status: {
@@ -39,14 +39,14 @@ const UserSchema = new Schema(
     ],
     wishlist: [
       {
-        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
         quantity: { type: Number, default: 1 },
         properties: { type: Object },
       },
     ],
     paymentMethods: [
       {
-        type: { type: String, enum: ["card", "paypal"] },
+        type: { type: String, enum: ['card', 'paypal'] },
         cardHolderName: { type: String },
         last4: { type: String },
         expiry: { type: String },
@@ -54,12 +54,12 @@ const UserSchema = new Schema(
     ],
     role: {
       type: String,
-      enum: ["admin", "customer", "staff"], // You can add more roles if needed
-      default: "customer", // Default role is customer
+      enum: ['admin', 'customer', 'staff'], // You can add more roles if needed
+      default: 'customer', // Default role is customer
     },
   },
 
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export const Users = models?.Users || model("Users", UserSchema);
+export const Users = models?.Users || model('Users', UserSchema);

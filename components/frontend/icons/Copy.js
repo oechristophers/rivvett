@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const Icon = styled.svg`
- 
- width: ${(props) => props.size || '22px'};
+  width: ${(props) => props.size || '22px'};
   height: ${(props) => props.size || '22px'};
   padding-bottom: 10px;
 `;

@@ -187,7 +187,7 @@ export default function ProductPage({ product, products, gallery }) {
 
   const genderName = product.gender.name;
   const unisexProducts = products.filter(
-    (prod) => prod.gender.name === genderName
+    (prod) => prod.gender.name === genderName,
   );
 
   const relatedByShop = unisexProducts.filter((prod) => {
@@ -202,7 +202,7 @@ export default function ProductPage({ product, products, gallery }) {
   });
 
   const related = unisexProducts.filter(
-    (prod) => prod.category === product.category
+    (prod) => prod.category === product.category,
   );
   const relatedByColl = unisexProducts.filter((prod) => {
     const productsColls = Array.isArray(product.properties.collection)
@@ -315,13 +315,14 @@ export default function ProductPage({ product, products, gallery }) {
 
 export async function getServerSideProps(context) {
   await mongooseConnect();
-  
+
   const { id } = context.query;
   const product = await Product.findById(id).populate('gender');
   const products = await Product.find({}).populate('gender');
-  
+
   // Determine the gender from local storage or the product's gender
-  const genderName = context.req.cookies.prevpath || product.gender.name.toLowerCase();
+  const genderName =
+    context.req.cookies.prevpath || product.gender.name.toLowerCase();
 
   // Find the gallery based on gender or fall back to unisex if not found
   let gallery = await Gallery.find({ gender: product.gender._id }).exec();

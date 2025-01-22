@@ -41,7 +41,10 @@ export default function FeaturedCollection({ femaleCollection, collections }) {
         {!isLoaded && <SkeletonLoader />}
         {femaleCollection &&
           femaleCollection.map((collection, index) => (
-            <Div href={`women/collections?collection=${collection}`} key={index}>
+            <Div
+              href={`women/collections?collection=${collection}`}
+              key={index}
+            >
               <Image
                 onLoadingComplete={() => setIsLoaded(true)}
                 width={700}

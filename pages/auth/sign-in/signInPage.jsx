@@ -37,11 +37,11 @@ const SignInPage = () => {
         <div className="grid grid-cols-1 md:flex items-center justify-center min-h-screen bg-[#eee] text-black">
           <div className="w-[25rem] p-8 rounded-xl shadow-lg text-center bg-white flex flex-col gap-5">
             <div className=" flex justify-center  ">
-              <section className='bg-[#1c1c1c21] p-2 w-80 rounded-2xl flex  justify-center cursor-pointer '
-               onClick={()=> {
-                 router.push('/');
- 
-               }}
+              <section
+                className="bg-[#1c1c1c21] p-2 w-80 rounded-2xl flex  justify-center cursor-pointer "
+                onClick={() => {
+                  router.push('/');
+                }}
               >
                 <img
                   src="/images/2.png"
@@ -64,9 +64,7 @@ const SignInPage = () => {
             <div className="flex flex-col w-full mt-4">
               <button
                 className="flex items-center justify-center p-4 bg-transparent hover:bg-[#dfd9d94f] text-sm font-bold border rounded-2xl"
-                onClick={
-                  handleGithubSignIn
-                }
+                onClick={handleGithubSignIn}
               >
                 <FaGithub className="mr-5 w-6 h-6" />
                 Continue with GitHub

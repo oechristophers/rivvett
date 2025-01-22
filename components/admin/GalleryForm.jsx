@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Layout from "./Layout";
-import axios from "axios";
-import ImageDisplay from "./ImageDisplay";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import Layout from './Layout';
+import axios from 'axios';
+import ImageDisplay from './ImageDisplay';
+import { useRouter } from 'next/router';
 
 export default function GalleryForm({
   _id,
@@ -10,14 +10,14 @@ export default function GalleryForm({
   title: existingTitle,
   gender: existingGender,
 }) {
-  const [title, setTitle] = useState(existingTitle || "");
-  const [gender, setGender] = useState(existingGender || "");
+  const [title, setTitle] = useState(existingTitle || '');
+  const [gender, setGender] = useState(existingGender || '');
   const [genders, setGenders] = useState([]);
   const [goToGalleries, setGoToGalleries] = useState(false);
   const [images, setImages] = useState(existingImages || []);
   const router = useRouter();
   useEffect(() => {
-    axios.get("/api/genders").then((response) => {
+    axios.get('/api/genders').then((response) => {
       setGenders(response.data);
     });
   }, []);
@@ -33,13 +33,13 @@ export default function GalleryForm({
     if (_id) {
       await axios.put(`/api/galleries/`, { ...data, _id });
     } else {
-      await axios.post("/api/galleries", data);
+      await axios.post('/api/galleries', data);
     }
 
     setGoToGalleries(true);
   }
   if (goToGalleries) {
-    router.push("/galleries");
+    router.push('/galleries');
   }
   return (
     <form onSubmit={handleSave}>

@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-
 
 const IBox = styled.div`
   position: relative;
@@ -15,9 +14,9 @@ const IBox = styled.div`
   }
 `;
 export default function ImageBox({ children, className, ...rest }) {
-    return (
-      <IBox className={`span ${className}`} {...rest}>
-        {children}
-      </IBox>
-    );
-  }
+  return (
+    <IBox className={`span ${className}`} {...rest}>
+      {children}
+    </IBox>
+  );
+}

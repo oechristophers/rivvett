@@ -62,14 +62,14 @@ export default function Hero() {
             <Link
               href="/women"
               className="bg-white text-black w-fit font-extralight uppercase py-2 px-4 "
-              style={{fontFamily:'Futura Std Heavy',letterSpacing:'1.2px'}}
+              style={{ fontFamily: 'Futura Std Heavy', letterSpacing: '1.2px' }}
             >
               Shop Women
             </Link>
             <Link
               href="/men"
               className="bg-white text-black w-fit font-extralight uppercase py-2 px-4 "
-              style={{fontFamily:'Futura Std Heavy',letterSpacing:'1.2px'}}
+              style={{ fontFamily: 'Futura Std Heavy', letterSpacing: '1.2px' }}
             >
               &nbsp; Shop Men &nbsp;
             </Link>

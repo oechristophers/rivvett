@@ -35,12 +35,12 @@ export const authOptions = {
     async signIn({ user, account }) {
       try {
         if (!user.email) throw new Error('Email not provided');
-        
+
         // Ensure the database connection
         await mongooseConnect();
-  
+
         const existingUser = await Users.findOne({ email: user.email });
-  
+
         if (!existingUser) {
           // Create a new user if not found
           await Users.create({
@@ -48,7 +48,7 @@ export const authOptions = {
             username: user.email.split('@')[0],
             email: user.email,
             image: user.image,
-            role: adminEmails.includes(user.email)?'admin':'customer',  // Default to 'customer'
+            role: adminEmails.includes(user.email) ? 'admin' : 'customer', // Default to 'customer'
             provider: account.provider,
           });
         } else if (!existingUser.provider) {
@@ -56,7 +56,7 @@ export const authOptions = {
           existingUser.provider = account.provider;
           await existingUser.save();
         }
-  
+
         return true;
       } catch (error) {
         console.error('Sign-In Error:', error);
@@ -66,14 +66,14 @@ export const authOptions = {
     async session({ session }) {
       try {
         await mongooseConnect();
-  
+
         const userData = await Users.findOne({ email: session.user.email });
         if (userData) {
           session.user.role = userData.role || 'customer';
           session.user.isAdmin = adminEmails.includes(session.user.email);
-          session.user.id = userData._id; 
+          session.user.id = userData._id;
         }
-  
+
         return session; // Ensure session includes role and isAdmin
       } catch (error) {
         console.error('Error in session callback:', error);
@@ -84,8 +84,6 @@ export const authOptions = {
 };
 
 export default NextAuth(authOptions);
-
-
 
 // Admin Authorization Middleware
 export async function isAdminRequest(req, res) {
@@ -103,16 +101,16 @@ export async function isAdminRequest(req, res) {
   }
 }
 
-
 // Customer Authorization Middleware
-
 
 export async function isCustomerRequest(req, res) {
   try {
     const session = await getServerSession(req, res, authOptions);
     if (!session || session.user.role !== 'customer') {
       console.log('Customer check failed:', session); // Debugging
-      res.status(401).json({ message: 'Unauthorized: Customer access required' });
+      res
+        .status(401)
+        .json({ message: 'Unauthorized: Customer access required' });
       return;
     }
     console.log('Customer authorized:', session); // Debugging
@@ -121,4 +119,3 @@ export async function isCustomerRequest(req, res) {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
-
