@@ -154,7 +154,7 @@ function Categories({
               <option value=""></option>
               {categories.length > 0 &&
                 categories.map((category) => (
-                  <option value={category._id}>{category.name}</option>
+                  <option key={category._id} value={category._id}>{category.name}</option>
                 ))}
             </select>
           </div>
@@ -185,7 +185,7 @@ function Categories({
           </div>
           {properties.length > 0 &&
             properties.map((property, index) => (
-              <div className="flex gap-1 mb-2">
+              <div key={index} className="flex gap-1 mb-2">
                 <input
                   type="text"
                   placeholder="property name (example:color)"
@@ -245,7 +245,7 @@ function Categories({
             <tbody>
               {categories.length > 0 &&
                 paginatedCategories.map((category) => (
-                  <tr>
+                  <tr key={category._id}>
                     <td>{category.name}</td>
                     <td className="flex justify-between">
                       {category?.parent?.name || 'none'}

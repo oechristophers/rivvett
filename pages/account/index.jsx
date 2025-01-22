@@ -13,13 +13,7 @@ const Div = styled.div`
 
 `
 export default function index() {
-  const session = useSession();
-  const router = useRouter();
 
-  if (!session) {
-    router.push('/auth/sign-in');
-    return null; // Return null to avoid rendering the component when the user is not authenticated.  This prevents unnecessary re-renders.
-  }
 
   return (
     

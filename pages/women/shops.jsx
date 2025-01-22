@@ -53,7 +53,7 @@ const SidebarBackdrop = styled.div`
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
 `;
 
-export default function shops({ products, categories, properties }) {
+export default function Shops({ products, categories, properties }) {
   const router = useRouter();
   const { query } = router;
 
@@ -99,7 +99,7 @@ export default function shops({ products, categories, properties }) {
         className="text-center py-3 uppercase"
         style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
       >
-        "Women's shops" : <span>{query.shop && query.shop}</span>
+        &ldquo;Women&apos;s Shops&ldquo; : <span>{query.shop && query.shop}</span>
       </h2>
       <FiltersContainer className="hidden md:flex px-10 justify-between py-5 bg-[#c6c4c4]">
         <Select

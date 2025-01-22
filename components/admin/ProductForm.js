@@ -1,11 +1,11 @@
-import Layout from '@/pages/admin/layout';
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import Spinner from './Spinner';
-import { ReactSortable } from 'react-sortablejs';
-import UploadButton from './UploadButton';
-import ImageDisplay from './ImageDisplay';
+import Layout from "@/pages/admin/layout";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import Spinner from "./Spinner";
+import { ReactSortable } from "react-sortablejs";
+import UploadButton from "./UploadButton";
+import ImageDisplay from "./ImageDisplay";
 
 export default function ProductForm({
   _id,
@@ -17,13 +17,13 @@ export default function ProductForm({
   gender: assignedGender,
   properties: assignedProperties,
 }) {
-  const [title, setTitle] = useState(existingTitle || '');
-  const [description, setDescription] = useState(existingDescription || '');
+  const [title, setTitle] = useState(existingTitle || "");
+  const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || 0);
   const [goToProducts, setGoToProducts] = useState(false);
   const [images, setImages] = useState(existingImages || []);
-  const [category, setCategory] = useState(assignedCategory || '');
-  const [gender, setGender] = useState(assignedGender || '');
+  const [category, setCategory] = useState(assignedCategory || "");
+  const [gender, setGender] = useState(assignedGender || "");
   const [categories, setCategories] = useState([]);
   const [genders, setGenders] = useState([]);
   const [productProperties, setProductProperties] = useState(
@@ -31,10 +31,10 @@ export default function ProductForm({
   );
   const router = useRouter();
   useEffect(() => {
-    axios.get('/api/server/categories').then((result) => {
+    axios.get("/api/server/categories").then((result) => {
       setCategories(result.data);
     });
-    axios.get('/api/server/genders').then((response) => {
+    axios.get("/api/server/genders").then((response) => {
       setGenders(response.data);
     });
   }, []);
@@ -54,13 +54,13 @@ export default function ProductForm({
       await axios.put(`/api/server/products/`, { ...data, _id });
     } else {
       //create product
-      await axios.post('/api/server/products', data);
+      await axios.post("/api/server/products", data);
     }
 
     setGoToProducts(true);
   }
   if (goToProducts) {
-    router.push('/products');
+    router.push("/products");
   }
 
   function setProdProp(propName, value) {
@@ -97,7 +97,7 @@ export default function ProductForm({
   }
   return (
     <Layout>
-      <form onSubmit={saveProduct} >
+      <form onSubmit={saveProduct}>
         <label>Product name</label>
         <input
           type="text"
@@ -109,10 +109,20 @@ export default function ProductForm({
         <select
           value={gender}
           onChange={(ev) => setGender(ev.target.value)}
-          style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }}
+          style={{
+            color: "#0000009d",
+            fontSize: ".9rem",
+            backgroundColor: "white",
+            letterSpacing: "1px",
+          }}
         >
           <option
-            style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }}
+            style={{
+              color: "#0000009d",
+              fontSize: ".9rem",
+              backgroundColor: "white",
+              letterSpacing: "1px",
+            }}
             value=""
             className="text-black"
           >
@@ -121,7 +131,13 @@ export default function ProductForm({
           {genders.length > 0 &&
             genders.map((g) => (
               <option
-                style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }}
+                key={g._id}
+                style={{
+                  color: "#0000009d",
+                  fontSize: ".9rem",
+                  backgroundColor: "white",
+                  letterSpacing: "1px",
+                }}
                 value={g._id}
               >
                 {g.name}
@@ -133,18 +149,37 @@ export default function ProductForm({
         <select
           value={category}
           onChange={(ev) => setCategory(ev.target.value)}
-          style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }}
+          style={{
+            color: "#0000009d",
+            fontSize: ".9rem",
+            backgroundColor: "white",
+            letterSpacing: "1px",
+          }}
         >
-          <option style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }} value="">
+          <option
+            style={{
+              color: "#0000009d",
+              fontSize: ".9rem",
+              backgroundColor: "white",
+              letterSpacing: "1px",
+            }}
+            value=""
+          >
             Uncategorized
           </option>
           {categories.length > 0 &&
             categories.map((c) => (
               <option
+                key={c._id}
                 value={c._id}
-                style={{ color: '#0000009d',fontSize:'.9rem', backgroundColor: 'white',letterSpacing:'1px' }}
+                style={{
+                  color: "#0000009d",
+                  fontSize: ".9rem",
+                  backgroundColor: "white",
+                  letterSpacing: "1px",
+                }}
               >
-                {c.name}{' '}
+                {c.name}{" "}
               </option>
             ))}
         </select>
@@ -152,13 +187,15 @@ export default function ProductForm({
           propsToFill.map((p) => (
             <div className="flex gap-1" key={p.name}>
               <div>
-                <h2 className="capitalize text-[#00000080] font-futura text-[.9rem]">{p.name}</h2>
+                <h2 className="capitalize text-[#00000080] font-futura text-[.9rem]">
+                  {p.name}
+                </h2>
                 {p.values &&
                   p.values.map((v) => (
                     <label
                       key={v}
                       className={`checkbox-container ${
-                        productProperties[p.name]?.includes(v) ? 'selected' : ''
+                        productProperties[p.name]?.includes(v) ? "selected" : ""
                       }`}
                     >
                       <input
