@@ -79,21 +79,21 @@ const Wrap = styled.div`
 
   ${(props) =>
     props.carousel &&
-    css`
+    `
       border-top: 1px solid #1b1a1a15;
       padding: 80px 7%;
       margin-bottom: 30px;
     `}
   ${(props) =>
     props.last &&
-    css`
+    `
       padding-bottom: 20px;
     `}
     @media screen and (max-width: 1024px) {
     padding: 80px 5%;
     ${(props) =>
       props.grid &&
-      css`
+      `
         margin-top: 0px;
       `}
   }
@@ -103,19 +103,19 @@ const Wrap = styled.div`
   @media screen and (max-width: 820px) {
     ${(props) =>
       props.grid &&
-      css`
+      `
         margin-top: 10px;
       `}
     ${(props) =>
       props.carousel &&
-      css`
+      `
         padding-bottom: 40px;
       `}
   }
   @media screen and (max-width: 500px) {
     ${(props) =>
       props.grid &&
-      css`
+      `
         margin-top: 40px;
       `}
   }

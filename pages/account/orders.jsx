@@ -12,7 +12,7 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const session = await getServerSession(req, res, authOptions);
 
-  const userEmail = session.user.email;
+  const userEmail = session?.user?.email;
 
   if (!userEmail) {
     return {

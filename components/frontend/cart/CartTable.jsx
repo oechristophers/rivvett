@@ -22,7 +22,7 @@ export const ControlBtn = styled(Button)`
 
   ${(props) =>
     props.fav &&
-    css`
+    `
       padding: 5px;
       padding-right: 12px;
       padding-left: 0;

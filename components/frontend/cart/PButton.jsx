@@ -9,7 +9,7 @@ const StyledButton = styled(Button)`
   width: 100%;
   ${(props) =>
     props.empty &&
-    css`
+    `
       background-color: #018849;
       display: flex;
       width: fit-content;
@@ -21,7 +21,7 @@ const StyledButton = styled(Button)`
     `}
   ${(props) =>
     props.shopmore &&
-    css`
+    `
       color: black;
       background-color: transparent;
       text-decoration: underline;

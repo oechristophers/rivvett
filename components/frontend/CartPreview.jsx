@@ -37,7 +37,7 @@ const MainDiv = styled.div`
 const Box = styled.div`
   ${(props) =>
     props.a &&
-    css`
+    `
       padding: 5px 20px;
       display: flex;
       background-color: #00000013;
@@ -55,7 +55,7 @@ const Box = styled.div`
 
   ${(props) =>
     props.b &&
-    css`
+    `
       padding-left: 20px;
       max-height: 150px;
       overflow-y: scroll;
@@ -71,7 +71,7 @@ const Box = styled.div`
     `};
   ${(props) =>
     props.c &&
-    css`
+    `
       display: flex;
       justify-content: space-between;
       background-color: #8d8c8c13;
@@ -84,7 +84,7 @@ const Box = styled.div`
     `}
   ${(props) =>
     props.d &&
-    css`
+    `
       background-color: #00000013;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -119,7 +119,7 @@ const Box = styled.div`
      /* prettier-ignore */
   ${(props) =>
     props.e &&
-    css`
+    `
       padding: 10px;
       display: flex;
       flex-direction: column;

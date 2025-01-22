@@ -15,7 +15,7 @@ import css from 'styled-jsx/css';
 const Box = styled.div`
   ${(props) =>
     props.a &&
-    css`
+    `
       padding: 5px 20px;
       display: flex;
       background-color: #00000013;
@@ -44,9 +44,9 @@ const Box = styled.div`
 
   ${(props) =>
     props.b &&
-    css`
+    `
       padding: 20px;
-      gap: 20px;
+      gap: 15px;
       display: flex;
       flex-direction: column;
 
@@ -161,7 +161,7 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
           </Link>
         </li>
         <li>
-          <Link href={'/orders'}>
+          <Link href={'/account/orders'}>
             <LocalMallOutlined
               style={{ fontSize: '1.6rem', color: '#000000bc' }}
             />{' '}
@@ -169,7 +169,7 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
           </Link>
         </li>
         <li>
-          <Link href={'/returns'}>
+          <Link href={'/account/returns'}>
             <KeyboardReturnOutlined
               style={{ fontSize: '1.6rem', color: '#000000bc' }}
             />
@@ -177,13 +177,13 @@ export default function AccountNav({ accOpen, setAccOpen, isVisible }) {
           </Link>
         </li>
         <li>
-          <Link href={'/returns'}>
+          <Link href={'/account/returns'}>
             <InfoOutlined style={{ fontSize: '1.6rem', color: '#000000bc' }} />
             Returns Information
           </Link>
         </li>
         <li>
-          <Link href={'/returns'}>
+          <Link href={'/account/returns'}>
             <TextsmsOutlined
               style={{ fontSize: '1.6rem', color: '#000000bc' }}
             />

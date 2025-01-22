@@ -12,11 +12,7 @@ import { useRouter } from "next/router";
 
 const Wrap = styled.div`
   position: relative;
-  /* ${(props) =>
-    props.showInput &&
-    css`z
-      position: absolute;
-    `} */
+
 `;
 const SearchButton = styled.button`
   margin-right: 0;
@@ -53,7 +49,7 @@ const Div = styled.div`
   justify-content: space-between;
   ${(props) =>
     props.showInput &&
-    css`
+    `
       position: relative;
     `}
   z-index: 1000;
@@ -91,7 +87,7 @@ const Sect = styled.div`
       display: none;
       ${(props) =>
         props.showInput &&
-        css`
+        `
           z-index: unset;
           width: 100vw;
           display: block;

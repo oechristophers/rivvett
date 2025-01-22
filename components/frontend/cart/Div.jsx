@@ -11,13 +11,13 @@ const StyledDiv = styled.div`
   }
   ${(props) =>
     props.total &&
-    css`
+    `
       display: flex;
       justify-content: space-between;
     `}
   ${(props) =>
     props.close &&
-    css`
+    `
       position: absolute;
       top: 0;
       right: 0;
@@ -25,13 +25,13 @@ const StyledDiv = styled.div`
     `}
   ${(props) =>
     props.container &&
-    css`
+    `
       position: relative;
       padding-top: 20px;
     `}
   ${(props) =>
     props.size &&
-    css`
+    `
       width: fit-content;
       margin-left: 0;
       position: relative;

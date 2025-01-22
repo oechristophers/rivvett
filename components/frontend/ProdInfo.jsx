@@ -23,7 +23,7 @@ const Div = styled.div`
   width: 100%;
   ${(props) =>
     props.main &&
-    css`
+    `
       width: 320px;
       @media screen and (max-width: 780px) {
         width: auto;
@@ -41,7 +41,7 @@ const Div = styled.div`
 
   ${(props) =>
     props.select &&
-    css`
+    `
       position: relative;
       display: inline-block;
       border: 1px solid;
@@ -49,7 +49,7 @@ const Div = styled.div`
     `}
   ${(props) =>
     props.info &&
-    css`
+    `
       display: flex;
       align-items: center;
       gap: 8px;
@@ -62,12 +62,12 @@ const Div = styled.div`
   ${(props) =>
     props.info &&
     props.link &&
-    css`
+    `
       flex-wrap: wrap;
     `}
   ${(props) =>
     props.mainInfo &&
-    css`
+    `
       overflow-x: hidden;
       border: 1px solid #cccc;
       display: flex;
@@ -84,7 +84,7 @@ const Div = styled.div`
   ${(props) =>
     props.infoLast &&
     props.info &&
-    css`
+    `
       border-top: 1px solid #cccc;
       padding: 10px 0;
 
@@ -152,7 +152,7 @@ const P = styled.p`
   }
   ${(props) =>
     props.promo &&
-    css`
+    `
       width: 30ch;
       padding-right: 20px;
       font-size: 0.7rem;
@@ -163,7 +163,7 @@ const P = styled.p`
     `}
   ${(props) =>
     props.active &&
-    css`
+    `
       font-weight: 900;
       span {
         font-weight: 100;
@@ -171,7 +171,7 @@ const P = styled.p`
     `}
   ${(props) =>
     props.selects &&
-    css`
+    `
       font-weight: 900;
       display: flex;
       justify-content: space-between;
@@ -197,7 +197,7 @@ const ColorSpan = styled.button`
   opacity: ${(props) => (props.isFaded === false ? 0.5 : 1)};
   ${(props) =>
     props.isFaded === false &&
-    css`
+    `
       cursor: default;
     `}
   &:hover .note {
@@ -206,7 +206,7 @@ const ColorSpan = styled.button`
   ${(props) =>
     props.isFaded &&
     props.active &&
-    css`
+    `
       border: 2px solid;
     `}
 `;
@@ -227,7 +227,7 @@ const Span = styled.span`
   font-family: 'Futura Std Book';
   ${(props) =>
     props.promo &&
-    css`
+    `
       padding: 7px 10px;
       gap: 10px;
       line-height: 1.5;
@@ -238,14 +238,14 @@ const Span = styled.span`
     `}
   ${(props) =>
     props.pace &&
-    css`
+    `
       letter-spacing: -1.2px;
       font-weight: 900;
       font-family: 'Futura Std Heavy';
     `}
   ${(props) =>
     props.active &&
-    css`
+    `
       text-transform: capitalize;
     `}
   strong {
@@ -256,7 +256,7 @@ const Span = styled.span`
 const Note = styled.p`
   ${(props) =>
     props.tooltip &&
-    css`
+    `
       visibility: hidden;
       position: absolute;
       top: -30px;
@@ -278,12 +278,12 @@ const Lines = styled.div`
   background-color: #2e2b2b; /* or any other color */
   ${(props) =>
     props.line1 &&
-    css`
+    `
       transform: rotate(45deg);
     `}
   ${(props) =>
     props.line2 &&
-    css`
+    `
       transform: rotate(-45deg);
     `}
 `;
@@ -300,7 +300,7 @@ export const SizeSelect = styled.select`
   appearance: none;
   ${(props) =>
     props.cartSide &&
-    css`
+    `
       padding-right: 0;
       width: fit-content;
       -webkit-appearance:;

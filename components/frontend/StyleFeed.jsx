@@ -132,7 +132,7 @@ const Div = styled.div`
   padding-top: 10px;
   ${(props) =>
     props.btn &&
-    css`
+    `
       margin-top: 53%;
     `}
 `;

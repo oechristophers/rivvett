@@ -16,20 +16,20 @@ const StyledButton = styled.button`
   }
   ${(props) =>
     props.primary &&
-    css`
+    `
       font-size: 0.9rem;
       background-color: white;
     `}
   ${(props) =>
     props.white &&
     !props.outline &&
-    css`
+    `
       background-color: white;
     `}
     ${(props) =>
     props.white &&
     props.outline &&
-    css`
+    `
       background-color: transparent;
       color: #fff;
       border: 1px solid #fff;

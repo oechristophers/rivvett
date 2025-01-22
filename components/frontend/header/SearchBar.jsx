@@ -24,7 +24,7 @@ const Div = styled.div`
   @media screen and (max-width: 800px) {
     ${(props) =>
       props.showInput &&
-      css`
+      `
         position: absolute;
         margin: 0;
         padding: 0;

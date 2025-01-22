@@ -9,13 +9,13 @@ const Box = styled.div`
   height: auto;
   ${(props) =>
     props.proImage &&
-    css`
+    `
       background-color: transparent;
       padding: 0 50px;
     `}
   ${(props) =>
     props.small &&
-    css`
+    `
       padding: 25px 30px;
       grid-area: a;
       display: flex;
@@ -24,26 +24,26 @@ const Box = styled.div`
     `}
   ${(props) =>
     props.bgrid &&
-    css`
+    `
       grid-area: b;
       padding: 10px 20px;
     `}
   ${(props) =>
     props.egrid &&
-    css`
+    `
       padding: 5px 30px;
       grid-area: e;
     `}
   ${(props) =>
     props.fgrid &&
-    css`
+    `
       padding: 20px 20px;
       grid-area: f;
       padding-bottom: 60px;
     `}
   ${(props) =>
     props.dgrid &&
-    css`
+    `
       max-width: fit-content;
       padding: 20px 30px;
       display: flex;
@@ -59,7 +59,7 @@ const Box = styled.div`
     `}
     ${(props) =>
     props.cgrid &&
-    css`
+    `
       grid-area: c;
       display: flex;
       padding: 0 20px;
@@ -70,7 +70,7 @@ const Box = styled.div`
     `}
     ${(props) =>
     props.ggrid &&
-    css`
+    `
       position: relative;
       grid-area: g;
       display: flex;
@@ -137,7 +137,7 @@ const Box = styled.div`
 
   ${(props) =>
     props.delivery &&
-    css`
+    `
       display: flex;
       justify-content: center;
       padding: 10px;
@@ -147,7 +147,7 @@ const Box = styled.div`
     `}
   ${(props) =>
     props.empty &&
-    css`
+    `
       display: flex;
       justify-content: center;
       align-items: center;

@@ -66,7 +66,7 @@ const Div = styled.div`
   }
   ${(props) =>
     props.noborder &&
-    css`
+    `
       padding: 15px 0;
       padding-left: 20px;
     `}

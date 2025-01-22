@@ -30,17 +30,17 @@ const StyledLink = styled(Link)`
   }
   ${(props) =>
     props.primary &&
-    css`
+    `
       background-color: white;
     `}
   ${(props) =>
     props.country &&
-    css`
+    `
       padding: 0;
     `}
   ${(props) =>
     props.foot &&
-    css`
+    `
       color: #494747dd;
       padding-left: 0;
       margin-top: 0;
@@ -53,7 +53,7 @@ const StyledLink = styled(Link)`
     `}
   ${(props) =>
     props.shop &&
-    css`
+    `
       width: 100%;
       max-width: 200px;
       justify-content: center;
@@ -78,7 +78,7 @@ const StyledLink = styled(Link)`
     `}
   ${(props) =>
     props.hero &&
-    css`
+    `
       margin: 0;
       color: black;
       background-color: white;
@@ -102,7 +102,7 @@ const StyledLink = styled(Link)`
   ${(props) =>
     props.hero &&
     props.hero1 &&
-    css`
+    `
       display: flex;
       margin-left: auto;
       background-color: white;
@@ -114,14 +114,14 @@ const StyledLink = styled(Link)`
   ${(props) =>
     props.white &&
     !props.outline &&
-    css`
+    `
       background-color: white;
     `};
 
   ${(props) =>
     props.white &&
     props.outline &&
-    css`
+    `
       font-size: 0.9rem;
       background-color: transparent;
       color: #fff;

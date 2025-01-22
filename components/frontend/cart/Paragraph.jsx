@@ -51,7 +51,7 @@ const Paragraph = styled.p`
   `}
   ${(props) =>
     props.delivery &&
-    css`
+    `
       font-size: 0.8rem;
       font-family: 'Futura Std Book';
       letter-spacing: 0.5px;
@@ -60,7 +60,7 @@ const Paragraph = styled.p`
     `}
     ${(props) =>
     props.total &&
-    css`
+    `
       font-family: 'Futura Std Heavy';
       font-size: 0.8rem;
       letter-spacing: 1px;
@@ -68,14 +68,14 @@ const Paragraph = styled.p`
     `}
     ${(props) =>
     props.small &&
-    css`
+    `
       font-family: 'Futura Std Book';
       font-size: 0.8rem;
       letter-spacing: 0.5px;
     `}
     ${(props) =>
     props.properties &&
-    css`
+    `
       display: flex;
       align-items: center;
       font-family: 'Futura Std Book';
@@ -86,7 +86,7 @@ const Paragraph = styled.p`
     `}
     ${(props) =>
     props.price &&
-    css`
+    `
       font-size: 0.9rem;
       padding-bottom: 10px;
       font-family: 'Futura Std Bold';
@@ -94,7 +94,7 @@ const Paragraph = styled.p`
     `}
     ${(props) =>
     props.title &&
-    css`
+    `
       font-size: 0.8rem;
       letter-spacing: 1.2px;
       margin: 0;

@@ -4,7 +4,6 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}', // Server-related pages
     './components/**/*.{js,ts,jsx,tsx}', // Server-related components
-    '/styles/**/*.scss', // Global styles
   ],
   theme: {
     extend: {

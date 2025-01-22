@@ -30,7 +30,7 @@ const Button = styled.button`
 
   ${(props) =>
     props.isActive &&
-    css`
+    `
       border-bottom: 4px solid #ad2e2e9e;
     `}
 `;
@@ -82,7 +82,7 @@ const Nav = styled.nav`
 
   ${(props) =>
     props.mobNav
-      ? css`
+      ? `
           display: flex;
           position: absolute;
           height: 105vh;
@@ -104,13 +104,13 @@ const Nav = styled.nav`
             display: none;
           }
         `
-      : css`
+      : `
           display: none;
         `}
 
   ${(props) =>
     props.forMobile &&
-    css`
+    `
       background-color: white;
       transition: background-color 0.3s ease;
     `}
@@ -137,7 +137,7 @@ const Nav = styled.nav`
 
   ${(props) =>
     props.forMobile &&
-    css`
+    `
       display: flex;
       flex-direction: column;
       border: 2px solid white;
@@ -153,7 +153,7 @@ const Nav = styled.nav`
   @media screen and (max-width: 500px) {
     ${(props) =>
       props.forMobile &&
-      css`
+      `
         width: 88%;
       `}
     .modal {
@@ -175,7 +175,7 @@ const Nav = styled.nav`
 
   ${(props) =>
     props.isNavIcons &&
-    css`
+    `
       display: flex;
       position: static;
       padding: 0;
@@ -211,7 +211,7 @@ const NavLink = styled(Link)`
     padding-top: 20px;
     ${(props) =>
       props.isGender &&
-      css`
+      `
         color: white;
         text-align: center;
         font-family: 'Futura Std Bold';
@@ -227,7 +227,7 @@ const NavLink = styled(Link)`
   }
   ${(props) =>
     props.isHome &&
-    css`
+    `
       background-color: #403f3f;
       &:hover {
         background-color: #403f3f;

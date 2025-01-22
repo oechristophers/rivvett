@@ -29,18 +29,13 @@ const ProWrapper = styled.div`
   letter-spacing: 1.5px;
   ${(props) =>
     props.gender &&
-    css`
+    `
       display: grid;
       grid-template-columns: 1fr 1fr;
       padding: 3px 0;
 
-      :first-child:not(:last-of-type) {
         background: #9cf0e0;
-      }
-      :nth-child(2) {
-        background: black;
-        color: white;
-      }
+      
     `}
 `;
 
@@ -56,7 +51,7 @@ const ProLink = styled(ButtonLink)`
   color: black;
   ${(props) =>
     props.home &&
-    css`
+    `
       width: 70px;
     `}
   ${(props) =>
@@ -185,7 +180,9 @@ export default function PromotionBox() {
                 With code: FALL
               </strong>
             </ProLink>
-            <ProLink gender href="/">
+            <ProLink gender href="/"
+             style={{ backgroundColor: 'black', color:'white' }}>
+            
               <strong>
                 FREE DELIVERY* & EASY RETURNS <br />
                 <Span gender>Find out more</Span>

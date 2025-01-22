@@ -38,7 +38,7 @@ const StyledWrapper = styled.div`
 `}
   ${(props) =>
     props.pid &&
-    css`
+    `
       padding: 0 10px;
       @media screen and (max-width: 780px) {
         padding: 0;

@@ -17,7 +17,7 @@ const IconWrapper = styled.div`
     display: none;
     ${(props) =>
       props.activeButton &&
-      css`
+      `
         display: flex;
         border: none;
         margin: 0;
@@ -29,7 +29,7 @@ const IconWrapper = styled.div`
   @media screen and (max-width: 950px) {
     ${(props) =>
       props.activeButton &&
-      css`
+      `
         display: flex;
         border: none;
         margin: 0;
@@ -65,7 +65,7 @@ const StyledUl = styled.ul`
 `}
   ${(props) =>
     props.activeButton &&
-    css`
+    `
       padding-right: 0;
       gap: 50px;
     `}

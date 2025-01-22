@@ -85,7 +85,7 @@ const StyledUl = styled.div`
   margin-top: 0;
   ${(props) =>
     props.country &&
-    css`
+    `
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
@@ -97,7 +97,7 @@ const StyledUl = styled.div`
     `}
   ${(props) =>
     props.activeButton &&
-    css`
+    `
       padding: 0 20px;
       max-height: 0;
       overflow: hidden;
@@ -138,7 +138,7 @@ const Title = styled.h3`
   `}
   ${(props) =>
     props.activeButton &&
-    css`
+    `
       padding: 0 20px;
       padding-bottom: 10px;
       font-size: 0.7rem;

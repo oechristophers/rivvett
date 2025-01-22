@@ -7,7 +7,7 @@ const StyledP = styled.span`
   margin: 0;
   ${(props) =>
     props.delivery &&
-    css`
+    `
       letter-spacing: 1.5px;
       text-transform: uppercase;
       font-weight: 100;
