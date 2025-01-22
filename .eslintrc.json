@@ -1,7 +1,7 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "plugin:styled-components-a11y/recommended"
+    ["plugin:styled-components-a11y/recommended"]
   ],
   "rules": {
     "prettier/prettier": "error" // Treat Prettier issues as ESLint errors
