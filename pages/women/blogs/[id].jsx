@@ -227,7 +227,7 @@ const Wrap = styled.div`
     }
   }
 `;
-const StyledBtn = styled.button`
+const StyledBtn = styled(Link)`
   font-family: 'Futura Std bold';
   margin: 0 10px;
   font-size: 0.9rem;
@@ -273,14 +273,16 @@ export default function BlogPage({ blog, blogs }) {
   const rout = useRouter();
   const path = rout.pathname.split('/')[1];
   const { isNavView } = UseIsDevice();
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      console.log(window?.innerWidth);
-    });
-  });
+  // useEffect(() => {
+  //   window.addEventListener("resize", () => {
+  //     console.log(window?.innerWidth);
+  //   });
+  // });
+  const tabBlogs = blogs;
+
   //   console.log(path);
   //   console.log(blog.subtitles[1].subProducts);
-  const tabBlogs = blogs;
+
   return (
     <RootLayout>
       <Wrap>
@@ -465,7 +467,7 @@ export default function BlogPage({ blog, blogs }) {
 
           <div className="div-2">
             {isNavView ? (
-              <>
+              <div className='max-w-80'>
                 <h2>STYLE FEED</h2>
                 <BlogGrid>
                   {blogs &&
@@ -476,7 +478,7 @@ export default function BlogPage({ blog, blogs }) {
                     VIEW ALL STYLE FEEDS
                   </StyledBtn>
                 </BlogGrid>
-              </>
+              </div>
             ) : (
               <StyleFeed blogs={blogs} inId isId={blog._id} />
             )}

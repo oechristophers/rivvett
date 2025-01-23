@@ -227,7 +227,7 @@ const Wrap = styled.div`
     }
   }
 `;
-const StyledBtn = styled.button`
+const StyledBtn = styled(Link)`
   font-family: 'Futura Std bold';
   margin: 0 10px;
   font-size: 0.9rem;

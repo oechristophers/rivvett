@@ -18,6 +18,24 @@ import ProductGrid from '@/components/frontend/ProductGrid';
 
 const FiltersContainer = styled.div`
   margin-bottom: 20px;
+  display: flex;
+  ${(props) =>
+    props.desktop &&
+    `
+    
+     @media screen and (max-width: 768px) {
+      display: none;
+    };
+      `}
+  ${(props) =>
+    props.mobile &&
+    `
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+     @media screen and (min-width: 769px) {
+      display: none;
+     };
+  `}
 `;
 const SidebarContainer = styled.div`
   position: fixed;
@@ -27,15 +45,15 @@ const SidebarContainer = styled.div`
   width: 90%;
   background-color: white;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(100%)')};
+  transform: ${({ isOpen }) => (isOpen ? "translateX(0)" : "translateX(100%)")};
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   will-change: transform;
   z-index: 50;
   overflow-y: auto;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   letter-spacing: 0.9px;
   h2 {
-    font-family: 'Futura Std Heavy';
+    font-family: "Futura Std Heavy";
     letter-spacing: 1.2px;
   }
 `;
@@ -48,11 +66,10 @@ const SidebarBackdrop = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
   z-index: 40;
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   transition: opacity 0.4s ease-in-out;
   opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
 `;
-
 export default function Shops({ products, categories, properties }) {
   const router = useRouter();
   const { query } = router;
@@ -102,7 +119,7 @@ export default function Shops({ products, categories, properties }) {
         &ldquo;Women&apos;s Shops&ldquo; :{' '}
         <span>{query.shop && query.shop}</span>
       </h2>
-      <FiltersContainer className="hidden md:flex px-10 justify-between py-5 bg-[#c6c4c4]">
+      <FiltersContainer desktop className=" px-10 justify-between py-5 bg-[#c6c4c4]">
         <Select
           value={query.shop || ''}
           onValueChange={(value) => {
@@ -208,7 +225,7 @@ export default function Shops({ products, categories, properties }) {
         </Select>
       </FiltersContainer>
 
-      <FiltersContainer className="grid grid-cols-2 md:hidden bg-[#cac8c8] divide-x-2 py-2 divide-[#0000001e] ">
+      <FiltersContainer mobile className=" bg-[#cac8c8] divide-x-2 py-2 divide-[#0000001e] ">
         <div
           className=""
           style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}

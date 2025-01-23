@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import styled from 'styled-components';
-import ProductCard from './ProductCard';
-import { UseIsDevice } from './DeviceView';
-import ButtonLink from './ButtonLink';
-import ArrowL from './icons/ArrowL';
-import ArrowR from './icons/ArrowR';
-import BlogCard from './BlogCard';
-import { useRouter } from 'next/router';
-import css from 'styled-jsx/css';
-import Link from 'next/link';
+import React, { useState } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import styled from "styled-components";
+import ProductCard from "./ProductCard";
+import { UseIsDevice } from "./DeviceView";
+import ButtonLink from "./ButtonLink";
+import ArrowL from "./icons/ArrowL";
+import ArrowR from "./icons/ArrowR";
+import BlogCard from "./BlogCard";
+import { useRouter } from "next/router";
+import css from "styled-jsx/css";
+import Link from "next/link";
 
 const Title = styled.h2`
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Futura Std bold';
+  font-family: "Futura Std bold";
   letter-spacing: 1.3px;
   font-size: 1rem;
   margin-bottom: 0;
@@ -26,22 +26,22 @@ const Title = styled.h2`
   @media screen and (max-width: 500px) {
     font-size: 0.8rem;
     letter-spacing: 1.8px;
-    font-family: 'Futura Std heavy';
+    font-family: "Futura Std heavy";
     font-weight: 900;
   }
 `;
 const Wrap = styled.div`
-  background: ${({ inId }) => (inId ? 'white' : '#9cf0e0')};
-  padding: ${({ inId }) => (inId ? ' 5px 0' : '20px 60px')};
+  background: ${({ inId }) => (inId ? "white" : "#9cf0e0")};
+  padding: ${({ inId }) => (inId ? " 5px 0" : "20px 60px")};
   @media screen and (max-width: 768px) {
-    padding: ${({ inId }) => (inId ? ' 5px 0' : '20px 10px')};
+    padding: ${({ inId }) => (inId ? " 5px 0" : "20px 10px")};
   }
 `;
 const CarouselWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
   @media screen and (min-width: 768px) {
-    padding: ${({ inId }) => (inId ? ' 20px 0' : '5px 20px')};
+    padding: ${({ inId }) => (inId ? " 20px 0" : "5px 20px")};
   }
   @media screen and (max-width: 768px) {
     .custom-arrow.left,
@@ -150,7 +150,7 @@ const RoundBtn = styled.button`
   height: 100px;
   background-color: white;
   border-color: transparent;
-  font-family: 'Futura Std Heavy';
+  font-family: "Futura Std Heavy";
   letter-spacing: 1.2px;
   border-radius: 50%;
   transition: background-color 0.3s ease;
@@ -160,7 +160,7 @@ const RoundBtn = styled.button`
   }
 `;
 export const Button = styled(ButtonLink)`
-  font-family: 'Futura Std bold';
+  font-family: "Futura Std bold";
   font-size: 0.9rem;
   letter-spacing: 1px;
   padding: 14px 40px;
@@ -182,7 +182,7 @@ export const Button = styled(ButtonLink)`
 const CustomLeftArrow = ({ onClick, check }) => (
   <button
     onClick={onClick}
-    className={check ? 'custom-arrow left2' : 'custom-arrow left'}
+    className={check ? "custom-arrow left2" : "custom-arrow left"}
   >
     <ArrowL />
   </button>
@@ -191,7 +191,7 @@ const CustomLeftArrow = ({ onClick, check }) => (
 const CustomRightArrow = ({ onClick, check }) => (
   <button
     onClick={onClick}
-    className={check ? 'custom-arrow right2' : 'custom-arrow right'}
+    className={check ? "custom-arrow right2" : "custom-arrow right"}
   >
     <ArrowR />
   </button>
@@ -227,16 +227,16 @@ const StyleFeed = ({ blogs, inId, isId }) => {
   };
 
   const router = useRouter();
-  const path = router.pathname.split('/')[1];
+  const path = router.pathname.split("/")[1];
   return (
     <Wrap inId={inId}>
       <CarouselWrapper inId={inId}>
         <Title>Style Feed</Title>
         {!inId && (
           <P>
-            {path === 'men'
-              ? 'Style. Grooming. Inspiration. Advice.'
-              : 'Outfit ideas, editor picks, styling inspiration and Face + Body tips'}
+            {path === "men"
+              ? "Style. Grooming. Inspiration. Advice."
+              : "Outfit ideas, editor picks, styling inspiration and Face + Body tips"}
           </P>
         )}
 
@@ -248,7 +248,7 @@ const StyleFeed = ({ blogs, inId, isId }) => {
           partialVisible={true}
           renderArrowsWhenDisabled={true}
           autoPlay={(isTablet || isDesktop) && !inId}
-          removeArrowOnDeviceType={!inId && ['mobile']}
+          removeArrowOnDeviceType={!inId && ["mobile"]}
           className="carousel-container"
           customLeftArrow={<CustomLeftArrow check={inId} />}
           customRightArrow={<CustomRightArrow check={inId} />}
@@ -261,13 +261,13 @@ const StyleFeed = ({ blogs, inId, isId }) => {
             relatedBlogs.map((blog) => (
               <BlogCard key={blog._id} {...blog} inId={inId} />
             ))}
-          {isHighMobile && !inId && (
+          {!inId && (
             <Div btn>
               <Link
                 style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  zIndex: '6',
+                  textDecoration: "none",
+                  color: "inherit",
+                  zIndex: "6",
                 }}
                 href={`/${path}/style-feed`}
               >
@@ -275,20 +275,22 @@ const StyleFeed = ({ blogs, inId, isId }) => {
               </Link>
             </Div>
           )}
-          {!isNavView && inId && (
-            <Div btn>
+          {
+            isHighMobile && inId(
+              <Div btn>
               <Link
                 style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  zIndex: '6',
+                  textDecoration: "none",
+                  color: "inherit",
+                  zIndex: "6",
                 }}
                 href={`/${path}/style-feed`}
               >
                 <RoundBtn>VIEW ALL</RoundBtn>
               </Link>
             </Div>
-          )}
+            )
+          }
         </Carousel>
       </CarouselWrapper>
       {!inId && (

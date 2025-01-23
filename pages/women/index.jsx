@@ -159,7 +159,7 @@ export default function WomenHome({
         variants={fadeUp}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <StyleFeed blogs={femaleBlogs} />
+        <StyleFeed blogs={femaleBlogs} inId={false} />
       </motion.div>
 
       <motion.div

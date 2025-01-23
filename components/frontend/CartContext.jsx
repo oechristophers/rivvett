@@ -90,6 +90,9 @@ export function CartContextProvider({ children }) {
         console.error('Failed to update favorite:', response.data);
       }
     } catch (error) {
+      toast({
+        title: 'Log in to keep your "Precious" 😊 ',
+      });
       console.error('Error updating favorite:', error.message);
     }
   }
