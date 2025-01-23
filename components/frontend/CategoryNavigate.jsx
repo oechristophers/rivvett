@@ -214,7 +214,7 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
             </Sale>
           </li>
           <li>
-            <Button href="/">TRENDING</Button>
+            <Button href="/products?sort=price-asc">TRENDING</Button>
           </li>
           {categories && categories?.length > 0 ? (
             categories.map((category) => (
