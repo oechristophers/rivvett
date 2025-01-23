@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/frontend/Header';
 import Footer from '@/components/frontend/Footer';
@@ -65,6 +65,8 @@ const RootLayout = ({ children }) => {
       const response = await fetch('/api/frontend/categories');
       if (!response.ok) throw new Error('Failed to fetch categories');
       const data = await response.json();
+
+      console.log("Categories response data:", data); // Debug log for categories response
 
       const prodCats = filteredProducts.map((prod) => prod.category);
       const parentCategories = data.filter(
@@ -149,6 +151,8 @@ const RootLayout = ({ children }) => {
       const response = await fetch('/api/frontend/categories');
       if (!response.ok) throw new Error('Failed to fetch categories');
       const data = await response.json();
+
+      console.log("Categories for MNav:", data); // Debug log for categories in MNav
 
       const prodCats2 = forMNav.map((prod) => prod.category);
       const parentCategories = data.filter(

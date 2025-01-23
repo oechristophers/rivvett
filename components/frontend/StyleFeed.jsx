@@ -276,7 +276,7 @@ const StyleFeed = ({ blogs, inId, isId }) => {
             </Div>
           )}
           {
-            isHighMobile && inId(
+            isHighMobile && inId &&(
               <Div btn>
               <Link
                 style={{
