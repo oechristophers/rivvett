@@ -4,6 +4,7 @@ import Header from '@/components/frontend/Header';
 import Footer from '@/components/frontend/Footer';
 import FooterIcons from '@/components/frontend/FooterIcons';
 import { useRouter } from 'next/router';
+import { debounce } from 'lodash';
 
 const RootLayout = ({ children }) => {
   const [categories, setCategories] = useState([]);
@@ -21,20 +22,16 @@ const RootLayout = ({ children }) => {
   const currentPath = rout.pathname.split('/')[1] || prevPath || 'women';
 
   useEffect(() => {
-    // Ensure localStorage is accessed only in the browser
     if (typeof window !== 'undefined') {
       const ls = window.localStorage;
 
-      // Set previous path
       const storedPrevPath = ls.getItem('prevPath') || 'women';
       setPrevPath(storedPrevPath);
 
-      // Update localStorage if the current path is valid
       if (currentPath !== 'products' && currentPath !== 'cart') {
         ls.setItem('prevPath', currentPath);
       }
 
-      // Determine the active button
       const pathToUse =
         currentPath === 'cart' || currentPath === 'products'
           ? storedPrevPath
@@ -50,7 +47,7 @@ const RootLayout = ({ children }) => {
       const data = await response.json();
 
       const filteredProducts = data.filter(
-        (product) => product.gender.name === activeButton,
+        (product) => product.gender.name === activeButton
       );
       setProducts(filteredProducts);
 
@@ -66,14 +63,14 @@ const RootLayout = ({ children }) => {
       if (!response.ok) throw new Error('Failed to fetch categories');
       const data = await response.json();
 
-      console.log("Categories response data:", data); // Debug log for categories response
+      console.log('Categories response data:', data);
 
       const prodCats = filteredProducts.map((prod) => prod.category);
       const parentCategories = data.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY',
+        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
       );
       const relatedCategories = data.filter((cat) =>
-        prodCats.includes(cat._id),
+        prodCats.includes(cat._id)
       );
 
       const combinedCategories = [...parentCategories, ...relatedCategories];
@@ -96,7 +93,7 @@ const RootLayout = ({ children }) => {
       const data = await response.json();
 
       const filteredBlogs = data.filter(
-        (blog) => blog.gender.name === activeButton,
+        (blog) => blog.gender.name === activeButton
       );
       setBlogs(filteredBlogs);
 
@@ -106,7 +103,7 @@ const RootLayout = ({ children }) => {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = debounce(async () => {
     setLoading(true);
     try {
       const productsData = await fetchProducts();
@@ -120,7 +117,7 @@ const RootLayout = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, 300);
 
   useEffect(() => {
     fetchData();
@@ -135,7 +132,7 @@ const RootLayout = ({ children }) => {
       const filteredProducts = data.filter(
         (product) =>
           product.gender.name !== activeButton &&
-          product.gender.name !== 'unisex',
+          product.gender.name !== 'unisex'
       );
 
       setForMNav(filteredProducts);
@@ -144,7 +141,7 @@ const RootLayout = ({ children }) => {
     }
   };
 
-  const fetchCategoriesForMNav = async () => {
+  const fetchCategoriesForMNav = debounce(async () => {
     await updateForMNav();
 
     try {
@@ -152,14 +149,14 @@ const RootLayout = ({ children }) => {
       if (!response.ok) throw new Error('Failed to fetch categories');
       const data = await response.json();
 
-      console.log("Categories for MNav:", data); // Debug log for categories in MNav
+      console.log('Categories for MNav:', data);
 
       const prodCats2 = forMNav.map((prod) => prod.category);
       const parentCategories = data.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY',
+        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
       );
       const relatedCategories2 = data.filter((cat) =>
-        prodCats2.includes(cat._id),
+        prodCats2.includes(cat._id)
       );
 
       const combinedCategories2 = [...parentCategories, ...relatedCategories2];
@@ -167,7 +164,7 @@ const RootLayout = ({ children }) => {
     } catch (error) {
       setError(error.message);
     }
-  };
+  }, 300);
 
   useEffect(() => {
     fetchCategoriesForMNav();

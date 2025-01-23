@@ -1,6 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import styled from "styled-components";
+
+const MainDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  height: 100%;
+  margin-top: 60px;
+`
+const CardDiv = styled(motion.div)`
+  width: 500px;
+  height: 300px;
+  @media (max-width: 600px) {
+     width: 70vw;
+  }
+`
 
 let interval;
 
@@ -25,12 +41,12 @@ export const CardStack = ({ items, offset, scaleFactor }) => {
   };
 
   return (
-    <div className="relative justify-center flex items-center h-screen w-60 md:h-fit md:w-full">
+    <MainDiv className="relative ">
       {cards.map((card, index) => {
         return (
-          <motion.div
+          <CardDiv
             key={card.id}
-            className="absolute md:mt-[-16rem] dark:bg-[black] bg-black  h-80 w-80 md:h-[40vh] md:w-[60%] rounded-3xl p-4 shadow-xl border border-zinc-200 border-neutral-200 dark:border-white/[0.1]  shadow-black/[0.1] dark:shadow-white/[0.05] flex flex-col justify-between dark:border-zinc-800"
+            className="absolute dark:bg-[black] bg-black rounded-3xl p-4 shadow-xl border border-zinc-200 border-neutral-200 dark:border-white/[0.1]  shadow-black/[0.1] dark:shadow-white/[0.05] flex flex-col justify-between dark:border-zinc-800"
             style={{
               transformOrigin: "top center",
             }}
@@ -55,9 +71,9 @@ export const CardStack = ({ items, offset, scaleFactor }) => {
               {card.content}
             </div>
             <div></div>
-          </motion.div>
+          </CardDiv>
         );
       })}
-    </div>
+    </MainDiv>
   );
 };

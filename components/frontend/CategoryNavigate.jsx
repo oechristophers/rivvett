@@ -164,7 +164,7 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
             categories.map((category, index) => (
               <>
                 <li key={category._id}>
-                  <Button href={`/categories/${category._id}`}>
+                  <Button href={`/products?category=${category._id}&gender=${genderId}`}>
                     {category.name}
                   </Button>
                   <ImageBox loaded={allImagesLoaded}>

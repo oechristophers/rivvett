@@ -1,11 +1,21 @@
 "use client";
-import { CardStack } from "@/components/ui/card-stack"; 
+import { CardStack } from "@/components/ui/card-stack";
 import { cn } from "@/lib/utils";
+import styled from "styled-components";
+
+const Div = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+`
 export function CardStackDemo() {
   return (
-    <div className="h-[40rem] flex items-center justify-center w-full">
+    <Div >
       <CardStack items={CARDS} />
-    </div>
+    </Div>
   );
 }
 
@@ -33,10 +43,10 @@ const CARDS = [
       </p>
     ),
   },
- 
+
   {
     id: 2,
-    img: "/emoji3.webp",
+    img: "/emoji2.webp",
     content: (
       <p>
         Let’s turn this canvas into a{" "}
@@ -47,7 +57,7 @@ const CARDS = [
 
   {
     id: 1,
-    img: "/emoji2.webp",
+    img: "/emoji3.webp",
     content: (
       <p>
         But hey, if you like what you see, why not
