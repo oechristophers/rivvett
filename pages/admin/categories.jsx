@@ -1,9 +1,10 @@
-import ImageDisplay from '@/components/admin/ImageDisplay';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import ImageDisplay from "@/components/admin/ImageDisplay";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import { withSwal } from 'react-sweetalert2';
-import Layout from './layout';
+import { withSwal } from "react-sweetalert2";
+import Layout from "./layout";
+import { useSession } from "next-auth/react";
 
 function Categories({
   swal,
@@ -14,17 +15,19 @@ function Categories({
   const itemsPerPage = 5;
 
   const [editedCategory, setEditedCategory] = useState(null);
-  const [name, setName] = useState('');
-  const [parentCategory, setParentCategory] = useState('');
+  const [name, setName] = useState("");
+  const [parentCategory, setParentCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState(existingImages || []);
+  const { session } = useSession();
   const [posterImages, setPosterImages] = useState(existingPosterImages || []);
   useEffect(() => {
+    if (!session) return;
     fetchCategories();
   }, []);
   function fetchCategories() {
-    axios.get('/api/server/categories').then((result) => {
+    axios.get("/api/server/categories").then((result) => {
       setCategories(result.data);
     });
   }
@@ -34,7 +37,7 @@ function Categories({
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedCategories = categories.slice(
     startIndex,
-    startIndex + itemsPerPage,
+    startIndex + itemsPerPage
   );
 
   function handlePageChange(newPage) {
@@ -56,11 +59,11 @@ function Categories({
 
       setEditedCategory(null);
     } else {
-      await axios.post('/api/server/categories', data);
+      await axios.post("/api/server/categories", data);
     }
 
-    setName('');
-    setParentCategory('');
+    setName("");
+    setParentCategory("");
     setProperties([]);
     fetchCategories();
     setImages([]);
@@ -79,12 +82,12 @@ function Categories({
   function deleteCategory(category) {
     swal
       .fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: `Do you want to delete ${category.name}?`,
         showCancelButton: true,
-        cancelButtonText: 'Cancel',
-        confirmButtonText: 'Yes, delete !',
-        confirmButtonColor: '#d55',
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Yes, delete !",
+        confirmButtonColor: "#d55",
         reverseButtons: true,
       })
       .then(async (result) => {
@@ -92,7 +95,7 @@ function Categories({
         console.log({ result });
         if (result.isConfirmed) {
           const _id = category._id;
-          await axios.delete('/api/server/categories?_id=' + _id);
+          await axios.delete("/api/server/categories?_id=" + _id);
           fetchCategories();
         }
       })
@@ -103,7 +106,7 @@ function Categories({
 
   function addProperty() {
     setProperties((prev) => {
-      return [...prev, { name: '', values: '' }];
+      return [...prev, { name: "", values: "" }];
     });
   }
 
@@ -135,13 +138,13 @@ function Categories({
       <>
         <h1>Categories</h1>
         <label className="text-white ">
-          {editedCategory ? `Edit category ${editedCategory.name}` : ''}
+          {editedCategory ? `Edit category ${editedCategory.name}` : ""}
         </label>
         <form onSubmit={saveCategory} className="">
           <div className="flex gap-1">
             <input
               type="text"
-              placeholder={'Category name'}
+              placeholder={"Category name"}
               className=""
               value={name}
               onChange={(ev) => setName(ev.target.value)}
@@ -202,7 +205,7 @@ function Categories({
                   placeholder="values, comma seperated"
                   value={property.values}
                   onChange={(ev) =>
-                    updatePropValue(index, property, ev.target.value.split(','))
+                    updatePropValue(index, property, ev.target.value.split(","))
                   }
                   className="mb-0"
                 />
@@ -222,8 +225,8 @@ function Categories({
                 className="btn-default"
                 onClick={() => {
                   setEditedCategory(null);
-                  setName('');
-                  setParentCategory('');
+                  setName("");
+                  setParentCategory("");
                   setProperties([]);
                 }}
               >
@@ -250,7 +253,7 @@ function Categories({
                   <tr key={category._id}>
                     <td>{category.name}</td>
                     <td className="flex justify-between">
-                      {category?.parent?.name || 'none'}
+                      {category?.parent?.name || "none"}
                       <div>
                         <button
                           onClick={() => editCategory(category)}
@@ -300,7 +303,7 @@ function Categories({
                 ))}
             </tbody>
           </table>
-        )}{' '}
+        )}{" "}
         <div className="flex justify-center mt-4">
           <button
             onClick={() => handlePageChange(currentPage - 1)}
@@ -315,8 +318,8 @@ function Categories({
               onClick={() => handlePageChange(index + 1)}
               className={`px-4 py-2 mx-1 ${
                 currentPage === index + 1
-                  ? 'bg-gray-500 text-white'
-                  : 'bg-gray-300'
+                  ? "bg-gray-500 text-white"
+                  : "bg-gray-300"
               } rounded`}
             >
               {index + 1}

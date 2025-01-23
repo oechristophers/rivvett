@@ -2,12 +2,17 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { withSwal } from 'react-sweetalert2';
 import Layout from './layout';
+import { useSession } from 'next-auth/react';
 function Genders({ swal }) {
   const [genders, setGenders] = useState([]);
   const [editedGender, setEditedGender] = useState(null);
   const [name, setName] = useState('');
+  const {session } = useSession();
 
   useEffect(() => {
+    if (!session) {
+      return;
+    }
     fetchGenders();
   }, []);
 

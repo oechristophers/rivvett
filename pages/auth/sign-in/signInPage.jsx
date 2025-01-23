@@ -18,7 +18,7 @@ const ImageDiv = styled.div`
 const Div = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  @media (max-width: 768px) {
+  @media (min-width: 769px) {
     display: flex;
   }
 

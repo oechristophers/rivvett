@@ -3,13 +3,18 @@ import Layout from './layout';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+    const { session } = useSession();
   const itemsPerPage = 10;
 
   useEffect(() => {
+    if (!session) {
+      return;
+    }
     axios.get('/api/server/products').then((response) => {
       setProducts(response.data);
     });
