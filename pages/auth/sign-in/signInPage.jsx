@@ -15,6 +15,14 @@ const ImageDiv = styled.div`
     display: none;
   }
 `;
+const Div = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
+`
 const SignInPage = () => {
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
@@ -50,7 +58,7 @@ const SignInPage = () => {
   return (
     <>
       <div className=" flex justify-center">
-        <div className="grid grid-cols-1 md:flex items-center justify-center min-h-screen bg-[#eee] text-black">
+        <Div className=" items-center justify-center min-h-screen bg-[#eee] text-black">
           <div className="w-[25rem] p-8 rounded-xl shadow-lg text-center bg-white flex flex-col gap-5">
             <div className=" flex justify-center  ">
               <section
@@ -137,7 +145,7 @@ const SignInPage = () => {
               alt=""
             />
           </ImageDiv>
-        </div>
+        </Div>
       </div>
     </>
   );
