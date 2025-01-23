@@ -3,25 +3,81 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
 
+const HeroWrapper = styled.div`
+  padding: 0;
+  @media (min-width: 768px) {
+    padding: 0 24px;
+  }
+`;
 
+const HeroContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
-const Div = styled.div``
+const Loader = styled.div`
+  width: 100%;
+  height: 500px;
+  background-color: #e0e0e0;
+  animation: pulse 1.5s infinite;
+`;
+
+const ImageStyled = styled(Image)`
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+`;
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  margin-bottom: 16%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 42%;
+  left: 0;
+  right: 0;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 45%;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 99%;
+  }
+`;
+
+const ShopLink = styled(Link)`
+  background-color: white;
+  color: black;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  font-family: 'Futura Std Heavy', sans-serif;
+  letter-spacing: 1.2px;
+  display: inline-block;
+`;
+
 export default function Hero() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [isHome, setIsHome] = useState(null);
+  const [isHome, setIsHome] = useState(null); // Start as null to avoid premature rendering
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const updateScreenSize = () => setIsSmallScreen(mediaQuery.matches);
-    
-    // Initial check
-    updateScreenSize();
+    const path = window.location.pathname.split('/')[1];
+    setIsSmallScreen(window.innerWidth <= 768);
+    setIsHome(path === 'men' || path === 'women' ? path : 'home'); // Set respective or fallback to "home"
 
-    // Add event listener
-    mediaQuery.addEventListener('change', updateScreenSize);
+    const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
 
-    return () => mediaQuery.removeEventListener('change', updateScreenSize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const getImageSrc = () => {
@@ -39,14 +95,14 @@ export default function Hero() {
   };
 
   return (
-    <Div className="md:px-6 py-0">
-      <Div className="relative w-full">
-        {isHome === null && (
-          <Div className="w-full h-[500px] bg-gray-200 animate-pulse" />
-        )}
+    <HeroWrapper>
+      <HeroContainer>
+        {/* Show loader while determining the hero */}
+        {isHome === null && <Loader />}
 
+        {/* Display the correct image when isHome is resolved */}
         {isHome && (
-          <Image
+          <ImageStyled
             src={getImageSrc()}
             alt="hero"
             width={2800}
@@ -54,30 +110,18 @@ export default function Hero() {
             layout="responsive"
             placeholder="blur"
             blurDataURL="/images/placeholder.png"
-            className="object-cover w-full h-auto"
             onLoadingComplete={() => setIsLoaded(true)}
           />
         )}
 
+        {/* Conditional Buttons */}
         {isLoaded && isHome === 'home' && (
-          <Div className="absolute bottom-0 z-10 mb-[16%] md:mb-[13%] flex flex-col items-center gap-5 mt-[42%] left-0 right-0 md:flex-row md:justify-center md:gap-8 md:mt-[45%] sm:mt-[99%]">
-            <Link
-              href="/women"
-              className="bg-white text-black w-fit font-extralight uppercase py-2 px-4 "
-              style={{ fontFamily: 'Futura Std Heavy', letterSpacing: '1.2px' }}
-            >
-              Shop Women
-            </Link>
-            <Link
-              href="/men"
-              className="bg-white text-black w-fit font-extralight uppercase py-2 px-4 "
-              style={{ fontFamily: 'Futura Std Heavy', letterSpacing: '1.2px' }}
-            >
-              &nbsp; Shop Men &nbsp;
-            </Link>
-          </Div>
+          <ButtonContainer>
+            <ShopLink href="/women">Shop Women</ShopLink>
+            <ShopLink href="/men">&nbsp; Shop Men &nbsp;</ShopLink>
+          </ButtonContainer>
         )}
-      </Div>
-    </Div>
+      </HeroContainer>
+    </HeroWrapper>
   );
 }
