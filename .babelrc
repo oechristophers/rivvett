@@ -1,8 +1,0 @@
-{
-  "presets": ["next/babel"],
-  "plugins": [
-    ["styled-components", { "ssr": true }],
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-transform-private-methods"
-  ]
-}
