@@ -1,19 +1,26 @@
-import { handleGoogleSignIn } from '@/lib/auth/googleSignIn';
-import RootLayout from '@/pages/layout';
-import { signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import React, { useState, useTransition } from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa';
-import { handleGithubSignIn } from '@/lib/auth/githubSignin';
-import { handleSignOut } from '@/lib/auth/signOutLogic';
+import { handleGoogleSignIn } from "@/lib/auth/googleSignIn";
+import RootLayout from "@/pages/layout";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import React, { useState, useTransition } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+import { handleGithubSignIn } from "@/lib/auth/githubSignin";
+import styled from "styled-components";
+import { useToast } from "@/hooks/use-toast";
 
+const ImageDiv = styled.div`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 const SignInPage = () => {
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
-  const [formData, setFormData] = useState({ email: '' });
+  const [formData, setFormData] = useState({ email: "" });
   const router = useRouter();
-
+  const { toast } = useToast();
   // Logout function
   async function logout() {
     await signOut();
@@ -26,8 +33,17 @@ const SignInPage = () => {
       try {
         await handleEmailSignIn(formData.email); // Implement your email sign-in function
       } catch (error) {
-        console.error('Error signing in:', error);
+        console.error("Error signing in:", error);
       }
+    });
+  };
+
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    toast({
+      title:
+        'Due to an issue with our server, you can only use social accounts to login for now. Please bear with us as we try to resolve the issue.',
+        variant:"destructive"
     });
   };
 
@@ -40,7 +56,7 @@ const SignInPage = () => {
               <section
                 className="bg-[#1c1c1c21] p-2 w-80 rounded-2xl flex  justify-center cursor-pointer "
                 onClick={() => {
-                  router.push('/');
+                  router.push("/");
                 }}
               >
                 <img
@@ -106,21 +122,21 @@ const SignInPage = () => {
                 required
               />
               <button
-                type="submit"
-                className="w-full bg-[#1c1c1ce5] hover:bg-[#2b2a2ae4] text-white p-3 rounded-xl mb-4"
-                disabled={isPending}
+                type="button"
+                className="w-full bg-[#1c1c1ce5] hover:bg-[#2b2a2ae4] cursor-pointer text-white p-3 rounded-xl mb-4"
+                onClick={handleClick}
               >
-                {isPending ? 'Sending...' : 'Sign in with Email'}
+                Sign in with Email
               </button>
             </form>
           </div>
-          <div className="w-[23rem] hidden md:block">
+          <ImageDiv className="w-[23rem] ">
             <img
               className="max-w-[100%] max-h-[100%]"
               src="/images/zoomCollage4.webp"
               alt=""
             />
-          </div>
+          </ImageDiv>
         </div>
       </div>
     </>

@@ -1,4 +1,4 @@
-import React, { act, useState } from 'react';
+import React, { act, useEffect, useState } from 'react';
 import Wrapper from './Wrapper';
 import { CountryList, FooterNav } from '@/constants/FooterItems';
 import styled from 'styled-components';
@@ -238,13 +238,20 @@ const IconWrapper = styled.div`
   align-items: center;
   transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(90deg)')};
 `;
-
 export default function Footer({ activeButton }) {
   const [openIndex, setOpenIndex] = useState(null);
+  const [mounted, setMounted] = useState(false); // Track if the component has mounted
+
+  useEffect(() => {
+    // Set mounted to true after component has mounted
+    setMounted(true);
+  }, []);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  if (!mounted) return null; // Don't render the footer until mounted
 
   return (
     <FooterWrapper activeButton={activeButton}>
@@ -316,8 +323,7 @@ export default function Footer({ activeButton }) {
                   <img
                     src={CountryList[0].flag}
                     alt={CountryList[0].name}
-                    className="w-4 h-4
-                    "
+                    className="w-4 h-4"
                   />
                 )}
               </Span>{' '}
@@ -345,7 +351,6 @@ export default function Footer({ activeButton }) {
         <Div rights>
           <P>&copy;2022 Rivvett</P>
           <P>
-            {' '}
             Privacy & Cookies | Ts&Cs<span>| Accesibility</span>
           </P>
         </Div>

@@ -1,19 +1,19 @@
-import styled from 'styled-components';
-import Button from './Button';
-import Link from 'next/link';
-import { useContext, useState } from 'react';
-import { CartContext } from './CartContext';
-import { ClipLoader } from 'react-spinners';
-import CartBag from './icons/CartBag';
-import { UseIsDevice } from './DeviceView';
-import { SkeletonLoader } from './ImageSkeleton';
+import styled from "styled-components";
+import Button from "./Button";
+import Link from "next/link";
+import { useContext, useState } from "react";
+import { CartContext } from "./CartContext";
+import { ClipLoader } from "react-spinners";
+import CartBag from "./icons/CartBag";
+import { UseIsDevice } from "./DeviceView";
+import { SkeletonLoader } from "./ImageSkeleton";
 import {
   DeleteOutlineOutlined,
   Favorite,
   FavoriteBorderOutlined,
-} from '@mui/icons-material';
-import css from 'styled-jsx/css';
-import { useRouter } from 'next/router';
+} from "@mui/icons-material";
+import css from "styled-jsx/css";
+import { useRouter } from "next/router";
 
 const ProductWrapper = styled.div`
   height: auto;
@@ -48,13 +48,13 @@ const Box = styled(Link)`
 `;
 
 const Title = styled(Link)`
-  font-size: ${({ inCart }) => (inCart ? '0.75rem' : '0.9rem')};
+  font-size: ${({ inCart }) => (inCart ? "0.75rem" : "0.9rem")};
   letter-spacing: 1.4px;
   margin: 0;
   height: 30px;
   text-decoration: none;
   color: #000000d2;
-  font-family: 'Futura Std Medium';
+  font-family: "Futura Std Medium";
   @media (max-width: 750px) {
     font-size: 0.85rem;
     height: 20px;
@@ -81,7 +81,7 @@ const PriceRow = styled.div`
 `;
 const Price = styled.div`
   font-size: 0.9rem;
-  font-family: 'Futura Std Bold';
+  font-family: "Futura Std Bold";
   color: #0000008f;
   @media screen and (max-width: 500px) {
     font-size: 0.8rem;
@@ -160,17 +160,17 @@ export default function ProductCard({
 }) {
   // console.log(genderName)
   const router = useRouter();
-  const path = router.pathname.split('/')[1];
+  const path = router.pathname.split("/")[1];
   let defaultGender;
 
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // Ensure this runs only on the client side
-    defaultGender = localStorage.getItem('prevPath') || path;
+    defaultGender = localStorage.getItem("prevPath") || path;
   }
   const url =
-    '/' +
-    (genderName === 'unisex' ? defaultGender : genderName) +
-    '/product/' +
+    "/" +
+    (genderName === "unisex" ? defaultGender : genderName) +
+    "/product/" +
     _id;
 
   const [isHidden, setIsHidden] = useState(true);
@@ -189,17 +189,17 @@ export default function ProductCard({
     setLoading(false); // Once the image is fully loaded, set loading to false
   };
   const capitalizeFirstTwoWords = (two) => {
-    const words = two.trim().split(' '); // Ensure there are no extra spaces
-    if (words.length === 0) return ''; // Handle empty titles
+    const words = two.trim().split(" "); // Ensure there are no extra spaces
+    if (words.length === 0) return ""; // Handle empty titles
 
     const firstTwoWords = words
       .slice(0, 2)
       .map(
-        (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+        (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
       );
 
     // Return the first two words capitalized and the rest unchanged
-    return [...firstTwoWords, ...words.slice(2)].join(' ');
+    return [...firstTwoWords, ...words.slice(2)].join(" ");
   };
 
   return (
@@ -217,11 +217,11 @@ export default function ProductCard({
         <img
           src={images[0]}
           onLoad={handleImageLoad}
-          style={{ display: loading ? 'none' : 'block' }}
+          style={{ display: loading ? "none" : "block" }}
           alt={title}
         />
 
-        {path === 'favourites' ? (
+        {path === "favourites" ? (
           <Delete
             primary
             onClick={(ev) => {
@@ -232,11 +232,11 @@ export default function ProductCard({
           >
             <DeleteOutlineOutlined
               style={{
-                fontSize: '1.3rem',
-                width: '30px',
-                height: '40px',
-                paddingLeft: '4.5px',
-                paddingTop: '2px',
+                fontSize: "1.3rem",
+                width: "30px",
+                height: "40px",
+                paddingLeft: "4.5px",
+                paddingTop: "2px",
               }}
             />
           </Delete>
@@ -246,37 +246,39 @@ export default function ProductCard({
             onClick={(ev) => {
               ev.preventDefault(); // Prevent "Box link"  from navigating away
               ev.stopPropagation();
-              addFavourite(_id, 'Blue', 'S');
+              addFavourite(_id, "Blue", "S");
             }}
           >
             <FavoriteBorderOutlined
               className="fave"
               style={{
-                fontSize: '1rem',
-                width: '20px',
-                height: '20px',
-                paddingLeft: '4.5px',
-                paddingTop: '2px',
+                fontSize: "1rem",
+                width: "20px",
+                height: "20px",
+                paddingLeft: "4.5px",
+                paddingTop: "2px",
               }}
             />
 
             <Favorite
               className="fave2"
               style={{
-                fontSize: '1rem',
-                width: '20px',
-                height: '20px',
-                paddingLeft: '4.5px',
-                paddingTop: '2px',
+                fontSize: "1rem",
+                width: "20px",
+                height: "20px",
+                paddingLeft: "4.5px",
+                paddingTop: "2px",
               }}
             />
           </CartB>
         )}
       </Box>
       <ProductInfo>
-        <Title href={url} inCart={inCart} className="truncate">
-          {title}
-        </Title>
+        <div className="">
+          <Title href={url} inCart={inCart} >
+            {title}
+          </Title>
+        </div>
         <PriceRow>
           <Price>${price}</Price>
         </PriceRow>

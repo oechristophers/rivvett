@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Title } from './ProductCarousel';
-import Wrapper from './Wrapper';
-import { useRouter } from 'next/router';
+import React from "react";
+import styled from "styled-components";
+import { Title } from "./ProductCarousel";
+import Wrapper from "./Wrapper";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Wrap = styled.div`
   padding: 20px 35px;
@@ -26,11 +27,11 @@ const Sect = styled.div`
     }
   }
 `;
-const Pname = styled.h3`
+const Pname = styled(Link)`
   margin: 0;
   font-size: 0.8rem;
   letter-spacing: 1px;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   font-weight: lighter;
 `;
 
@@ -40,14 +41,14 @@ const Span = styled.span`
 
 export default function ShopMore({ products }) {
   const router = useRouter();
-  const path = router.pathname.split('/')[1];
+  const path = router.pathname.split("/")[1];
   return (
     <Wrap>
       <StyledTitle>Shop More</StyledTitle>
       <Sect>
         {products &&
           products.map((product) => (
-            <Pname key={product._id}>
+            <Pname href={`/${path}/product/${product._id}`} key={product._id}>
               <Span>{path}&apos;s</Span> {product.title}
             </Pname>
           ))}

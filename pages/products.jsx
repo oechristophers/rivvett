@@ -24,7 +24,6 @@ const FiltersContainer = styled.div`
   ${(props) =>
     props.desktop &&
     `
-    
      @media screen and (max-width: 768px) {
       display: none;
     };
@@ -43,7 +42,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   top: 0;
   right: 0;
-  height: 100%;
+  height: 100vh;
   width: 90%;
   background-color: white;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
@@ -51,7 +50,7 @@ const SidebarContainer = styled.div`
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   will-change: transform;
   z-index: 50;
-  overflow-y: auto;
+  overflow-y: hidden;
   font-family: "Futura Std Book";
   letter-spacing: 0.9px;
   h2 {
@@ -261,7 +260,7 @@ export default function ProductsPage({
         </button>
       </FiltersContainer>
       {/* Sidebar Backdrop */}
-      <SidebarBackdrop isOpen={isSidebarOpen} onClick={toggleSidebar} />
+      <SidebarBackdrop  className="hidden" isOpen={isSidebarOpen} onClick={toggleSidebar} />
 
       {/* Sidebar for Mobile */}
       <SidebarContainer isOpen={isSidebarOpen}>

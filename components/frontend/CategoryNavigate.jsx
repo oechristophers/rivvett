@@ -154,10 +154,10 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
       {activeButton ? (
         <>
           <li>
-            <Button href="/">TRENDING</Button>
+            <Button href="/products?sort=price-asc">TRENDING</Button>
             <ImageBox>
               {' '}
-              <img src="/images/facemobile.webp" alt="" />
+              <img src="/images/trending.png" alt="" />
             </ImageBox>
           </li>
           {categories && categories?.length > 0 ? (

@@ -1,5 +1,5 @@
 import { payIcons } from '@/constants/paymentIcons';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SocialIcon from './icons/SocialIcons';
 import css from 'styled-jsx/css';
@@ -13,6 +13,7 @@ const IconWrapper = styled.div`
 
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease; /* Smooth transition */
   @media screen and (max-width: 768px) {
     display: none;
     ${(props) =>
@@ -39,15 +40,20 @@ const IconWrapper = styled.div`
       `}
   }
 `;
+
 const Li = styled.li`
   img {
-    height: 20px;
-    width: auto;
+    height: 30px; /* Set a fixed height to avoid distortion */
+    width: 30px;  /* Ensure width is equal to height */
+    object-fit: contain; /* Prevent distortion when resizing */
   }
 `;
+
 const StyledUl = styled.ul`
   list-style-type: none;
   display: flex;
+  padding-right: 35px;
+  gap: 45px;
   ${(props) =>
     props.social &&
     `
@@ -72,6 +78,16 @@ const StyledUl = styled.ul`
 `;
 
 export default function FooterIcons({ activeButton }) {
+  const [mounted, setMounted] = useState(false);
+
+  // Set mounted to true after component has mounted
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // If the component hasn't mounted yet, don't render anything
+  if (!mounted) return null;
+
   return (
     <IconWrapper activeButton={activeButton}>
       {activeButton ? (
