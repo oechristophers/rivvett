@@ -10,7 +10,6 @@ function Blogs({ swal }) {
   const [blogs, setBlogs] = useState([]);
   const { session } = useSession();
   useEffect(() => {
-    if (!session) return;
     fetchBlogs();
   }, []);
 
@@ -66,7 +65,7 @@ function Blogs({ swal }) {
           {blogs.map((blog) => (
             <tr key={blog._id}>
               <td>{blog.title}</td>
-              <td>
+              <td className="flex">
                 <Link
                   href={"/admin/blogs/edit/" + blog._id}
                   className="btn-primary text-sm p-1 rounded-md px-2 inline-flex gap-1 mr-1"

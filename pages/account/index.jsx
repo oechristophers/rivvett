@@ -1,6 +1,4 @@
-import { checkIsAuthenticated } from '@/lib/auth/checkAuthentication';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
+
 import React from 'react';
 import Layout from './layout';
 import styled from 'styled-components';

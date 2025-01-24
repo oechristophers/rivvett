@@ -12,9 +12,9 @@ export default function Products() {
   const itemsPerPage = 10;
 
   useEffect(() => {
-    if (!session) {
-      return;
-    }
+    // if (!session) {
+    //   return;
+    // }
     axios.get('/api/server/products').then((response) => {
       setProducts(response.data);
     });
@@ -57,7 +57,9 @@ export default function Products() {
           {currentProducts.map((product) => (
             <tr key={product._id}>
               <td>{product.title}</td>
-              <td>
+              <td 
+              className='flex '
+              >
                 <Link href={'/admin/products/edit/' + product._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

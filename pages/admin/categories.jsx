@@ -20,10 +20,10 @@ function Categories({
   const [categories, setCategories] = useState([]);
   const [properties, setProperties] = useState([]);
   const [images, setImages] = useState(existingImages || []);
-  const { session } = useSession();
+
   const [posterImages, setPosterImages] = useState(existingPosterImages || []);
   useEffect(() => {
-    if (!session) return;
+    
     fetchCategories();
   }, []);
   function fetchCategories() {
@@ -254,7 +254,7 @@ function Categories({
                     <td>{category.name}</td>
                     <td className="flex justify-between">
                       {category?.parent?.name || "none"}
-                      <div>
+                      <div className="flex">
                         <button
                           onClick={() => editCategory(category)}
                           className="btn-default text-sm p-1 rounded-md px-2 inline-flex gap-1 mr-1"

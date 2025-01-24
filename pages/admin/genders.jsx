@@ -10,9 +10,7 @@ function Genders({ swal }) {
   const {session } = useSession();
 
   useEffect(() => {
-    if (!session) {
-      return;
-    }
+    
     fetchGenders();
   }, []);
 
@@ -115,7 +113,7 @@ function Genders({ swal }) {
               <tr key={gender._id}>
                 <td className="flex justify-between">
                   {gender.name}
-                  <div>
+                  <div className='flex '>
                     <button
                       onClick={() => editGender(gender)}
                       className="btn-primary mr-1"

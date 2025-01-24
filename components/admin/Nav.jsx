@@ -1,17 +1,17 @@
-import { signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
-import Logo from './Logo';
-import styled from 'styled-components';
-import css from 'styled-jsx/css';
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import Logo from "./Logo";
+import styled from "styled-components";
+import css from "styled-jsx/css";
 
 const Div = styled.div`
   padding: 5px 0;
-  background-color: ${(props) => (props.$activeLink ? '#ffffff9d ' : 'white')};
-  border-left: ${(props) => (props.$activeLink ? '4px solid gray ' : 'none')};
+  background-color: ${(props) => (props.$activeLink ? "#ffffff9d " : "white")};
+  border-left: ${(props) => (props.$activeLink ? "4px solid gray " : "none")};
   padding-left: 20px;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   a {
     text-decoration: none;
     display: flex;
@@ -45,35 +45,59 @@ const Div = styled.div`
     `}
 
     &:hover {
-    background-color: ${(props) => (props.$activeLink ? '' : '#ffffffae')};
+    background-color: ${(props) => (props.$activeLink ? "" : "#ffffffae")};
   }
 `;
 
 export default function Nav({ show }) {
   const inactiveLink =
-    'flex gap-1 p-1 text-gray-500 hover:bg-[#ffffff25] bg-white';
-  const activeLink = 'flex gap-1 p-1' + ' bg-[#ffffff9d]  ';
+    "flex gap-1 p-1 text-gray-500 hover:bg-[#ffffff25] bg-white";
+  const activeLink = "flex gap-1 p-1" + " bg-[#ffffff9d]  ";
   const router = useRouter();
   const { pathname } = router;
   async function logout() {
-    await router.push('/');
+    await router.push("/");
     await signOut();
   }
   return (
     <aside
-      className={
-        (show ? 'hidden ' : 'flex ') +
-        '   text-black w-full min-h-screen md:w-auto transition-all md:flex-col '
-      }
+      style={{
+        display:"flex",
+        color: "black",
+        width: "100%",
+        height: "100vh",
+        transition: "all 0.3s ease",
+        flexDirection: "column",
+        zIndex:'1000',
+        overflowY:'hidden'
+      
+      }}
     >
-      <div className="mb-4 ml-9 w-[15.7rem] p-3 pl-6 bg-white">
+      <div
+        style={{
+          marginBottom: "1rem",
+          marginLeft: "2.25rem",
+          width: "15.7rem",
+          padding: "0.75rem",
+          paddingLeft: "1.5rem",
+          backgroundColor: "white",
+        }}
+      >
         <Logo />
       </div>
-      <nav className="flex flex-col gap-2 w-[18rem] pl-9 ">
-        <Div $activeLink={pathname === '/'}>
+      <nav
+        style={{
+          display: "flex", 
+          flexDirection: "column", 
+          gap: "0.5rem", 
+          width: "18rem", 
+          paddingLeft: "2.25rem", 
+        }}
+      >
+        <Div $activeLink={pathname === "/"}>
           <Link
-            href={'/'}
-            className={pathname === '/' ? activeLink : inactiveLink}
+            href={"/admin/dashboard"}
+            className={pathname === "/" ? activeLink : inactiveLink}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -93,11 +117,11 @@ export default function Nav({ show }) {
           </Link>
         </Div>
 
-        <Div $activeLink={pathname.includes('/products')}>
+        <Div $activeLink={pathname.includes("/products")}>
           <Link
-            href={'/admin/products'}
+            href={"/admin/products"}
             className={
-              pathname.includes('/products') ? activeLink : inactiveLink
+              pathname.includes("/products") ? activeLink : inactiveLink
             }
           >
             <svg
@@ -117,11 +141,11 @@ export default function Nav({ show }) {
             <h2>Products</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/categories')}>
+        <Div $activeLink={pathname.includes("/categories")}>
           <Link
-            href={'/admin/categories'}
+            href={"/admin/categories"}
             className={
-              pathname.includes('/categories') ? activeLink : inactiveLink
+              pathname.includes("/categories") ? activeLink : inactiveLink
             }
           >
             <svg
@@ -141,11 +165,11 @@ export default function Nav({ show }) {
             <h2>Categories</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/genders')}>
+        <Div $activeLink={pathname.includes("/genders")}>
           <Link
-            href={'/admin/genders'}
+            href={"/admin/genders"}
             className={
-              pathname.includes('/genders') ? activeLink : inactiveLink
+              pathname.includes("/genders") ? activeLink : inactiveLink
             }
           >
             <svg
@@ -159,10 +183,10 @@ export default function Nav({ show }) {
             <h2>Genders</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/blogs')}>
+        <Div $activeLink={pathname.includes("/blogs")}>
           <Link
-            href={'/admin/blogs'}
-            className={pathname.includes('/blogs') ? activeLink : inactiveLink}
+            href={"/admin/blogs"}
+            className={pathname.includes("/blogs") ? activeLink : inactiveLink}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -181,11 +205,11 @@ export default function Nav({ show }) {
             <h2>Blogs</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/galleries')}>
+        <Div $activeLink={pathname.includes("/galleries")}>
           <Link
-            href={'/admin/galleries'}
+            href={"/admin/galleries"}
             className={
-              pathname.includes('/galleries') ? activeLink : inactiveLink
+              pathname.includes("/galleries") ? activeLink : inactiveLink
             }
           >
             <svg
@@ -205,10 +229,10 @@ export default function Nav({ show }) {
             <h2>Gallery</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/orders')}>
+        <Div $activeLink={pathname.includes("/orders")}>
           <Link
-            href={'/admin/orders'}
-            className={pathname.includes('/orders') ? activeLink : inactiveLink}
+            href={"/admin/orders"}
+            className={pathname.includes("/orders") ? activeLink : inactiveLink}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -227,11 +251,11 @@ export default function Nav({ show }) {
             <h2>Orders</h2>
           </Link>
         </Div>
-        <Div $activeLink={pathname.includes('/settings')}>
+        <Div $activeLink={pathname.includes("/settings")}>
           <Link
-            href={'/admin/settings'}
+            href={"/admin/settings"}
             className={
-              pathname.includes('/settings') ? activeLink : inactiveLink
+              pathname.includes("/settings") ? activeLink : inactiveLink
             }
           >
             <svg

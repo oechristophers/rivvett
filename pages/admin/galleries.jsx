@@ -10,9 +10,6 @@ function Galleries({ swal }) {
   const [galleries, setGalleries] = useState([]);
   const { session } = useSession();
   useEffect(() => {
-    if (!session) {
-      return;
-    }
     fetchGallery();
   }, []);
 
