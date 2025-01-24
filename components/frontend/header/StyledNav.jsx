@@ -4,15 +4,16 @@ import {
   PersonOutlineSharp,
   WorkOutlineSharp,
   WorkSharp,
-} from '@mui/icons-material';
-import React from 'react';
-import styled from 'styled-components';
-import css from 'styled-jsx/css';
-import { UseIsDevice } from '../DeviceView';
-import Link from 'next/link';
-import FooterIcons from '../FooterIcons';
-import Footer from '../Footer';
-import CategoryList from '../CategoryNavigate';
+} from "@mui/icons-material";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import css from "styled-jsx/css";
+import { UseIsDevice } from "../DeviceView";
+import Link from "next/link";
+import FooterIcons from "../FooterIcons";
+import Footer from "../Footer";
+import CategoryList from "../CategoryNavigate";
+import MobAccountNav from "../MobAccountNav";
 
 const Button = styled.button`
   width: 50%;
@@ -23,7 +24,7 @@ const Button = styled.button`
   border-bottom: 1px solid #0000002a;
   cursor: pointer;
   padding: 12px 0;
-  font-family: 'Futura Std Heavy';
+  font-family: "Futura Std Heavy";
   text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 1.5px;
@@ -84,8 +85,8 @@ const Nav = styled.nav`
     props.mobNav
       ? `
           display: flex;
-          position: absolute;
-          height: 105vh;
+          position: fixed;
+          height: 104vh;
           top: 0;
           left: 0;
           right: 0;
@@ -157,11 +158,11 @@ const Nav = styled.nav`
         width: 88%;
       `}
     .modal {
-      width: 18%;
-      left: 82.5%;
+      width: 12.3%;
+      left: 87.7%;
     }
     .close {
-      margin-left: 82%;
+      margin-left: 87%;
     }
     .more strong {
       font-size: 0.6rem;
@@ -170,6 +171,74 @@ const Nav = styled.nav`
       strong {
         font-size: 0.8rem;
       }
+    }
+    .more-1 {
+      background: url("/images/rainbow.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .more-2 {
+      background: linear-gradient(to top, #b7e10f, #cdef07);
+      span {
+        border: 2px solid;
+        border-radius: 9999px;
+        padding: 5px 10px;
+      }
+    }
+    .more-3 {
+      background: url("/images/gift.webp");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .more-4 {
+      background: url("/images/app.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .more {
+      width: 100%;
+      padding-bottom: 20px;
+      background-color: #e8e5e5;
+    }
+    .more p {
+      font-size: 0.7rem;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: "Futura Std Heavy";
+      letter-spacing: 1.3px;
+      padding: 0px 10px;
+      width: 21ch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 3rem;
+    }
+    .more .mDiv {
+      border: 1px solid #0000002a;
+    }
+    .more h2 {
+      font-size: 0.8rem;
+      font-family: "Futura Std Heavy";
+      letter-spacing: 1.5px;
+      padding-left: 20px;
+      padding-top: 30px;
+      padding-bottom: 10px;
+    }
+    .more section {
+      height: 100px;
+      display: flex;
+      font-size: 1rem;
+      align-items: center;
+      justify-content: center;
+      font-family: "Futura Std Book";
+      letter-spacing: 1.4px;
+    }
+
+    .no-scroll::-webkit-scrollbar {
+      display: none;
     }
   }
 
@@ -238,10 +307,10 @@ const NavLink = styled(Link)`
 export function NavForPc({ isHome }) {
   return (
     <Nav forPc>
-      <NavLink isGender isHome={isHome === 'women'} href={'/women'}>
+      <NavLink isGender isHome={isHome === "women"} href={"/women"}>
         WOMEN
       </NavLink>
-      <NavLink isGender isHome={isHome === 'men'} href={'/men'}>
+      <NavLink isGender isHome={isHome === "men"} href={"/men"}>
         MEN
       </NavLink>
     </Nav>
@@ -251,22 +320,31 @@ export function NavForPc({ isHome }) {
 export function NavIcons({ toggleAcc, cartItems, clength, toggleCart }) {
   const { isHighMobile } = UseIsDevice();
   return (
-    <Nav isNavIcons style={{ zIndex: '10' }}>
-      <IconDiv
-        onClick={toggleAcc}
-        onMouseEnter={toggleAcc}
-        onMouseLeave={toggleAcc}
-      >
-        <PersonOutlineSharp
-          style={{ fontSize: '1.77rem', marginTop: '-3px' }}
-        />
-      </IconDiv>
-      <NavLink href={'/favourites'}>
+    <Nav isNavIcons style={{ zIndex: "10" }}>
+      {isHighMobile ? (
+        <NavLink href={"/account"}>
+          <PersonOutlineSharp
+            style={{ fontSize: "1.77rem", marginTop: "-3px" }}
+          />
+        </NavLink>
+      ) : (
+        <IconDiv
+          onClick={toggleAcc}
+          onMouseEnter={toggleAcc}
+          onMouseLeave={toggleAcc}
+        >
+          <PersonOutlineSharp
+            style={{ fontSize: "1.77rem", marginTop: "-3px" }}
+          />
+        </IconDiv>
+      )}
+
+      <NavLink href={"/favourites"}>
         <FavoriteBorderSharp />
       </NavLink>
 
       {isHighMobile ? (
-        <NavLink href={'/cart'}>
+        <NavLink href={"/cart"}>
           {cartItems.length > 0 ? (
             <div className="relative">
               <WorkSharp className="" />
@@ -275,18 +353,18 @@ export function NavIcons({ toggleAcc, cartItems, clength, toggleCart }) {
               </Subscript>
             </div>
           ) : (
-            <WorkOutlineSharp style={{ fontSize: '1.5rem' }} />
+            <WorkOutlineSharp style={{ fontSize: "1.5rem" }} />
           )}
         </NavLink>
       ) : cartItems.length < 1 ? (
-        <NavLink href={'/cart'}>
+        <NavLink href={"/cart"}>
           {cartItems.length > 0 ? (
             <>
               <WorkSharp />
               <Subscript>{clength}</Subscript>
             </>
           ) : (
-            <WorkOutlineSharp style={{ fontSize: '1.5rem' }} />
+            <WorkOutlineSharp style={{ fontSize: "1.5rem" }} />
           )}
         </NavLink>
       ) : (
@@ -296,7 +374,7 @@ export function NavIcons({ toggleAcc, cartItems, clength, toggleCart }) {
           onMouseLeave={toggleCart}
         >
           {cartItems.length < 1 ? (
-            <WorkOutlineSharp style={{ fontSize: '1.5rem' }} />
+            <WorkOutlineSharp style={{ fontSize: "1.5rem" }} />
           ) : (
             <div className="relative">
               <WorkSharp className="" />
@@ -318,24 +396,39 @@ export function MobNav({
   setHamActive,
   setActiveButton,
 }) {
+  useEffect(() => {
+    if (hamActive) {
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+    } else {
+      document.body.style.overflow = ""; // Restore default scrolling
+    }
+
+    // Clean up on unmount
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [hamActive]);
   return (
-    <Nav mobNav className={hamActive ? 'active' : 'inactive'}>
+    <Nav mobNav className={hamActive ? "active" : "inactive"}>
       <Nav forMobile>
         <div className="genderNav">
           <Button
-            isActive={activeButton === 'men'}
-            onClick={() => setActiveButton('men')}
+            isActive={activeButton === "men"}
+            onClick={() => setActiveButton("men")}
           >
             Men
           </Button>
           <Button
-            isActive={activeButton === 'women'}
-            onClick={() => setActiveButton('women')}
+            isActive={activeButton === "women"}
+            onClick={() => setActiveButton("women")}
           >
             Women
           </Button>
         </div>
-        <div className="overflow-y-scroll h-screen pt-6 no-scroll">
+        <div
+          className="no-scroll"
+          style={{ overflowY: "scroll", height: "100vh", paddingTop: "1.5rem" }}
+        >
           <div className="nav-content">
             <CategoryList
               activeButton={activeButton}
@@ -343,7 +436,15 @@ export function MobNav({
             />
             <div className="more">
               <h2 className="">MORE RIVVETT</h2>
-              <div className="grid grid-cols-2 gap-[20px] p-[20px] bg-white">
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: "20px",
+                  padding: "20px",
+                  backgroundColor: "white",
+                }}
+              >
                 <div className="mDiv">
                   <section className="more-1">
                     <strong>rivett premier</strong>
@@ -368,17 +469,18 @@ export function MobNav({
                 </div>
               </div>
             </div>
-          </div>{' '}
+          </div>{" "}
           <FooterIcons activeButton={activeButton} />
+          <MobAccountNav />
           <Footer activeButton={activeButton} />
         </div>
       </Nav>
       <span className="close">
         <Close
           style={{
-            color: 'white',
-            fontSize: '2rem',
-            paddingTop: '2px',
+            color: "white",
+            fontSize: "2rem",
+            paddingTop: "2px",
           }}
           onClick={() => setHamActive(false)}
         />

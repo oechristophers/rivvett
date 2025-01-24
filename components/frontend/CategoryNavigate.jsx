@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import ButtonLink from './ButtonLink';
-import { usePathname } from 'next/navigation';
-import { SkeletonItem, SkeletonLoader2 } from './ImageSkeleton';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import ButtonLink from "./ButtonLink";
+import { usePathname } from "next/navigation";
+import { SkeletonItem, SkeletonLoader2 } from "./ImageSkeleton";
+import Link from "next/link";
 
 const CatUl = styled.ul`
   display: flex;
@@ -20,19 +21,22 @@ const CatUl = styled.ul`
     padding: 0 20px;
     background-color: white;
     gap: 30px;
-    li {
-      display: flex;
-      justify-content: space-between;
-      background-color: #e8e5e5;
-      img {
-        max-width: 100%;
-        max-height: 100%;
-      }
-      p,
-      h2 {
-        margin: 0;
-        padding: 0;
-      }
+  }
+`;
+
+const Li = styled(Link)`
+  @media screen and (max-width: 950px) {
+    display: flex;
+    justify-content: space-between;
+    background-color: #e8e5e5;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    p,
+    h2 {
+      margin: 0;
+      padding: 0;
     }
   }
 `;
@@ -45,12 +49,12 @@ const ImageBox = styled.div`
 const Button = styled(ButtonLink)`
   font-size: 0.8rem;
   letter-spacing: 1.1px;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   padding: 10px 12px;
   @media screen and (max-width: 950px) {
     color: black;
     text-transform: uppercase;
-    font-family: 'Futura Std Heavy';
+    font-family: "Futura Std Heavy";
     letter-spacing: 1.4px;
   }
 `;
@@ -65,7 +69,7 @@ const Sale = styled(ButtonLink)`
   z-index: 1;
   span {
     display: inline-block;
-    font-family: 'Futura Std Medium';
+    font-family: "Futura Std Medium";
     font-size: 0.9rem;
     font-weight: 900;
     letter-spacing: 1.1px;
@@ -73,7 +77,7 @@ const Sale = styled(ButtonLink)`
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     margin-top: -5px;
@@ -98,10 +102,10 @@ const cacheImages = async (srcArray) => {
           img.onload = resolve;
           img.onerror = reject;
         });
-      }),
+      })
     );
   } catch (error) {
-    console.error('Error caching images:', error);
+    console.error("Error caching images:", error);
   }
 };
 
@@ -109,19 +113,21 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+  const [homePic, setHomePic] = useState("");
+  const [trending, setTrending] = useState("");
   const imageLoadingStates = new Array(categories?.length || 0).fill(false);
   const [loadedImages, setLoadedImages] = useState(imageLoadingStates);
 
   const pathname = usePathname();
-  const path = pathname.split('/')[1];
+  const path = pathname.split("/")[1];
   // console.log(prevPath)
   // console.log(path)
   const genderId =
-    path || prevPath === 'men'
-      ? '669161b8bbede0f410af829e'
-      : path || prevPath === 'women'
-        ? '669161c1bbede0f410af82a2'
-        : '';
+    path || prevPath === "men"
+      ? "669161b8bbede0f410af829e"
+      : path || prevPath === "women"
+        ? "669161c1bbede0f410af82a2"
+        : "";
 
   useEffect(() => {
     if (!categories) {
@@ -131,11 +137,15 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
       const imageUrls = categories.flatMap((category) =>
         category.posterImages.length > 1
           ? [category.posterImages[0], category.posterImages[1]]
-          : [category.posterImages[0]],
+          : [category.posterImages[0]]
       );
       cacheImages(imageUrls);
+      if (activeButton) {
+        setHomePic(`images/${activeButton}/home.png`);
+        setTrending(`images/${activeButton}/trending.png`);
+      }
     }
-  }, [categories]);
+  }, [categories, activeButton]);
 
   if (error) return <p>Error: {error}</p>;
 
@@ -153,18 +163,27 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
       {loading && <CatUl>&nbsp;</CatUl>}
       {activeButton ? (
         <>
-          <li>
+          <Li href={`/${activeButton}`}>
+            <Button href={`/${activeButton}`}>Home</Button>
+            <ImageBox>
+              {" "}
+              <img src={homePic} alt="" />
+            </ImageBox>
+          </Li>
+          <Li href={`"/products?sort=price-asc"`}>
             <Button href="/products?sort=price-asc">TRENDING</Button>
             <ImageBox>
-              {' '}
-              <img src="/images/trending.png" alt="" />
+              {" "}
+              <img src={trending} alt="" />
             </ImageBox>
-          </li>
+          </Li>
           {categories && categories?.length > 0 ? (
             categories.map((category, index) => (
               <>
-                <li key={category._id}>
-                  <Button href={`/products?category=${category._id}&gender=${genderId}`}>
+                <Li href={`/products?category=${category._id}&gender=${genderId}`} key={category._id}>
+                  <Button
+                    href={`/products?category=${category._id}&gender=${genderId}`}
+                  >
                     {category.name}
                   </Button>
                   <ImageBox loaded={allImagesLoaded}>
@@ -172,7 +191,7 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
                       src={
                         category.posterImages.length > 1
                           ? category.posterImages[
-                              activeButton === 'men' ? 0 : 1
+                              activeButton === "men" ? 0 : 1
                             ]
                           : category.posterImages[0]
                       }
@@ -180,22 +199,22 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
                       onLoad={() => handleImageLoad(index)}
                     />
                   </ImageBox>
-                </li>
+                </Li>
               </>
             ))
           ) : (
-            <li>Loading....</li>
+            <li href={``}>Loading....</li>
           )}
           <li
             style={{
-              backgroundColor: '#ccff00',
-              height: '80px',
-              marginBottom: '20px',
-              fontFamily: 'Futura Std Heavy',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
+              backgroundColor: "#ccff00",
+              height: "80px",
+              marginBottom: "20px",
+              fontFamily: "Futura Std Heavy",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <p>Sale</p>
@@ -208,12 +227,12 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
         <>
           {loading && <CatUl>&nbsp;</CatUl>}
 
-          <li>
+          <li href={``}>
             <Sale href="/">
               <span>Sale</span>
             </Sale>
           </li>
-          <li>
+          <li href={``}>
             <Button href="/products?sort=price-asc">TRENDING</Button>
           </li>
           {categories && categories?.length > 0 ? (

@@ -1,20 +1,20 @@
-import { mongooseConnect } from '@/lib/mongoose';
-import { Category } from '@/models/Category';
-import { Gender } from '@/models/Gender';
-import { Product } from '@/models/Product';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { mongooseConnect } from "@/lib/mongoose";
+import { Category } from "@/models/Category";
+import { Gender } from "@/models/Gender";
+import { Product } from "@/models/Product";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import RootLayout from '../layout';
-import styled from 'styled-components';
-import Wrapper from '@/components/frontend/Wrapper';
-import ProductGrid from '@/components/frontend/ProductGrid';
+} from "@/components/ui/select";
+import RootLayout from "../layout";
+import styled from "styled-components";
+import Wrapper from "@/components/frontend/Wrapper";
+import ProductGrid from "@/components/frontend/ProductGrid";
 
 const FiltersContainer = styled.div`
   margin-bottom: 20px;
@@ -76,36 +76,36 @@ export default function Collections({ products, categories, properties }) {
   const { query } = router;
 
   useEffect(() => {
-    localStorage.setItem('collectionQuery', JSON.stringify(query.collection));
+    localStorage.setItem("collectionQuery", JSON.stringify(query.collection));
   }, [query.collection]);
 
   const handleFilterChange = (value, name) => {
     console.log(`Changed: ${name} = ${value}`); // Debugging log to check value
     const updatedQuery = { ...query, [name]: value };
 
-    if (value === '') {
+    if (value === "") {
       delete updatedQuery[name]; // Remove filter if empty
     }
 
     router.push({
-      pathname: '/men/collections',
+      pathname: "/men/collections",
       query: updatedQuery,
     });
   };
 
   const clearFilters = () => {
-    let defaultQuery = localStorage.getItem('collectionQuery');
+    let defaultQuery = localStorage.getItem("collectionQuery");
     if (defaultQuery) {
-      defaultQuery = defaultQuery.replace(/^"|"$/g, ''); // Remove surrounding quotes
+      defaultQuery = defaultQuery.replace(/^"|"$/g, ""); // Remove surrounding quotes
     }
 
     router.push({
-      pathname: '/men/collections',
+      pathname: "/men/collections",
       query: defaultQuery ? { collection: defaultQuery } : {},
     });
   };
 
-  const genderName = 'men';
+  const genderName = "men";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -117,17 +117,20 @@ export default function Collections({ products, categories, properties }) {
     <RootLayout>
       <h2
         className="text-center py-3 uppercase"
-        style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
+        style={{ fontFamily: "Futura Std Book", letterSpacing: 0.9 }}
       >
-        &ldquo;Men&apos;s Collections&ldquo; :{' '}
+        &ldquo;Men&apos;s Collections&ldquo; :{" "}
         <span>{query.collection && query.collection}</span>
       </h2>
-      <FiltersContainer desktop className=" px-10 justify-between py-5 bg-[#c6c4c4]">
+      <FiltersContainer
+        desktop
+        className=" px-10 justify-between py-5 bg-[#c6c4c4]"
+      >
         <Select
-          value={query.collection || ''}
+          value={query.collection || ""}
           onValueChange={(value) => {
-            console.log('Collection selected:', value); // Debugging log
-            handleFilterChange(value, 'collection');
+            console.log("Collection selected:", value); // Debugging log
+            handleFilterChange(value, "collection");
           }}
           name="Collection"
         >
@@ -147,10 +150,10 @@ export default function Collections({ products, categories, properties }) {
         <Select
           name="category"
           onValueChange={(value) => {
-            console.log('Category selected:', value); // Debugging log
-            handleFilterChange(value, 'category');
+            console.log("Category selected:", value); // Debugging log
+            handleFilterChange(value, "category");
           }}
-          value={query.category || ''}
+          value={query.category || ""}
         >
           <SelectTrigger className=" border-x-0 h-12 rounded-none shadow-none focus:outline-none outline-none focus:ring-0 w-[18%] border-y-2  ">
             <SelectValue placeholder="Category" />
@@ -168,10 +171,10 @@ export default function Collections({ products, categories, properties }) {
         {/* Add color filter */}
 
         <Select
-          value={query.color || ''}
+          value={query.color || ""}
           onValueChange={(value) => {
-            console.log('Color selected:', value); // Debugging log
-            handleFilterChange(value, 'color');
+            console.log("Color selected:", value); // Debugging log
+            handleFilterChange(value, "color");
           }}
           name="Color"
         >
@@ -190,10 +193,10 @@ export default function Collections({ products, categories, properties }) {
 
         {/* Add size filter */}
         <Select
-          value={query.size || ''}
+          value={query.size || ""}
           onValueChange={(value) => {
-            console.log('Size selected:', value); // Debugging log
-            handleFilterChange(value, 'size');
+            console.log("Size selected:", value); // Debugging log
+            handleFilterChange(value, "size");
           }}
           name="Size"
         >
@@ -213,10 +216,10 @@ export default function Collections({ products, categories, properties }) {
         <Select
           name="Sort"
           onValueChange={(value) => {
-            console.log('Sort by:', value); // Debugging log
-            handleFilterChange(value, 'sort');
+            console.log("Sort by:", value); // Debugging log
+            handleFilterChange(value, "sort");
           }}
-          value={query.sort || ''}
+          value={query.sort || ""}
         >
           <SelectTrigger className=" border-x-0 h-12 rounded-none shadow-none focus:outline-none outline-none focus:ring-0  w-[18%] border-y-2 ">
             <SelectValue placeholder="Sort" />
@@ -228,18 +231,21 @@ export default function Collections({ products, categories, properties }) {
         </Select>
       </FiltersContainer>
 
-      <FiltersContainer mobile className=" bg-[#cac8c8] divide-x-2 py-2 divide-[#0000001e] ">
+      <FiltersContainer
+        mobile
+        className=" bg-[#cac8c8] divide-x-2 py-2 divide-[#0000001e] "
+      >
         <div
           className=""
-          style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
+          style={{ fontFamily: "Futura Std Book", letterSpacing: 0.9 }}
         >
           <Select
             name="Sort"
             onValueChange={(value) => {
-              console.log('Sort by:', value); // Debugging log
-              handleFilterChange(value, 'sort');
+              console.log("Sort by:", value); // Debugging log
+              handleFilterChange(value, "sort");
             }}
-            value={query.sort || ''}
+            value={query.sort || ""}
           >
             <SelectTrigger className="w-[100%] mt-2 border-none flex shadow-none focus:outline-none outline-none gap-2  justify-center focus:ring-0 focus:border-transparent">
               <SelectValue placeholder="Sort" />
@@ -253,7 +259,7 @@ export default function Collections({ products, categories, properties }) {
         <button
           className="py-3"
           onClick={toggleSidebar} // Open the sidebar
-          style={{ fontFamily: 'Futura Std Book', letterSpacing: 0.9 }}
+          style={{ fontFamily: "Futura Std Book", letterSpacing: 0.9 }}
         >
           Filter
         </button>
@@ -266,7 +272,10 @@ export default function Collections({ products, categories, properties }) {
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-bold">Filters</h2>
           <button
-            onClick={clearFilters}
+            onClick={()=>{
+              clearFilters()
+              toggleSidebar()
+            }}
             className="text-gray-500 hover:text-gray-700"
           >
             Clear
@@ -275,10 +284,10 @@ export default function Collections({ products, categories, properties }) {
         <div className="p-4">
           {/* Filters */}
           <Select
-            value={query.collection || ''}
+            value={query.collection || ""}
             onValueChange={(value) => {
-              console.log('Collection selected:', value); // Debugging log
-              handleFilterChange(value, 'collection');
+              console.log("Collection selected:", value); // Debugging log
+              handleFilterChange(value, "collection");
             }}
             name="Collection"
           >
@@ -296,9 +305,9 @@ export default function Collections({ products, categories, properties }) {
           <Select
             name="category"
             onValueChange={(value) => {
-              handleFilterChange(value, 'category');
+              handleFilterChange(value, "category");
             }}
-            value={query.category || ''}
+            value={query.category || ""}
           >
             <SelectTrigger className="w-full capitalize mb-4 border-none shadow-none focus:outline-none outline-none focus:ring-0 focus:border-transparent">
               <SelectValue placeholder="Category" />
@@ -316,10 +325,10 @@ export default function Collections({ products, categories, properties }) {
           {/* Add color filter */}
 
           <Select
-            value={query.color || ''}
+            value={query.color || ""}
             onValueChange={(value) => {
-              console.log('Color selected:', value); // Debugging log
-              handleFilterChange(value, 'color');
+              console.log("Color selected:", value); // Debugging log
+              handleFilterChange(value, "color");
             }}
             name="Color"
           >
@@ -338,10 +347,10 @@ export default function Collections({ products, categories, properties }) {
 
           {/* Add size filter */}
           <Select
-            value={query.size || ''}
+            value={query.size || ""}
             onValueChange={(value) => {
-              console.log('Size selected:', value); // Debugging log
-              handleFilterChange(value, 'size');
+              console.log("Size selected:", value); // Debugging log
+              handleFilterChange(value, "size");
             }}
             name="Size"
           >
@@ -358,7 +367,11 @@ export default function Collections({ products, categories, properties }) {
             </SelectContent>
           </Select>
 
-          <button className="h-12 text-center bg-black text-white w-full">
+          <button
+            className="h-12 text-center bg-black text-white w-full"
+            onClick={toggleSidebar}
+          >
+            {" "}
             Apply
           </button>
         </div>
@@ -379,8 +392,8 @@ export default function Collections({ products, categories, properties }) {
 export async function getServerSideProps({ query }) {
   await mongooseConnect();
 
-  const maleGenderId = '669161b8bbede0f410af829e'; // male gender ID
-  const unisexGenderId = '669161e1bbede0f410af82a7'; // unisex gender ID
+  const maleGenderId = "669161b8bbede0f410af829e"; // male gender ID
+  const unisexGenderId = "669161e1bbede0f410af82a7"; // unisex gender ID
 
   // Base gender filter for male and unisex
   const baseGenderFilter = {
@@ -416,40 +429,40 @@ export async function getServerSideProps({ query }) {
 
   // Add additional filters dynamically from query
   if (query.collection)
-    productFilter['properties.collection'] = query.collection;
-  if (query.color) productFilter['properties.color'] = query.color;
-  if (query.size) productFilter['properties.size'] = query.size;
+    productFilter["properties.collection"] = query.collection;
+  if (query.color) productFilter["properties.color"] = query.color;
+  if (query.size) productFilter["properties.size"] = query.size;
 
   // Sorting logic
   const sort =
-    query.sort === 'price-asc'
+    query.sort === "price-asc"
       ? { price: 1 }
-      : query.sort === 'price-desc'
+      : query.sort === "price-desc"
         ? { price: -1 }
         : { _id: -1 }; // Default: Most recent
 
   // Fetch the filtered products
   const products = await Product.find(productFilter, null, { sort }).populate([
-    'category',
-    'gender',
+    "category",
+    "gender",
   ]);
 
   // Fetch the distinct list of collections for products matching the base filter
   const allCollections = await Product.distinct(
-    'properties.collection',
-    baseGenderFilter,
+    "properties.collection",
+    baseGenderFilter
   );
 
   // Fetch additional filter options
   const [categories, genders, colorProperties, sizeProperties] =
     await Promise.all([
       Category.find({
-        name: { $ne: 'BLOG CATEGORY' },
-        parent: { $ne: '670504cf2b1eeb8019f8e3fb' },
+        name: { $ne: "BLOG CATEGORY" },
+        parent: { $ne: "670504cf2b1eeb8019f8e3fb" },
       }),
       Gender.find({}),
-      Product.distinct('properties.color', productFilter),
-      Product.distinct('properties.size', productFilter),
+      Product.distinct("properties.color", productFilter),
+      Product.distinct("properties.size", productFilter),
     ]);
 
   // Aggregate properties into a single object

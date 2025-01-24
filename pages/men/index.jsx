@@ -1,45 +1,46 @@
-import { mongooseConnect } from '@/lib/mongoose';
-import { Product } from '@/models/Product';
-import { Category } from '@/models/Category';
-import { Blog } from '@/models/Blog';
-import { Gallery } from '@/models/Gallery';
-import mongoose from 'mongoose';
-import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
-import RootLayout from '../layout';
-import { Gender } from '@/models/Gender';
+import { mongooseConnect } from "@/lib/mongoose";
+import { Product } from "@/models/Product";
+import { Category } from "@/models/Category";
+import { Blog } from "@/models/Blog";
+import { Gallery } from "@/models/Gallery";
+import mongoose from "mongoose";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import RootLayout from "../layout";
+import { Gender } from "@/models/Gender";
+import { UseIsDevice } from "@/components/frontend/DeviceView";
 // Dynamically import non-critical components
-const AppPromote = dynamic(() => import('@/components/frontend/AppPromote'), {
+const AppPromote = dynamic(() => import("@/components/frontend/AppPromote"), {
   ssr: false,
 });
 const PromotionBox = dynamic(
-  () => import('@/components/frontend/PromotionBox'),
-  { ssr: true },
+  () => import("@/components/frontend/PromotionBox"),
+  { ssr: true }
 );
-const BottomP = dynamic(() => import('@/components/frontend/BottomP'), {
+const BottomP = dynamic(() => import("@/components/frontend/BottomP"), {
   ssr: false,
 });
 const FeaturedCollection = dynamic(
-  () => import('@/components/frontend/FeaturedCollection'),
-  { ssr: false },
+  () => import("@/components/frontend/FeaturedCollection"),
+  { ssr: false }
 );
 const FeaturedShops = dynamic(
-  () => import('@/components/frontend/FeaturedShops'),
-  { ssr: false },
+  () => import("@/components/frontend/FeaturedShops"),
+  { ssr: false }
 );
 const GalleryDisplay = dynamic(
-  () => import('@/components/frontend/GalleryDisplay'),
-  { ssr: false },
+  () => import("@/components/frontend/GalleryDisplay"),
+  { ssr: false }
 );
-const Hero = dynamic(() => import('@/components/frontend/Hero'), { ssr: true });
+const Hero = dynamic(() => import("@/components/frontend/Hero"), { ssr: true });
 const ProductCarousel = dynamic(
-  () => import('@/components/frontend/ProductCarousel'),
-  { ssr: false },
+  () => import("@/components/frontend/ProductCarousel"),
+  { ssr: false }
 );
-const ShopMore = dynamic(() => import('@/components/frontend/ShopMore'), {
+const ShopMore = dynamic(() => import("@/components/frontend/ShopMore"), {
   ssr: false,
 });
-const StyleFeed = dynamic(() => import('@/components/frontend/StyleFeed'), {
+const StyleFeed = dynamic(() => import("@/components/frontend/StyleFeed"), {
   ssr: false,
 });
 
@@ -50,6 +51,7 @@ export default function MenHome({
   maleBlogs,
   maleGallery,
 }) {
+  const { isHighMobile } = UseIsDevice();
   const genderName = maleProducts[0].gender.name;
   const maleProd = maleProducts.map((product) => product.properties);
 
@@ -61,18 +63,18 @@ export default function MenHome({
   const colProps = maleProd.map((product) => product.collection);
 
   const collectionPropValue = maleCat[0].properties.find(
-    (property) => property.name === 'collection',
+    (property) => property.name === "collection"
   ).values;
 
   const collections = collectionPropValue.filter((collection) =>
     colProps
       .map((prop) => prop)
       .flat()
-      .includes(collection),
+      .includes(collection)
   );
 
   const newCollections = collections.push(
-    collectionPropValue.filter((item) => item === 'collision-edit'),
+    collectionPropValue.filter((item) => item === "collision-edit")
   );
 
   const maleCollection = collections.shift();
@@ -81,14 +83,14 @@ export default function MenHome({
   const shopProps = maleProd.map((product) => product.shop);
 
   const shopPropValue = maleCat[0].properties.find(
-    (property) => property.name === 'shop',
+    (property) => property.name === "shop"
   ).values;
 
   const shops = shopPropValue.filter((shop) =>
     shopProps
       .map((prop) => prop)
       .flat()
-      .includes(shop),
+      .includes(shop)
   );
 
   const fadeUp = {
@@ -158,12 +160,14 @@ export default function MenHome({
         <GalleryDisplay gallery={maleGallery} />
       </motion.div>
 
-      <div className="overflow-x-hidden">
+      <div style={{ overflowX: "hidden" }}>
+        {" "}
         <motion.div
           initial="hidden"
           whileInView="visible"
           variants={fadeInFromRight}
           viewport={{ once: true, amount: 0.2 }}
+          style={{ overflowX: "hidden" }}
         >
           <AppPromote />
         </motion.div>
@@ -184,7 +188,7 @@ export default function MenHome({
 }
 
 export async function getServerSideProps() {
-  const maleGenderId = '669161b8bbede0f410af829e';
+  const maleGenderId = "669161b8bbede0f410af829e";
   await mongooseConnect();
 
   const [randomProducts, maleProducts, maleCategories, maleBlogs, maleGallery] =
@@ -193,7 +197,7 @@ export async function getServerSideProps() {
         { $match: { gender: new mongoose.Types.ObjectId(maleGenderId) } },
         { $sample: { size: 12 } },
       ]),
-      Product.find({ gender: maleGenderId }).populate('gender'),
+      Product.find({ gender: maleGenderId }).populate("gender"),
       Category.find({}),
       Blog.find({ gender: maleGenderId }),
       Gallery.find({ gender: maleGenderId }),

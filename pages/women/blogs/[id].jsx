@@ -1,22 +1,22 @@
-import BlogCard from '@/components/frontend/BlogCard';
-import { UseIsDevice } from '@/components/frontend/DeviceView';
-import { CartB } from '@/components/frontend/ProductCard';
-import ProductCarousel from '@/components/frontend/ProductCarousel';
-import ProductGrid from '@/components/frontend/ProductGrid';
-import StyleFeed, { Button } from '@/components/frontend/StyleFeed';
-import { mongooseConnect } from '@/lib/mongoose';
-import { Blog } from '@/models/Blog';
-import { Category } from '@/models/Category';
-import { Gender } from '@/models/Gender';
-import { Product } from '@/models/Product';
-import RootLayout from '@/pages/layout';
-import { ArrowRight } from '@mui/icons-material';
-import mongoose from 'mongoose';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import BlogCard from "@/components/frontend/BlogCard";
+import { UseIsDevice } from "@/components/frontend/DeviceView";
+import { CartB } from "@/components/frontend/ProductCard";
+import ProductCarousel from "@/components/frontend/ProductCarousel";
+import ProductGrid from "@/components/frontend/ProductGrid";
+import StyleFeed, { Button } from "@/components/frontend/StyleFeed";
+import { mongooseConnect } from "@/lib/mongoose";
+import { Blog } from "@/models/Blog";
+import { Category } from "@/models/Category";
+import { Gender } from "@/models/Gender";
+import { Product } from "@/models/Product";
+import RootLayout from "@/pages/layout";
+import { ArrowRight } from "@mui/icons-material";
+import mongoose from "mongoose";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 
 const Wrap = styled.div`
   display: flex;
@@ -39,7 +39,7 @@ const Wrap = styled.div`
       flex-direction: column;
       h2 {
         margin: 0;
-        font-family: 'Futura Std Heavy';
+        font-family: "Futura Std Heavy";
         font-size: 0.9rem;
         letter-spacing: 1.2px;
         padding: 10px 8px;
@@ -54,14 +54,14 @@ const Wrap = styled.div`
 
       .blog-category {
         margin: 0;
-        font-family: 'Futura Std Heavy';
+        font-family: "Futura Std Heavy";
         font-size: 0.9rem;
         letter-spacing: 1.2px;
         padding: 10px 0;
       }
       .blog-title {
         margin: 0;
-        font-family: 'Futura Std Bold';
+        font-family: "Futura Std Bold";
         font-size: 2rem;
         letter-spacing: 1.5px;
         margin-bottom: 5px;
@@ -70,14 +70,14 @@ const Wrap = styled.div`
       .author {
         margin: 0;
         font-size: 0.8rem;
-        font-family: 'Futura Std Book';
+        font-family: "Futura Std Book";
         color: #00000093;
       }
       .blog-body,
       .sub-content {
         margin: 0;
         font-size: 0.9rem;
-        font-family: 'Futura Std Book';
+        font-family: "Futura Std Book";
         letter-spacing: 1.3px;
         color: #000000cb;
         line-height: 1.5rem;
@@ -91,7 +91,7 @@ const Wrap = styled.div`
 
       .sub-title {
         margin: 0;
-        font-family: 'Futura Std Heavy';
+        font-family: "Futura Std Heavy";
         font-size: 1.1rem;
         letter-spacing: 1.7px;
         margin: 15px 0;
@@ -108,7 +108,7 @@ const Wrap = styled.div`
     }
     .get-look {
       margin: 0;
-      font-family: 'Futura Std Heavy';
+      font-family: "Futura Std Heavy";
       font-size: 1.1rem;
       letter-spacing: 1.7px;
       margin: 15px 0;
@@ -117,7 +117,7 @@ const Wrap = styled.div`
     }
     .sub-prod-title {
       margin: 0;
-      font-family: 'Futura Std Book';
+      font-family: "Futura Std Book";
       font-size: 0.8rem;
       letter-spacing: 1.7px;
       padding: 2px 0;
@@ -136,7 +136,7 @@ const Wrap = styled.div`
       background-color: #41404030;
 
       .story-h2 {
-        font-family: 'Futura Std Heavy';
+        font-family: "Futura Std Heavy";
         font-size: 1.3rem;
         letter-spacing: 1.5px;
       }
@@ -192,8 +192,8 @@ const Wrap = styled.div`
         grid-template-rows: 1fr;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-          'a a'
-          'b c';
+          "a a"
+          "b c";
       }
       .tri-image > :nth-child(1) {
         grid-area: a;
@@ -210,7 +210,7 @@ const Wrap = styled.div`
         gap: 20px;
         grid-template-rows: 1fr;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: 'a b';
+        grid-template-areas: "a b";
       }
       .bi-image > :nth-child(1) {
         grid-area: a;
@@ -228,7 +228,7 @@ const Wrap = styled.div`
   }
 `;
 const StyledBtn = styled(Link)`
-  font-family: 'Futura Std bold';
+  font-family: "Futura Std bold";
   margin: 0 10px;
   font-size: 0.9rem;
   letter-spacing: 1px;
@@ -271,7 +271,7 @@ const BlogGrid = styled.div`
 `;
 export default function BlogPage({ blog, blogs }) {
   const rout = useRouter();
-  const path = rout.pathname.split('/')[1];
+  const path = rout.pathname.split("/")[1];
   const { isNavView } = UseIsDevice();
   // useEffect(() => {
   //   window.addEventListener("resize", () => {
@@ -288,7 +288,7 @@ export default function BlogPage({ blog, blogs }) {
       <Wrap>
         <div className="container">
           <div className="div-1">
-            <section style={{ padding: '0 10px' }}>
+            <section style={{ padding: "0 10px" }}>
               <div className="intro">
                 {blog.category && (
                   <h3 className="blog-category">{blog.category.name}</h3>
@@ -301,10 +301,10 @@ export default function BlogPage({ blog, blogs }) {
                         <span className="author">By {blog.author}, </span>
                       )}
                       <span className="date">
-                        {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
+                        {new Date(blog.createdAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
                         })}
                       </span>
                     </>
@@ -318,7 +318,7 @@ export default function BlogPage({ blog, blogs }) {
                     subtitle.skipCount -= 1;
                     return null;
                   }
-                  if (subtitle.content === ';;') {
+                  if (subtitle.content === ";;") {
                     // Wrap the next three items in a flex container and mark them to skip rendering
                     blog.subtitles[index + 1] &&
                       (blog.subtitles[index + 1].skipCount = 1);
@@ -339,7 +339,7 @@ export default function BlogPage({ blog, blogs }) {
                               <div
                                 className="collage"
                                 key={`section-${index + offset}`}
-                                style={{ gap: '20px' }}
+                                style={{ gap: "20px" }}
                               >
                                 {sub.subtitleImages &&
                                   sub.subtitleImages.map((image, imgIndex) => (
@@ -370,7 +370,7 @@ export default function BlogPage({ blog, blogs }) {
                                   )}
                                 </section>
                               </div>
-                            ),
+                            )
                         )}
                       </div>
                     );
@@ -382,10 +382,10 @@ export default function BlogPage({ blog, blogs }) {
                           <div
                             className={
                               subtitle.subtitleImages.length > 2
-                                ? 'tri-image'
+                                ? "tri-image"
                                 : subtitle.subtitleImages.length > 1
-                                  ? 'bi-image'
-                                  : 'solo-image'
+                                  ? "bi-image"
+                                  : "solo-image"
                             }
                           >
                             {subtitle.subtitleImages.map((image, imgIndex) => (
@@ -419,14 +419,18 @@ export default function BlogPage({ blog, blogs }) {
                             <section className="get-the-look">
                               {subtitle.subProducts.length > 1 && (
                                 <h4 className="get-look">Get the look:</h4>
-                              )}{' '}
+                              )}{" "}
                               {subtitle.subProducts.map((product, index) =>
                                 subtitle.subProducts.length > 1 ? (
-                                  <h5 key={index} className="sub-prod-title">
+                                  <a
+                                    href={`/women/product/${product._id}`}
+                                    key={index}
+                                    className="sub-prod-title"
+                                  >
                                     RIVVETT DESIGN {product.title.toLowerCase()}
                                     ,$
                                     {product.price}
-                                  </h5>
+                                  </a>
                                 ) : (
                                   <>
                                     <Image
@@ -437,14 +441,17 @@ export default function BlogPage({ blog, blogs }) {
                                       alt={product.title}
                                     />
                                     {subtitle.subProducts && (
-                                      <h5 className="sub-prod-title">
+                                      <a
+                                        href={`/women/product/${product._id}`}
+                                        className="sub-prod-title"
+                                      >
                                         {subtitle.subProducts.map(
-                                          (product) => product.title,
+                                          (product) => product.title
                                         )}
-                                      </h5>
+                                      </a>
                                     )}
                                   </>
-                                ),
+                                )
                               )}
                             </section>
                           )}
@@ -467,7 +474,7 @@ export default function BlogPage({ blog, blogs }) {
 
           <div className="div-2">
             {isNavView ? (
-              <div className='max-w-80'>
+              <div className="max-w-80">
                 <h2>STYLE FEED</h2>
                 <BlogGrid>
                   {blogs &&
@@ -493,20 +500,20 @@ export async function getServerSideProps(context) {
   await mongooseConnect();
   // console.log(context)
   const { id } = context.query;
-  const genderId = '669161c1bbede0f410af82a2';
+  const genderId = "669161c1bbede0f410af82a2";
   const blog = await Blog.findById(id)
     .populate({
-      path: 'category',
-      select: 'name', // Only retrieve the name field from category
+      path: "category",
+      select: "name", // Only retrieve the name field from category
     })
-    .populate('gender')
+    .populate("gender")
     .populate({
-      path: 'subtitles.subProducts', // Populate subProducts inside subtitles
-      select: 'title images price', // Only retrieve the title field from subProducts
+      path: "subtitles.subProducts", // Populate subProducts inside subtitles
+      select: "title images price", // Only retrieve the title field from subProducts
     })
     .populate({
-      path: 'featuredProducts', // Populate subProducts inside subtitles
-      select: 'title images price', // Only retrieve the title field from subProducts
+      path: "featuredProducts", // Populate subProducts inside subtitles
+      select: "title images price", // Only retrieve the title field from subProducts
     })
     .exec();
   const allblogs = await Blog.find({ gender: genderId });

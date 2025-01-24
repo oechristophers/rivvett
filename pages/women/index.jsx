@@ -1,45 +1,46 @@
-import { mongooseConnect } from '@/lib/mongoose';
-import { Product } from '@/models/Product';
-import { Category } from '@/models/Category';
-import { Blog } from '@/models/Blog';
-import { Gallery } from '@/models/Gallery';
-import mongoose from 'mongoose';
-import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
-import RootLayout from '../layout';
-import { Gender } from '@/models/Gender';
+import { mongooseConnect } from "@/lib/mongoose";
+import { Product } from "@/models/Product";
+import { Category } from "@/models/Category";
+import { Blog } from "@/models/Blog";
+import { Gallery } from "@/models/Gallery";
+import mongoose from "mongoose";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import RootLayout from "../layout";
+import { Gender } from "@/models/Gender";
+import { UseIsDevice } from "@/components/frontend/DeviceView";
 // Dynamically import non-critical components
-const AppPromote = dynamic(() => import('@/components/frontend/AppPromote'), {
+const AppPromote = dynamic(() => import("@/components/frontend/AppPromote"), {
   ssr: false,
 });
 const PromotionBox = dynamic(
-  () => import('@/components/frontend/PromotionBox'),
-  { ssr: true },
+  () => import("@/components/frontend/PromotionBox"),
+  { ssr: true }
 );
-const BottomP = dynamic(() => import('@/components/frontend/BottomP'), {
+const BottomP = dynamic(() => import("@/components/frontend/BottomP"), {
   ssr: false,
 });
 const FeaturedCollection = dynamic(
-  () => import('@/components/frontend/FeaturedCollection'),
-  { ssr: false },
+  () => import("@/components/frontend/FeaturedCollection"),
+  { ssr: false }
 );
 const FeaturedShops = dynamic(
-  () => import('@/components/frontend/FeaturedShops'),
-  { ssr: false },
+  () => import("@/components/frontend/FeaturedShops"),
+  { ssr: false }
 );
 const GalleryDisplay = dynamic(
-  () => import('@/components/frontend/GalleryDisplay'),
-  { ssr: false },
+  () => import("@/components/frontend/GalleryDisplay"),
+  { ssr: false }
 );
-const Hero = dynamic(() => import('@/components/frontend/Hero'), { ssr: true });
+const Hero = dynamic(() => import("@/components/frontend/Hero"), { ssr: true });
 const ProductCarousel = dynamic(
-  () => import('@/components/frontend/ProductCarousel'),
-  { ssr: false },
+  () => import("@/components/frontend/ProductCarousel"),
+  { ssr: false }
 );
-const ShopMore = dynamic(() => import('@/components/frontend/ShopMore'), {
+const ShopMore = dynamic(() => import("@/components/frontend/ShopMore"), {
   ssr: false,
 });
-const StyleFeed = dynamic(() => import('@/components/frontend/StyleFeed'), {
+const StyleFeed = dynamic(() => import("@/components/frontend/StyleFeed"), {
   ssr: false,
 });
 
@@ -50,6 +51,7 @@ export default function WomenHome({
   femaleBlogs,
   femaleGallery,
 }) {
+  const { isHighMobile } = UseIsDevice();
   const femaleProd = femaleProducts.map((product) => product.properties);
   const genderName = femaleProducts[0].gender.name;
   const femaleCat = femaleCategories.filter((category) => !category.parent);
@@ -61,7 +63,7 @@ export default function WomenHome({
   // console.log(femaleProps)
 
   const femalePropertyNames = femaleCat[0].properties.find(
-    (property) => property.name === 'collection',
+    (property) => property.name === "collection"
   ).values;
 
   // console.log(femalePropertyNames.filter((item) => item === "collision-edit"));
@@ -70,21 +72,21 @@ export default function WomenHome({
     femaleProps
       .map((prop) => prop)
       .flat()
-      .includes(collection),
+      .includes(collection)
   );
 
   //for CatNav
   const find = femaleProducts.map((prod) => prod.category);
   const cathy = femaleCategories.filter((category) =>
-    find.includes(category._id),
+    find.includes(category._id)
   );
   const femaleCategories2 = femaleCat2
-    .filter((cat) => cat.name !== 'BLOG CATEGORY')
+    .filter((cat) => cat.name !== "BLOG CATEGORY")
     .concat(cathy);
   // console.log(femaleCategories2)
 
   const newCollections = collections.push(
-    femalePropertyNames.filter((item) => item === 'collision-edit'),
+    femalePropertyNames.filter((item) => item === "collision-edit")
   );
 
   const femaleCollection = collections.flat();
@@ -95,14 +97,14 @@ export default function WomenHome({
   const shopProps = femaleProd.map((product) => product.shop);
 
   const shopPropValue = femaleCat[0].properties.find(
-    (property) => property.name === 'shop',
+    (property) => property.name === "shop"
   ).values;
 
   const femaleShops = shopPropValue.filter((shop) =>
     shopProps
       .map((prop) => prop)
       .flat()
-      .includes(shop),
+      .includes(shop)
   );
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
@@ -171,14 +173,18 @@ export default function WomenHome({
         <GalleryDisplay gallery={femaleGallery} />
       </motion.div>
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeInFromRight}
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <AppPromote />
-      </motion.div>
+      <div style={{ overflowX: "hidden" }}>
+        {" "}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeInFromRight}
+          viewport={{ once: true, amount: 0.2 }}
+          style={{ overflowX: "hidden" }}
+        >
+          <AppPromote />
+        </motion.div>
+      </div>
 
       <motion.div
         initial="hidden"
@@ -195,7 +201,7 @@ export default function WomenHome({
 }
 
 export async function getServerSideProps() {
-  const femaleGenderId = '669161c1bbede0f410af82a2';
+  const femaleGenderId = "669161c1bbede0f410af82a2";
   await mongooseConnect();
   const randomProducts = await Product.aggregate([
     {
@@ -205,7 +211,7 @@ export async function getServerSideProps() {
   ]);
   const femaleProducts = await Product.find({
     gender: femaleGenderId,
-  }).populate('gender');
+  }).populate("gender");
 
   const femaleCategories = await Category.find({}).exec();
   const femaleBlogs = await Blog.find({ gender: femaleGenderId }).exec();

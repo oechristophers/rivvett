@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Header from '@/components/frontend/Header';
 import Footer from '@/components/frontend/Footer';
@@ -21,10 +21,12 @@ const RootLayout = ({ children }) => {
   const rout = useRouter();
   const currentPath = rout.pathname.split('/')[1] || prevPath || 'women';
 
+  const prevActiveButton = useRef(activeButton);
+
+  // Set initial active button and previous path
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const ls = window.localStorage;
-
       const storedPrevPath = ls.getItem('prevPath') || 'women';
       setPrevPath(storedPrevPath);
 
@@ -40,6 +42,7 @@ const RootLayout = ({ children }) => {
     }
   }, [currentPath]);
 
+  // Fetch products
   const fetchProducts = async () => {
     try {
       const response = await fetch('/api/frontend/products');
@@ -57,6 +60,7 @@ const RootLayout = ({ children }) => {
     }
   };
 
+  // Fetch categories
   const fetchCategories = async (filteredProducts) => {
     try {
       const response = await fetch('/api/frontend/categories');
@@ -86,6 +90,7 @@ const RootLayout = ({ children }) => {
     }
   };
 
+  // Fetch blogs
   const fetchBlogs = async () => {
     try {
       const response = await fetch('/api/frontend/blogs');
@@ -103,7 +108,10 @@ const RootLayout = ({ children }) => {
     }
   };
 
+  // Combined fetch function with debouncing
   const fetchData = debounce(async () => {
+    if (prevActiveButton.current === activeButton) return; // Prevent unnecessary requests
+
     setLoading(true);
     try {
       const productsData = await fetchProducts();
@@ -117,13 +125,16 @@ const RootLayout = ({ children }) => {
     } finally {
       setLoading(false);
     }
+
+    prevActiveButton.current = activeButton; // Update previous active button
   }, 300);
 
   useEffect(() => {
     fetchData();
   }, [activeButton]);
 
-  const updateForMNav = async () => {
+  // Fetch categories for MNav with debouncing
+  const fetchCategoriesForMNav = debounce(async () => {
     try {
       const response = await fetch('/api/frontend/products');
       if (!response.ok) throw new Error('Failed to fetch products');
@@ -134,28 +145,19 @@ const RootLayout = ({ children }) => {
           product.gender.name !== activeButton &&
           product.gender.name !== 'unisex'
       );
-
       setForMNav(filteredProducts);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
 
-  const fetchCategoriesForMNav = debounce(async () => {
-    await updateForMNav();
+      const catResponse = await fetch('/api/frontend/categories');
+      if (!catResponse.ok) throw new Error('Failed to fetch categories');
+      const catData = await catResponse.json();
 
-    try {
-      const response = await fetch('/api/frontend/categories');
-      if (!response.ok) throw new Error('Failed to fetch categories');
-      const data = await response.json();
+      console.log('Categories for MNav:', catData);
 
-      console.log('Categories for MNav:', data);
-
-      const prodCats2 = forMNav.map((prod) => prod.category);
-      const parentCategories = data.filter(
+      const prodCats2 = filteredProducts.map((prod) => prod.category);
+      const parentCategories = catData.filter(
         (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
       );
-      const relatedCategories2 = data.filter((cat) =>
+      const relatedCategories2 = catData.filter((cat) =>
         prodCats2.includes(cat._id)
       );
 
@@ -169,7 +171,6 @@ const RootLayout = ({ children }) => {
   useEffect(() => {
     fetchCategoriesForMNav();
   }, [activeButton]);
-
   return (
     <>
       <Header
