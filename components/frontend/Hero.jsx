@@ -20,6 +20,22 @@ const Loader = styled.div`
   height: 500px;
   background-color: #e0e0e0;
   animation: pulse 1.5s infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100; /* Ensure it's on top */
+
+  @keyframes pulse {
+    0% {
+      background-color: #e0e0e0;
+    }
+    50% {
+      background-color: #f0f0f0;
+    }
+    100% {
+      background-color: #e0e0e0;
+    }
+  }
 `;
 
 const ImageStyled = styled(Image)`
@@ -70,14 +86,20 @@ export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const path = window.location.pathname.split('/')[1];
-    setIsSmallScreen(window.innerWidth <= 768);
-    setIsHome(path === 'men' || path === 'women' ? path : 'home'); // Set respective or fallback to "home"
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.split('/')[1];
+      
+      // Delay setting isHome for smoother loader experience
+      setTimeout(() => {
+        setIsHome(path === 'men' || path === 'women' ? path : 'home');
+      }, 300);
 
-    const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
+      setIsSmallScreen(window.innerWidth <= 768);
+      const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
+      window.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   const getImageSrc = () => {
@@ -98,7 +120,7 @@ export default function Hero() {
     <HeroWrapper>
       <HeroContainer>
         {/* Show loader while determining the hero */}
-        {isHome === null && <Loader />}
+        {isHome === null && <Loader></Loader>}
 
         {/* Display the correct image when isHome is resolved */}
         {isHome && (
