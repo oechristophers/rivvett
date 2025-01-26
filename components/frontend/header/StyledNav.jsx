@@ -85,20 +85,21 @@ const Nav = styled.nav`
     props.mobNav
       ? `
           display: flex;
+          width: 100%;
           position: fixed;
           height: 104vh;
           top: 0;
           left: 0;
           z-index: 2000;
           will-change: transform;
-          transition: transform 0.3s ease;
+          transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
           &.inactive {
             transform: translateX(-100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
           }
           &.active {
             transform: translateX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
           }
           @media screen and (min-width: 950px) {
             display: none;
@@ -142,7 +143,6 @@ const Nav = styled.nav`
       flex-direction: column;
       border: 2px solid white;
       z-index: 2000;
-      max-width: 400px;
       overflow: auto;
       padding: 0;
     `};
@@ -230,26 +230,16 @@ const Nav = styled.nav`
     ${(props) =>
       props.forMobile &&
       `
-        width:88%;
+        width:90%;
         
       `}
 
     .modal {
-      width: 19.3%;
-      left: 81%;
+      width: 9.7%;
+      left: 90%;
     }
     .close {
-      margin-left: 81%;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .modal {
-      width: 15.3%;
-      left: 88%;
-    }
-    .close {
-      margin-left: 88%;
+      margin-left: 90%;
     }
   }
 
@@ -314,6 +304,7 @@ const NavLink = styled(Link)`
       }
     `}
 `;
+
 
 export function NavForPc({ isHome }) {
   return (
