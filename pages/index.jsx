@@ -9,15 +9,22 @@ import { Category } from '@/models/Category';
 import { Gender } from '@/models/Gender';
 import RootLayout from './layout';
 import { motion } from 'framer-motion';
+import { Blog } from '@/models/Blog';
 
 export default function HomePage({
   featuredProduct,
   newProducts,
-  femaleProducts,
   maleProducts,
-  maleCategories,
-  femaleCategories,
+  productCategories,
+  femaleProducts,
+  maleBlogs,
+  femaleBlogs,
+  maleGender,
+  femaleGender,
+  allProducts,
 }) {
+
+
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -39,7 +46,18 @@ export default function HomePage({
   };
 
   return (
-    <RootLayout>
+    <RootLayout
+      productCategories={productCategories}
+      maleGender={maleGender}
+      femaleGender={femaleGender}
+      allProducts={allProducts}
+      maleBlogs={maleBlogs}
+      femaleBlogs={femaleBlogs}
+      featuredProduct={featuredProduct}
+      newProducts={newProducts}
+      maleProducts={maleProducts}
+      femaleProducts={femaleProducts}
+    >
       <PromotionBox />
 
       <Hero />
@@ -62,8 +80,8 @@ export default function HomePage({
         <FeaturedCategory
           femaleProducts={femaleProducts}
           maleProducts={maleProducts}
-          maleCategories={maleCategories}
-          femaleCategories={femaleCategories}
+          maleCategories={productCategories}
+          femaleCategories={productCategories}
         />
       </motion.div>
     </RootLayout>
@@ -74,51 +92,37 @@ export async function getServerSideProps() {
   const featuredProductId = '66916d6b0bcdc28de9ccc8d6';
   const maleGenderId = '669161b8bbede0f410af829e';
   const femaleGenderId = '669161c1bbede0f410af82a2';
-  await mongooseConnect();
-  const featuredProduct = await Product.findById(featuredProductId);
-  const newProducts = await Product.find({}, null, {
-    sort: { _id: -1 },
-    limit: 10,
-  });
-  const maleProducts = await Product.find({ gender: maleGenderId });
-  const maleCategories = await Category.find({}).exec();
-  const femaleProducts = await Product.find({ gender: femaleGenderId });
-  const femaleCategories = await Category.find({}).exec();
 
+  try {
+    await mongooseConnect();
+    console.log("Connected to database successfully.");
+  } catch (error) {
+    console.error("Error connecting to database: ", error);
+  }
+  const featuredProduct = await Product.findById(featuredProductId);
+  const newProducts = await Product.find({}, null, { sort: { _id: -1 }, limit: 10 });
+  const maleProducts = await Product.find({ gender: maleGenderId });
+  const femaleProducts = await Product.find({ gender: femaleGenderId });
+  const allProducts = await Product.find({}).populate('gender');
+  const productCategories = await Category.find({}).exec();
+  const maleGender = await Gender.findOne({ name: 'men' }).exec();
+  const femaleGender = await Gender.findOne({ name: 'women' }).exec();
+  const maleBlogs = await Blog.find({ gender: maleGenderId }).exec();
+  const femaleBlogs = await Blog.find({ gender: femaleGenderId }).exec();
+
+  // Add fallback for undefined data
   return {
     props: {
-      featuredProduct: JSON.parse(JSON.stringify(featuredProduct)),
-      newProducts: JSON.parse(JSON.stringify(newProducts)),
-      maleProducts: JSON.parse(JSON.stringify(maleProducts)),
-      maleCategories: JSON.parse(JSON.stringify(maleCategories)),
-      femaleProducts: JSON.parse(JSON.stringify(femaleProducts)),
-      femaleCategories: JSON.parse(JSON.stringify(femaleCategories)),
+      featuredProduct: featuredProduct ? JSON.parse(JSON.stringify(featuredProduct)) : null,
+      newProducts: newProducts ? JSON.parse(JSON.stringify(newProducts)) : [],
+      maleProducts: maleProducts ? JSON.parse(JSON.stringify(maleProducts)) : [],
+      femaleProducts: femaleProducts ? JSON.parse(JSON.stringify(femaleProducts)) : [],
+      productCategories: productCategories ? JSON.parse(JSON.stringify(productCategories)) : [],
+      maleBlogs: maleBlogs ? JSON.parse(JSON.stringify(maleBlogs)) : [],
+      femaleBlogs: femaleBlogs ? JSON.parse(JSON.stringify(femaleBlogs)) : [],
+      maleGender: maleGender ? JSON.parse(JSON.stringify(maleGender)) : null,
+      femaleGender: femaleGender ? JSON.parse(JSON.stringify(femaleGender)) : null,
+      allProducts: allProducts ? JSON.parse(JSON.stringify(allProducts)) : [],
     },
   };
 }
-
-// export default function Home() {
-//   const { data: session, status } = useSession();
-//   // Check if the user is a customer (assuming you're checking role from session)
-//   const isCustomer = session?.user?.role === "customer"; // Adjust according to your session data structure
-
-// // Handle when the user is not a customer (e.g., admin or other role)
-// if (!isCustomer) {
-//   return (
-//     <Layout>
-//       <div>Access denied: You are not a customer.</div>
-//     </Layout>
-//   );
-// }
-
-//   return (
-//     <Layout>
-//       <div className="text-blue-900 flex flex-col justify-center min-h-screen items-center">
-//         <h1>
-//        This is the Home page for Admin.
-//         </h1>
-//            <p> <Link href={'/server/dashboard'}>Click here</Link> <span className="text-white">to go to dashboard</span></p>
-//       </div>
-//     </Layout>
-//   );
-// }

@@ -186,7 +186,7 @@ export default function Header({
           <MobNav
             hamActive={hamActive}
             activeButton={activeButton}
-            categories2={categories}
+            categories2={categories2}
             setHamActive={setHamActive}
             setActiveButton={setActiveButton}
           />

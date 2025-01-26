@@ -1,176 +1,158 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import Header from '@/components/frontend/Header';
-import Footer from '@/components/frontend/Footer';
-import FooterIcons from '@/components/frontend/FooterIcons';
-import { useRouter } from 'next/router';
-import { debounce } from 'lodash';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Header from "@/components/frontend/Header";
+import Footer from "@/components/frontend/Footer";
+import FooterIcons from "@/components/frontend/FooterIcons";
+import { useGlobalContext } from "@/GlobalContext";
 
-const RootLayout = ({ children }) => {
+const RootLayout = ({
+  children,
+  featuredProduct,
+  newProducts,
+  maleProducts,
+  productCategories,
+  femaleProducts,
+  maleBlogs,
+  femaleBlogs,
+  maleGender,
+  femaleGender,
+  allProducts,
+}) => {
+  const { data, setData } = useGlobalContext();
+  const router = useRouter();
+  const currentPath = router.pathname.split("/")[1] || "women";
+
+  const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [categories2, setCategories2] = useState([]);
   const [products, setProducts] = useState([]);
   const [forMNav, setForMNav] = useState([]);
   const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [combinedData, setCombinedData] = useState([]);
-  const [prevPath, setPrevPath] = useState('women');
+  const [prevPath, setPrevPath] = useState("women");
   const [activeButton, setActiveButton] = useState(null);
 
-  const rout = useRouter();
-  const currentPath = rout.pathname.split('/')[1] || prevPath || 'women';
-
-  const prevActiveButton = useRef(activeButton);
-
-  // Set initial active button and previous path
+  // Load data from localStorage or initialize it
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const ls = window.localStorage;
-      const storedPrevPath = ls.getItem('prevPath') || 'women';
-      setPrevPath(storedPrevPath);
+    if (typeof window === "undefined") return;
 
-      if (currentPath !== 'products' && currentPath !== 'cart') {
-        ls.setItem('prevPath', currentPath);
+    const ls = window.localStorage;
+    const storedData = JSON.parse(ls.getItem("layoutData"));
+
+    if (!storedData || Object.keys(storedData).length === 0) {
+      if (router.pathname !== "/") {
+        // Redirect to main page if data is missing
+        router.push("/");
+        return;
       }
 
-      const pathToUse =
-        currentPath === 'cart' || currentPath === 'products'
-          ? storedPrevPath
-          : currentPath;
-      setActiveButton(pathToUse);
-    }
-  }, [currentPath]);
+      // Initialize localStorage if empty
+      const initialData = {
+        featuredProduct,
+        newProducts,
+        maleProducts,
+        femaleProducts,
+        productCategories,
+        maleBlogs,
+        femaleBlogs,
+        maleGender,
+        femaleGender,
+        allProducts,
+      };
 
-  // Fetch products
-  const fetchProducts = async () => {
-    try {
-      const response = await fetch('/api/frontend/products');
-      if (!response.ok) throw new Error('Failed to fetch products');
-      const data = await response.json();
-
-      const filteredProducts = data.filter(
-        (product) => product.gender.name === activeButton
-      );
-      setProducts(filteredProducts);
-
-      return filteredProducts.map((item) => ({ ...item, type: 'product' }));
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  // Fetch categories
-  const fetchCategories = async (filteredProducts) => {
-    try {
-      const response = await fetch('/api/frontend/categories');
-      if (!response.ok) throw new Error('Failed to fetch categories');
-      const data = await response.json();
-
-      console.log('Categories response data:', data);
-
-      const prodCats = filteredProducts.map((prod) => prod.category);
-      const parentCategories = data.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
-      );
-      const relatedCategories = data.filter((cat) =>
-        prodCats.includes(cat._id)
-      );
-
-      const combinedCategories = [...parentCategories, ...relatedCategories];
-      setCategories(combinedCategories);
-      setCategories2(combinedCategories);
-
-      return combinedCategories.map((item) => ({
-        ...item,
-        type: 'category',
-      }));
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  // Fetch blogs
-  const fetchBlogs = async () => {
-    try {
-      const response = await fetch('/api/frontend/blogs');
-      if (!response.ok) throw new Error('Failed to fetch blogs');
-      const data = await response.json();
-
-      const filteredBlogs = data.filter(
-        (blog) => blog.gender.name === activeButton
-      );
-      setBlogs(filteredBlogs);
-
-      return filteredBlogs.map((item) => ({ ...item, type: 'blog' }));
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  // Combined fetch function with debouncing
-  const fetchData = debounce(async () => {
-    if (prevActiveButton.current === activeButton) return; // Prevent unnecessary requests
-
-    setLoading(true);
-    try {
-      const productsData = await fetchProducts();
-      const categoriesData = await fetchCategories(productsData);
-      const blogsData = await fetchBlogs();
-
-      const combined = [...categoriesData, ...productsData, ...blogsData];
-      setCombinedData(combined);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
+      ls.setItem("layoutData", JSON.stringify(initialData));
+      setData(initialData);
+    } else {
+      // Rehydrate data from localStorage
+      setData(storedData);
     }
 
-    prevActiveButton.current = activeButton; // Update previous active button
-  }, 300);
+    const storedPrevPath = ls.getItem("prevPath") || "women";
+    setPrevPath(storedPrevPath);
 
+    if (currentPath !== "products" && currentPath !== "cart") {
+      ls.setItem("prevPath", currentPath);
+    }
+
+    const pathToUse =
+      currentPath === "cart" || currentPath === "products"
+        ? storedPrevPath
+        : currentPath;
+
+    setActiveButton(pathToUse);
+    setLoading(false);
+  }, []); // Run once on mount
+
+  // Update data when active button changes
   useEffect(() => {
-    fetchData();
-  }, [activeButton]);
+    if (!loading && activeButton) {
+      const selectedGender =
+        activeButton === "women" ? data?.femaleGender : data?.maleGender;
+      const selectedProducts =
+        activeButton === "women" ? data?.femaleProducts : data?.maleProducts;
+      const selectedBlogs =
+        activeButton === "women" ? data?.femaleBlogs : data?.maleBlogs;
 
-  // Fetch categories for MNav with debouncing
-  const fetchCategoriesForMNav = debounce(async () => {
-    try {
-      const response = await fetch('/api/frontend/products');
-      if (!response.ok) throw new Error('Failed to fetch products');
-      const data = await response.json();
+      if (selectedGender?.name === activeButton) {
+        setProducts(selectedProducts ?? []);
 
-      const filteredProducts = data.filter(
-        (product) =>
-          product.gender.name !== activeButton &&
-          product.gender.name !== 'unisex'
-      );
+        const prodCats = selectedProducts?.map((prod) => prod?.category) ?? [];
+        const parentCategories =
+          data?.productCategories?.filter(
+            (cat) => !cat.parent && cat.name !== "BLOG CATEGORY"
+          ) ?? [];
+        const relatedCategories =
+          data?.productCategories?.filter((cat) =>
+            prodCats.includes(cat?._id)
+          ) ?? [];
+
+        const combinedCategories = [...parentCategories, ...relatedCategories];
+        setCategories(combinedCategories);
+        setCategories2(combinedCategories);
+        setBlogs(selectedBlogs ?? []);
+
+        const combinedData = [
+          ...combinedCategories.map((item) => ({ ...item, type: "category" })),
+          ...(selectedProducts?.map((item) => ({ ...item, type: "product" })) ??
+            []),
+          ...(selectedBlogs?.map((item) => ({ ...item, type: "blog" })) ?? []),
+        ];
+        setCombinedData(combinedData);
+      }
+    }
+  }, [activeButton, data, loading]);
+
+  // Update navigation and secondary categories
+  useEffect(() => {
+    if (!loading && activeButton) {
+      const filteredProducts =
+        data?.allProducts?.filter(
+          (product) =>
+            product?.gender?.name === activeButton &&
+            product?.gender?.name !== "unisex"
+        ) ?? [];
+
       setForMNav(filteredProducts);
 
-      const catResponse = await fetch('/api/frontend/categories');
-      if (!catResponse.ok) throw new Error('Failed to fetch categories');
-      const catData = await catResponse.json();
-
-      console.log('Categories for MNav:', catData);
-
-      const prodCats2 = filteredProducts.map((prod) => prod.category);
-      const parentCategories = catData.filter(
-        (cat) => !cat.parent && cat.name !== 'BLOG CATEGORY'
-      );
-      const relatedCategories2 = catData.filter((cat) =>
-        prodCats2.includes(cat._id)
-      );
+      const prodCats2 = filteredProducts.map((prod) => prod?.category) ?? [];
+      const parentCategories =
+        data?.productCategories?.filter(
+          (cat) => !cat.parent && cat.name !== "BLOG CATEGORY"
+        ) ?? [];
+      const relatedCategories2 =
+        data?.productCategories?.filter((cat) =>
+          prodCats2.includes(cat?._id)
+        ) ?? [];
 
       const combinedCategories2 = [...parentCategories, ...relatedCategories2];
       setCategories2(combinedCategories2);
-    } catch (error) {
-      setError(error.message);
     }
-  }, 300);
+  }, [activeButton, data, loading]);
 
-  useEffect(() => {
-    fetchCategoriesForMNav();
-  }, [activeButton]);
+  if (loading) {
+    return <div className="text-white">Loading...</div>;
+  }
+
   return (
     <>
       <Header

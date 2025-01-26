@@ -32,7 +32,7 @@ const Box = styled(Link)`
 export default function CategoryCard({ _id, name, images, filteredMaleCat }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const url = '/categories/' + _id;
+  const url =` /products?category=${_id}`;
   return (
     <ProductWrapper>
       <Box href={url}>

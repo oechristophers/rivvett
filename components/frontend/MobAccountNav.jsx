@@ -87,13 +87,10 @@ import {
         className={` 
         flex 
         flex-col 
-        right-[20px] 
-        w-[350px] 
         p-0 
         bg-[#f8f9fa] 
         border 
         border-gray-300 
-        rounded-md 
         shadow-lg 
         transition-top 
         ease-in-out 

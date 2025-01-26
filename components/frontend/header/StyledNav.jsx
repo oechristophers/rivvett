@@ -56,7 +56,7 @@ const Nav = styled.nav`
     position: fixed;
     height: 102vh;
     z-index: 2000;
-    left: 340px;
+    left: 339px;
   }
 
   .close {
@@ -68,7 +68,7 @@ const Nav = styled.nav`
     cursor: pointer;
     z-index: 3000;
     top: 0;
-    margin-left: 350px;
+    margin-left: 338px;
     height: 40px;
     padding: 0 1px;
 
@@ -89,9 +89,8 @@ const Nav = styled.nav`
           height: 104vh;
           top: 0;
           left: 0;
-          right: 0;
           z-index: 2000;
-          transform: translate(0);
+          will-change: transform;
           transition: transform 0.3s ease;
           &.inactive {
             transform: translateX(-100%);
@@ -151,94 +150,106 @@ const Nav = styled.nav`
     ${(props) => props.forPc && `display: none;`}
   }
 
+  .more strong {
+    font-size: 0.6rem;
+  }
+  .more-1 {
+    strong {
+      font-size: 0.8rem;
+    }
+  }
+  .more-1 {
+    background: url("/images/rainbow.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .more-2 {
+    background: linear-gradient(to top, #b7e10f, #cdef07);
+    span {
+      border: 2px solid;
+      border-radius: 9999px;
+      padding: 5px 10px;
+    }
+  }
+  .more-3 {
+    background: url("/images/gift.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .more-4 {
+    background: url("/images/app.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .more {
+    width: 100%;
+    padding-bottom: 20px;
+    background-color: #e8e5e5;
+  }
+  .more p {
+    font-size: 0.7rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Futura Std Heavy";
+    letter-spacing: 1.3px;
+    padding: 0px 10px;
+    width: 21ch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+  }
+  .more .mDiv {
+    border: 1px solid #0000002a;
+  }
+  .more h2 {
+    font-size: 0.8rem;
+    font-family: "Futura Std Heavy";
+    letter-spacing: 1.5px;
+    padding-left: 20px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+  .more section {
+    height: 100px;
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    font-family: "Futura Std Book";
+    letter-spacing: 1.4px;
+  }
+
+  .no-scroll::-webkit-scrollbar {
+    display: none;
+  }
   @media screen and (max-width: 500px) {
     ${(props) =>
       props.forMobile &&
       `
-        width: 88%;
+        width:88%;
+        
       `}
+
     .modal {
-      width: 12.3%;
-      left: 87.7%;
+      width: 19.3%;
+      left: 81%;
     }
     .close {
-      margin-left: 87%;
+      margin-left: 81%;
     }
-    .more strong {
-      font-size: 0.6rem;
-    }
-    .more-1 {
-      strong {
-        font-size: 0.8rem;
-      }
-    }
-    .more-1 {
-      background: url("/images/rainbow.jpg");
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .more-2 {
-      background: linear-gradient(to top, #b7e10f, #cdef07);
-      span {
-        border: 2px solid;
-        border-radius: 9999px;
-        padding: 5px 10px;
-      }
-    }
-    .more-3 {
-      background: url("/images/gift.webp");
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .more-4 {
-      background: url("/images/app.png");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-    }
+  }
 
-    .more {
-      width: 100%;
-      padding-bottom: 20px;
-      background-color: #e8e5e5;
+  @media screen and (max-width: 480px) {
+    .modal {
+      width: 15.3%;
+      left: 88%;
     }
-    .more p {
-      font-size: 0.7rem;
-      text-align: center;
-      text-transform: uppercase;
-      font-family: "Futura Std Heavy";
-      letter-spacing: 1.3px;
-      padding: 0px 10px;
-      width: 21ch;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 3rem;
-    }
-    .more .mDiv {
-      border: 1px solid #0000002a;
-    }
-    .more h2 {
-      font-size: 0.8rem;
-      font-family: "Futura Std Heavy";
-      letter-spacing: 1.5px;
-      padding-left: 20px;
-      padding-top: 30px;
-      padding-bottom: 10px;
-    }
-    .more section {
-      height: 100px;
-      display: flex;
-      font-size: 1rem;
-      align-items: center;
-      justify-content: center;
-      font-family: "Futura Std Book";
-      letter-spacing: 1.4px;
-    }
-
-    .no-scroll::-webkit-scrollbar {
-      display: none;
+    .close {
+      margin-left: 88%;
     }
   }
 

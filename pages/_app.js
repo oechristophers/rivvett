@@ -1,11 +1,12 @@
-import '../styles/globals.css';
+import "../styles/globals.css";
 // import '../public/futura-font/style.css';
-import { createGlobalStyle } from 'styled-components';
-import { CartContextProvider } from '@/components/frontend/CartContext';
-import { SessionProvider } from 'next-auth/react';
-import useDeliveryUpdates from '@/lib/deliveryHook';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Toaster } from '@/components/ui/toaster';
+import { createGlobalStyle } from "styled-components";
+import { CartContextProvider } from "@/components/frontend/CartContext";
+import { SessionProvider } from "next-auth/react";
+import useDeliveryUpdates from "@/lib/deliveryHook";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "@/components/ui/toaster";
+import { GlobalProvider } from "@/GlobalContext";
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -27,14 +28,16 @@ export default function App({
   return (
     <>
       <SessionProvider session={session}>
-        {' '}
+        {" "}
         {/* Ensure session is passed */}
         <GlobalStyles />
         <SpeedInsights />
         <Toaster />
-        <CartContextProvider>
-          <Component {...pageProps} />
-        </CartContextProvider>
+        <GlobalProvider>
+          <CartContextProvider>
+            <Component {...pageProps} />
+          </CartContextProvider>
+        </GlobalProvider>
       </SessionProvider>
     </>
   );
