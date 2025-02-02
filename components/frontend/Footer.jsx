@@ -1,10 +1,10 @@
-import React, { act, useEffect, useState } from 'react';
-import Wrapper from './Wrapper';
-import { CountryList, FooterNav } from '@/constants/FooterItems';
-import styled from 'styled-components';
-import ButtonLink from './ButtonLink';
-import { Add, Remove } from '@mui/icons-material';
-import css from 'styled-jsx/css';
+import React, { act, useEffect, useState } from "react";
+import Wrapper from "./Wrapper";
+import { CountryList, FooterNav } from "@/constants/FooterItems";
+import styled from "styled-components";
+import ButtonLink from "./ButtonLink";
+import { Add, Remove } from "@mui/icons-material";
+import css from "styled-jsx/css";
 
 const FooterWrapper = styled.div`
   background: #000;
@@ -38,7 +38,7 @@ const FooterGrid = styled.div`
   }
 `;
 const StyledButtonLink = styled(ButtonLink)`
-  font-family: 'Futura Std Heavy';
+  font-family: "Futura Std Heavy";
   letter-spacing: 1.2px;
 `;
 const Div = styled.div`
@@ -129,7 +129,7 @@ const Title = styled.h3`
   text-transform: uppercase;
   margin-bottom: 0;
   padding-bottom: 6px;
-  font-family: 'Futura Std Heavy';
+  font-family: "Futura Std Heavy";
   letter-spacing: 1.2px;
   ${(props) =>
     props.foot &&
@@ -221,7 +221,7 @@ const H4 = styled.h4`
   color: #494747dd;
   font-size: 0.8rem;
   font-weight: normal;
-  font-family: 'Futura Std Book';
+  font-family: "Futura Std Book";
   padding: 0;
   margin-top: 10px;
   ${(props) =>
@@ -236,7 +236,7 @@ const IconWrapper = styled.div`
   transition: transform 0.3s ease;
   display: flex;
   align-items: center;
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : 'rotate(90deg)')};
+  transform: ${({ isOpen }) => (isOpen ? "rotate(180deg)" : "rotate(90deg)")};
 `;
 export default function Footer({ activeButton }) {
   const [openIndex, setOpenIndex] = useState(null);
@@ -272,7 +272,7 @@ export default function Footer({ activeButton }) {
                   </Title>
                   <StyledUl
                     activeButton={activeButton}
-                    className={openIndex === index ? 'expanded' : ''}
+                    className={openIndex === index ? "expanded" : ""}
                   >
                     {item.items.map((item, itemIndex) => (
                       <ButtonLink foot href={item.link} key={itemIndex}>
@@ -283,17 +283,17 @@ export default function Footer({ activeButton }) {
                 </Div>
               ))}
             <Sect activeButton={activeButton}>
-              <H4>You&apos;re in </H4>{' '}
+              <H4>You&apos;re in </H4>{" "}
               <Span>
                 {CountryList && (
                   <img src={CountryList[0].flag} alt={CountryList[0].name} />
                 )}
-              </Span>{' '}
+              </Span>{" "}
               <Title foot>
                 <StyledButtonLink foot href="/">
                   Change
                 </StyledButtonLink>
-              </Title>{' '}
+              </Title>{" "}
             </Sect>
           </div>
         ) : (
@@ -317,7 +317,7 @@ export default function Footer({ activeButton }) {
           <Div country>
             <Title hide>Shopping From:</Title>
             <Sect hide>
-              <H4>You&apos;re in </H4>{' '}
+              <H4>You&apos;re in </H4>{" "}
               <Span>
                 {CountryList && (
                   <img
@@ -326,19 +326,24 @@ export default function Footer({ activeButton }) {
                     className="w-4 h-4"
                   />
                 )}
-              </Span>{' '}
+              </Span>{" "}
               <Title foot>
                 <StyledButtonLink foot href="/">
                   Change
                 </StyledButtonLink>
-              </Title>{' '}
+              </Title>{" "}
             </Sect>
             <Sect country>
               <H4 nopad>Some of our international sites:</H4>
               <StyledUl country>
                 {CountryList &&
                   CountryList.map((item, index) => (
-                    <ButtonLink country href={item.name} key={index}>
+                    <ButtonLink
+                      country
+                      // href={item.name}
+                      href="#"
+                      key={index}
+                    >
                       <img src={item.flag} alt={item.name} />
                     </ButtonLink>
                   ))}

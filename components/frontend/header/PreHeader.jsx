@@ -41,9 +41,9 @@ export default function PreHeader() {
   return (
     <Container>
       <div className="pre">
-        <Link href={'/'}>Marketplace</Link>
-        <Link href={'/blog'}>Help & FAQ&apos;s</Link>
-        <Link href={'/contact'}>
+        <Link href={'#'}>Marketplace</Link>
+        <Link href={'#'}>Help & FAQ&apos;s</Link>
+        <Link href={'#'}>
           <Image
             width={100}
             height={100}
