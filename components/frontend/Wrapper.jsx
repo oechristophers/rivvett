@@ -23,7 +23,7 @@ const StyledWrapper = styled.div`
   padding: 0 70px;
 `}
   }
-  @media screen and (min-width: 050px) {
+  @media screen and (min-width: 750px) {
     ${(props) =>
       props.products &&
       `
@@ -34,7 +34,7 @@ const StyledWrapper = styled.div`
   ${(props) =>
     props.products &&
     `
-  padding: 0 10px;
+  padding: 0px;
 `}
   ${(props) =>
     props.pid &&

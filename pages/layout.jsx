@@ -4,6 +4,7 @@ import Header from "@/components/frontend/Header";
 import Footer from "@/components/frontend/Footer";
 import FooterIcons from "@/components/frontend/FooterIcons";
 import { useGlobalContext } from "@/GlobalContext";
+import Spinner from "@/components/frontend/Spinner";
 
 const RootLayout = ({
   children,
@@ -150,7 +151,23 @@ const RootLayout = ({
   }, [activeButton, data, loading]);
 
   if (loading) {
-    return <div className="text-white">Loading...</div>;
+    return (
+      <>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: "100vh",
+            opacity: 0.2,
+          }}
+        >
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      </>
+    );
   }
 
   return (

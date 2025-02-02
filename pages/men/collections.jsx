@@ -377,7 +377,7 @@ export default function Collections({ products, categories, properties }) {
         </div>
       </SidebarContainer>
 
-      <Wrapper>
+      <Wrapper products={products}>
         <ProductGrid products={products} genderName={genderName} />
       </Wrapper>
       {!products.length && (

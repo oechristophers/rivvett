@@ -124,18 +124,12 @@ export default function WomenHome({
     <RootLayout>
       <PromotionBox />
 
-      <motion.div initial="hidden" animate="visible">
-        <Hero />
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeUp}
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        <FeaturedCollection femaleCollection={femaleCollection} />
-      </motion.div>
+       <Hero />
+      
+            <motion.div>
+              <FeaturedCollection femaleCollection={femaleCollection} />
+            </motion.div>
+      
 
       <motion.div
         initial="hidden"

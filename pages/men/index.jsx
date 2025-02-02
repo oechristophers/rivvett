@@ -111,16 +111,9 @@ export default function MenHome({
     <RootLayout>
       <PromotionBox />
 
-      <motion.div initial="hidden" animate="visible">
-        <Hero />
-      </motion.div>
+      <Hero />
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        variants={fadeUp}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <motion.div>
         <FeaturedCollection collections={collections.flat()} />
       </motion.div>
 

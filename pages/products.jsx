@@ -373,7 +373,7 @@ export default function ProductsPage({
         </div>
       </SidebarContainer>
 
-      <Wrapper>
+      <Wrapper products={products}>
         <ProductGrid products={products} />
       </Wrapper>
 

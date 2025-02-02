@@ -368,7 +368,7 @@ export default function Shops({ products, categories, properties }) {
         </div>
       </SidebarContainer>
 
-      <Wrapper>
+      <Wrapper products={products}>
         <ProductGrid products={products} />
       </Wrapper>
       {!products && (

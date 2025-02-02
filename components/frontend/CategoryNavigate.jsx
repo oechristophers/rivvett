@@ -141,8 +141,8 @@ const CategoryList = ({ categories, activeButton, prevPath }) => {
       );
       cacheImages(imageUrls);
       if (activeButton) {
-        setHomePic(`images/${activeButton}/home.png`);
-        setTrending(`images/${activeButton}/trending.png`);
+        setHomePic(`/images/${activeButton}/home.png`);
+        setTrending(`/images/${activeButton}/trending.png`);
       }
     }
   }, [categories, activeButton]);
