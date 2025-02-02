@@ -174,13 +174,13 @@ export default function PromotionBox() {
       {isHome && isBigScreen && (
         <>
           <ProWrapper gender>
-            <ProLink gender href="/">
+            <ProLink gender href="#">
               <strong>
                 <b>30%</b> OFF FALL LOOKS* <br />
                 With code: FALL
               </strong>
             </ProLink>
-            <ProLink gender href="/"
+            <ProLink gender href="#"
              style={{ backgroundColor: 'black', color:'white' }}>
             
               <strong>
@@ -189,7 +189,7 @@ export default function PromotionBox() {
               </strong>
             </ProLink>
           </ProWrapper>
-          <ProLink banner href="/">
+          <ProLink banner href="#">
             <Title banner>30% OFF FALL LOOKS</Title>
             <Sect>
               With code:&nbsp;<Span>FALL</Span>
@@ -203,9 +203,9 @@ export default function PromotionBox() {
       )}
       {!isHome && isBigScreen && (
         <ProWrapper>
-          <ProLink href="/">WOMEN</ProLink>
+          <ProLink href="#">WOMEN</ProLink>
           <Title>THE UP-TO-30%-OFF EDIT</Title>
-          <ProLink href="/">MEN</ProLink>
+          <ProLink href="#">MEN</ProLink>
         </ProWrapper>
       )}
     </div>
