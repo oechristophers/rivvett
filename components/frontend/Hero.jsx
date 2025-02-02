@@ -88,10 +88,10 @@ const ShopLink = styled(Link)`
   display: inline-block;
 `;
 
-export default function Hero() {
+export default function Hero({isHeroLoaded,setIsHeroLoaded}) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isHome, setIsHome] = useState(null); // Start as null to avoid premature rendering
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isHeroLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -131,7 +131,7 @@ export default function Hero() {
         {isHome === null && <Loader></Loader>}
 
         {/* Display placeholder until image is loaded */}
-        {isHome !== null && !isLoaded && <Placeholder loaded={isLoaded} />}
+        {isHome !== null && !isHeroLoaded && <Placeholder loaded={isHeroLoaded} />}
 
         {/* Display the correct image when isHome is resolved */}
         {isHome !== null && (
@@ -143,13 +143,13 @@ export default function Hero() {
             layout="responsive"
             placeholder="blur"
             blurDataURL="/images/placeholder.png"
-            onLoadingComplete={() => setIsLoaded(true)}
-            loaded={isLoaded.toString()}
+            onLoadingComplete={() => setIsHeroLoaded(true)}
+            loaded={isHeroLoaded.toString()}
           />
         )}
 
         {/* Conditional Buttons */}
-        {isLoaded && isHome === 'home' && (
+        {isHeroLoaded && isHome === 'home' && (
           <ButtonContainer>
             <ShopLink href="/women">Shop Women</ShopLink>
             <ShopLink href="/men">&nbsp; Shop Men &nbsp;</ShopLink>

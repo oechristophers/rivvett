@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import RootLayout from "../layout";
 import { Gender } from "@/models/Gender";
 import { UseIsDevice } from "@/components/frontend/DeviceView";
+import { useState } from "react";
 // Dynamically import non-critical components
 const AppPromote = dynamic(() => import("@/components/frontend/AppPromote"), {
   ssr: false,
@@ -120,17 +121,15 @@ export default function WomenHome({
     visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
   };
 
+  const [isHeroLoaded, setIsHeroLoaded] = useState(false);
+
   return (
     <RootLayout>
       <PromotionBox />
 
-      <Hero />
+      <Hero isHeroLoaded={isHeroLoaded} setIsHeroLoaded={setIsHeroLoaded} />
 
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={fadeUp}
-      >
+      <motion.div initial="hidden" animate="visible" variants={fadeUp}>
         <FeaturedCollection femaleCollection={femaleCollection} />
       </motion.div>
 
