@@ -63,7 +63,7 @@ export default function HomePage({
 
       <motion.div
         initial="hidden"
-        whileInView="visible"
+        animate={isHeroLoaded ? "visible" : "hidden"}
         variants={grow}
         viewport={{ once: true, amount: 0.5 }}
       >

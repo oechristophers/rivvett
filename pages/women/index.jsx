@@ -129,7 +129,11 @@ export default function WomenHome({
 
       <Hero isHeroLoaded={isHeroLoaded} setIsHeroLoaded={setIsHeroLoaded} />
 
-      <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+      <motion.div
+        initial="hidden"
+        animate={isHeroLoaded ? "visible" : "hidden"}
+        variants={fadeUp}
+      >
         <FeaturedCollection femaleCollection={femaleCollection} />
       </motion.div>
 

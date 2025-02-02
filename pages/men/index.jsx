@@ -116,7 +116,11 @@ export default function MenHome({
 
       <Hero isHeroLoaded={isHeroLoaded} setIsHeroLoaded={setIsHeroLoaded} />
 
-      <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+      <motion.div
+        initial="hidden"
+        animate={isHeroLoaded ? "visible" : "hidden"}
+        variants={fadeUp}
+      >
         <FeaturedCollection collections={collections.flat()} />
       </motion.div>
 
