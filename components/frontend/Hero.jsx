@@ -42,6 +42,14 @@ const ImageStyled = styled(Image)`
   object-fit: cover;
   width: 100%;
   height: auto;
+  display: ${props => (props.loaded ? 'block' : 'none')};
+`;
+
+const Placeholder = styled.div`
+  width: 100%;
+  height: 500px; /* Same as Loader */
+  background: #e0e0e0;
+  display: ${props => (props.loaded ? 'none' : 'block')};
 `;
 
 const ButtonContainer = styled.div`
@@ -122,6 +130,9 @@ export default function Hero() {
         {/* Show loader while determining the hero */}
         {isHome === null && <Loader></Loader>}
 
+        {/* Display placeholder until image is loaded */}
+        {isHome && !isLoaded && <Placeholder loaded={isLoaded} />}
+
         {/* Display the correct image when isHome is resolved */}
         {isHome && (
           <ImageStyled
@@ -133,6 +144,7 @@ export default function Hero() {
             placeholder="blur"
             blurDataURL="/images/placeholder.png"
             onLoadingComplete={() => setIsLoaded(true)}
+            loaded={isLoaded}
           />
         )}
 
