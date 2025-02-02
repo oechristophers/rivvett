@@ -128,9 +128,8 @@ export default function WomenHome({
 
       <motion.div
         initial="hidden"
-        whileInView="visible"
+        animate="visible"
         variants={fadeUp}
-        viewport={{ once: true, amount: 0.2 }}
       >
         <FeaturedCollection femaleCollection={femaleCollection} />
       </motion.div>
