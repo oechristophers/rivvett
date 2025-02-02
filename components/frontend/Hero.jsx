@@ -131,10 +131,10 @@ export default function Hero() {
         {isHome === null && <Loader></Loader>}
 
         {/* Display placeholder until image is loaded */}
-        {isHome && !isLoaded && <Placeholder loaded={isLoaded} />}
+        {isHome !== null && !isLoaded && <Placeholder loaded={isLoaded} />}
 
         {/* Display the correct image when isHome is resolved */}
-        {isHome && (
+        {isHome !== null && (
           <ImageStyled
             src={getImageSrc()}
             alt="hero"
@@ -144,7 +144,7 @@ export default function Hero() {
             placeholder="blur"
             blurDataURL="/images/placeholder.png"
             onLoadingComplete={() => setIsLoaded(true)}
-            loaded={isLoaded}
+            loaded={isLoaded.toString()}
           />
         )}
 
